@@ -56,6 +56,19 @@ nav a:hover {
     margin-bottom: 10px;
 }
 
+.brand-lfc {
+    font-size: 6rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    background: linear-gradient(135deg, #1a1a1a 0%, #555555 50%, #1a1a1a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-family: Georgia, "Times New Roman", serif;
+    margin-bottom: 16px;
+    line-height: 1;
+}
+
 .latest-posts ul {
     list-style: none;
     padding: 0;
