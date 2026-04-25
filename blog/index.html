@@ -20,22 +20,68 @@
     </header>
 
     <main class="container">
-        <h2>文章列表</h2>
-        <ul class="article-list">
-            <li>
-                <a href="how-ai-reads-a-person.html">AI 是如何读懂一个人的？</a>
+        <div class="tag-filter">
+            <button class="tag-btn active" data-tag="all">全部</button>
+            <button class="tag-btn" data-tag="AI 认知">AI 认知</button>
+            <button class="tag-btn" data-tag="AI Agent">AI Agent</button>
+            <button class="tag-btn" data-tag="写作规范">写作规范</button>
+            <button class="tag-btn" data-tag="人机协作">人机协作</button>
+        </div>
+        <ul class="article-list" id="article-list">
+            <li data-tags="AI 认知,人机协作">
+                <div class="article-meta">
+                    <a href="how-ai-reads-a-person.html">AI 是如何读懂一个人的？</a>
+                    <div class="article-tags">
+                        <span class="tag">AI 认知</span>
+                        <span class="tag">人机协作</span>
+                    </div>
+                </div>
                 <span class="date">2026-04-26</span>
             </li>
-            <li>
-                <a href="ai-agent-cognitive-scaffolding.html">当 AI 修了三遍还没修好：如何为 Agent 设计认知脚手架</a>
+            <li data-tags="AI Agent,人机协作">
+                <div class="article-meta">
+                    <a href="ai-agent-cognitive-scaffolding.html">当 AI 修了三遍还没修好：如何为 Agent 设计认知脚手架</a>
+                    <div class="article-tags">
+                        <span class="tag">AI Agent</span>
+                        <span class="tag">人机协作</span>
+                    </div>
+                </div>
                 <span class="date">2026-04-26</span>
             </li>
-            <li>
-                <a href="famous-louisiana-chicken.html">不要 Famous Louisiana Chicken——用一个梗驯服 AI 的自夸</a>
+            <li data-tags="写作规范,AI 认知">
+                <div class="article-meta">
+                    <a href="famous-louisiana-chicken.html">不要 Famous Louisiana Chicken——用一个梗驯服 AI 的自夸</a>
+                    <div class="article-tags">
+                        <span class="tag">写作规范</span>
+                        <span class="tag">AI 认知</span>
+                    </div>
+                </div>
                 <span class="date">2026-04-23</span>
             </li>
         </ul>
     </main>
+
+    <script>
+        const buttons = document.querySelectorAll('.tag-btn');
+        const items = document.querySelectorAll('#article-list li');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const selectedTag = btn.dataset.tag;
+                items.forEach(item => {
+                    if (selectedTag === 'all') {
+                        item.style.display = '';
+                    } else {
+                        const tags = item.dataset.tags.split(',');
+                        item.style.display = tags.includes(selectedTag) ? '' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
 
     <footer>
         <div class="container">
