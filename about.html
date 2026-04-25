@@ -20,11 +20,30 @@
     </header>
 
     <main class="container">
-        <article>
+        <article class="about-page">
             <h2>关于</h2>
             <p>这里记录关于工程实践、系统设计与 AI 协作的思考。</p>
+
+            <div class="wechat-section">
+                <p>如果你对这里的内容感兴趣，欢迎加我微信。</p>
+                <img src="wechat-qr.png" alt="微信二维码" class="wechat-qr">
+            </div>
         </article>
     </main>
+
+    <style>
+        .about-page h2 { margin-top: 40px; margin-bottom: 16px; }
+        .about-page p { color: var(--secondary-text); }
+        .wechat-section { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--border-color); }
+        .wechat-section p { margin-bottom: 20px; }
+        .wechat-qr {
+            display: block;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
 
     <footer>
         <div class="container">
