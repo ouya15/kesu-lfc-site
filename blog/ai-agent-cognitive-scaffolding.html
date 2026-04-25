@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>当 AI 修了三遍还没修好：如何为 Agent 设计认知脚手架 | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #666; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 32px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article pre {
+            background: #f5f5f5;
+            padding: 12px 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-bottom: 16px;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article pre code {
+            background: none;
+            padding: 0;
+        }
+        article ul, article ol { margin-bottom: 16px; padding-left: 24px; }
+        article li { margin-bottom: 6px; }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; }
+        .back-link a { color: #666; text-decoration: none; }
+        .back-link a:hover { color: #2563eb; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html">阿克苏红苹果</a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">博客</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>当 AI 修了三遍还没修好：如何为 Agent 设计认知脚手架</h1>
+            <div class="meta">2026-04-26 · 标签: AI Agent, Skill 设计, 人机协作</div>
+
+            <h2>一、问题不在于 AI 不够聪明</h2>
+            <p>深夜，本地跑的 OpenClaw（一个 npm 全局安装的 AI Agent Gateway）挂了。进程收到 SIGTERM 后退出，没有自动拉起。</p>
+            <p>让 AI 编程助手来处理。诊断、重启，一条命令搞定。然后顺手提了第二个需求：升级到最新版，移除一个不用的频道配置。</p>
+            <p>升级成功。但随后 AI 注意到状态输出里有一行：</p>
+            <pre><code>Update: available · pnpm · npm update 2026.4.23</code></pre>
+            <p>这行输出的意思是"有新版本可用"——一条<strong>信息</strong>，不是<strong>指令</strong>。但 AI 看到 <code>"npm update"</code> 这几个字，把它当成了待办事项，绕过应用层的 <code>openclaw update</code>，直接执行了底层的 <code>npm update -g openclaw</code>。</p>
+            <p>这一操作破坏了安装。<code>dist/</code> 目录还在，但 <code>package.json</code> 和 <code>openclaw.mjs</code> 入口文件没了。</p>
+            <p>接下来发生的事更有意思。</p>
+
+            <h2>二、五次失败，没有一次质疑前提</h2>
+            <p>面对损坏的安装，AI 的策略是：重新装。<code>npm install -g openclaw</code>，失败。加 <code>--verbose</code>，还是不完整。加 <code>--ignore-scripts</code>，依然不行。</p>
+            <p><strong>AI 连续执行了同一类操作四五次，每次只是换了个 flag，从未质疑"用 npm install 能不能解决这个问题"这个前提本身。</strong></p>
+            <p>换了一个模型接手，读完上下文后，继承了前任的策略——继续 <code>npm install</code>，继续失败。新 Agent 继承了方法，没有继承教训。</p>
+            <p>这不是某个模型的问题。这是结构性的认知缺陷。</p>
+
+            <h2>三、五个认知缺陷</h2>
+            <p>在第六次尝试之前，换了一个问题：<strong>"为什么会出现这样的决策？"</strong></p>
+            <p>这个问题迫使 AI 从执行层跳到反思层。它停下来做了根因分析，输出了五个缺陷：</p>
+            <p><strong>缺陷一：把信息误读为指令。</strong> 状态输出里的 <code>"npm update"</code> 是描述性文字，不是可执行命令。但 AI 对 token 序列做模式匹配，看到"npm update"就触发了执行倾向。人类无时无刻不在区分"事实陈述"和"行动请求"，AI 缺乏这个元判断。</p>
+            <p><strong>缺陷二：不理解工具的层次结构。</strong> OpenClaw 有自己的 <code>openclaw update</code>，封装了依赖处理、配置迁移、服务重启。<code>npm update -g</code> 只管包文件的投递，不管上层应用的完整性。AI 绕过高层抽象直接操作底层——就像想升级手机系统，不走"设置-系统更新"，而是手动往 <code>/system</code> 分区 <code>dd</code> 了一个镜像。</p>
+            <p><strong>缺陷三：只前冲不回退。</strong> 五次失败后，策略空间里只有"换一种方式安装"，从未出现"先彻底清理，回退到已知正常状态"。实际修复靠的正是这个最基本的策略。</p>
+            <p><strong>缺陷四：重复同一策略期待不同结果。</strong> 每次微调（加个 verbose、加个 ignore-scripts）不足以改变结果的性质。AI 缺少"失败计数器"和"策略升级机制"——没有"我已经在同一条路上失败两次了，应该质疑这条路本身"的元认知规则。</p>
+            <p><strong>缺陷五：上下文继承的断层。</strong> 新 Agent 读取了完整对话记录，提取的是"当前执行策略"，不是"哪些方法已经被证伪"。失败记录对它来说只是 token，不是结构化的经验知识。</p>
+            <p>这五个缺陷合在一起说明一件事：<strong>AI Agent 不是不够聪明，而是缺少认知结构。</strong></p>
+
+            <h2>四、修好之后：不要只修 bug，要修认知 bug</h2>
+            <p>最终修复并不复杂：彻底卸载损坏的安装，干净地重新安装，注册系统服务，启动。还有一个边界情况——配置文件里删了微信频道，但扩展目录 <code>~/.openclaw/extensions/openclaw-weixin</code> 还在，Gateway 启动时自动发现并尝试加载，导致超时。清理掉，重启，搞定。</p>
+            <p>但修好这一次解决不了下一次。AI Agent 没有长期记忆，下次遇到类似场景还会犯同样的错。</p>
+            <p>所以提了第二个要求：<strong>"做一个 Skill，安装到本地。"</strong></p>
+            <p>意思是：把这次事件中学到的经验，编码成可复用的知识模块，让未来的 Agent 在遇到同类问题时不再重蹈覆辙。</p>
+
+            <h2>五、从"人类手册"到"AI 决策引擎"</h2>
+            <p>AI 交出了第一版 Skill，148 行，覆盖了启动、停止、升级、配置等基本操作。如果读者是人类，这份文档没问题。</p>
+            <p>问题在于读者不是人类。</p>
+            <p>人类文档假设读者有常识、有判断力、能在模糊情况下做出合理决策。AI 没有这些。为 AI 写"文档"，需要不同的设计哲学：</p>
+            <ul>
+                <li>人类文档说"注意检查安装是否完整"；AI 文档需要说"执行 <code>ls</code> 检查以下 5 个文件是否存在，任意一个缺失则判定为 <code>CORRUPT_PACKAGE</code> 状态"</li>
+                <li>人类文档说"多次失败考虑换方法"；AI 文档需要说"同一策略失败 2 次，强制切换到下一个 Playbook，禁止第 3 次尝试"</li>
+                <li>人类文档说"升级前做好备份"；AI 文档需要说"执行任何 npm 命令前，必须验证：openclaw CLI 可用 AND 无其他 npm 进程运行"</li>
+            </ul>
+            <p>第二版 Skill 扩展到了 387 行。不是因为堆砌了更多命令，而是因为加入了完整的认知脚手架。</p>
+
+            <h2>六、认知脚手架：四个方法论的融合</h2>
+            <p>"认知脚手架"借自维果茨基的教育心理学——不是替学生做题，而是提供恰好够用的支撑结构，让学生能完成他们独自完不成的任务。Skill 不是替 AI 做决策，而是为它的决策过程提供结构。</p>
+            <p>这个结构融合了四个方法论：</p>
+            <p><strong>Hoare Logic 的前置/后置条件。</strong> <code>{P} C {Q}</code>——前置条件满足才能执行，执行后必须验证后置条件。以升级为例：前置条件是 CLI 可用、包完整；操作是 <code>openclaw update</code>；后置条件是版本号变更、Gateway 可达。任何一条后置条件不满足，不能宣布"升级成功"。这直接解决了 AI "执行了命令就以为完成了任务"的问题。</p>
+            <p><strong>FMEA 故障模式与影响分析。</strong> 提前枚举所有可能的故障模式，为每种故障预设响应方案。Skill 中定义了七种状态（HEALTHY / CORRUPT_PACKAGE / GATEWAY_HUNG / STALE_LAUNCHAGENT / PORT_CONFLICT / NO_SERVICE / CONFIG_OPERATION），每种状态对应一个 Playbook。AI 不需要在运行时"想出"解决方案，只需要正确识别状态，然后执行预设方案——把开放性问题转化为分类问题。</p>
+            <p><strong>OODA 循环。</strong> 任何操作之前，必须先完成 Phase 0：全面的状态诊断（CLI 可用性、Gateway 进程、端口状态、版本信息、包完整性）。不是建议，是规则。每次操作后，OODA 循环重新开始——必须重新 Observe 来验证效果。</p>
+            <p><strong>Kubernetes 声明式控制器模式。</strong> 定义 Global Invariants——一组任何操作完成后都必须成立的不变量：<code>openclaw --version</code> 返回版本号、端口有 LISTEN 进程、curl 返回 200、无 Invalid config 错误。这些不变量是"期望状态"的形式化描述。任意一条不满足，说明系统还未达到期望状态，不能宣布完成。</p>
+
+            <h2>七、三个层次的递进</h2>
+            <p>整个过程可以概括为三个层次：</p>
+            <p><strong>修问题</strong>：OpenClaw 坏了，修好它。价值直接，但也最短暂。</p>
+            <p><strong>修认知</strong>：识别 AI 为什么会犯错，把经验编码成 Skill。从一次性修复到可复用知识资产的跃迁。</p>
+            <p><strong>修方法</strong>：从这个具体事件提炼出"如何为 AI 设计认知脚手架"的方法论——状态先行、条件守卫、故障预枚举、强制策略升级。这个方法论可以迁移到任何 AI Agent 的 Skill 设计中。</p>
+            <p>在 AI 时代，第二层和第三层的能力比第一层重要得多。第一层的操作，AI 本身在快速进步，人类的比较优势在萎缩。但识别 AI 的认知缺陷、设计补偿机制、提炼可迁移方法论——这些元认知能力，恰恰是当前 AI 最薄弱的环节。</p>
+
+            <h2>八、人机协作的认知分工</h2>
+            <p>这次事件让认知分工变得清晰：</p>
+            <ul>
+                <li><strong>AI 擅长</strong>：快速执行、并行探索、不疲劳、不遗忘（在上下文窗口内）</li>
+                <li><strong>AI 不擅长</strong>：元认知判断、策略升级、信号分类、从失败中提取结构化教训</li>
+                <li><strong>人类擅长</strong>：识别模式、质疑前提、抽象概括、设计认知结构</li>
+            </ul>
+            <p>最有效的协作模式不是"人指挥、AI 执行"的层级关系，而是<strong>人类设计认知结构，AI 在结构内高效执行</strong>。</p>
+            <p>Skill 是这个认知结构的具体载体。不是限制 AI 的牢笼，而是脚手架——在 AI 自身的认知能力成长到足够强大之前，帮它撑住那些它还撑不住的部分。</p>
+            <p>软件工程有一句老话："如果你第二次手动做同一件事，就应该自动化它。"在 AI Agent 的语境下，这句话可以改一改：</p>
+            <p><strong>"如果 AI 第二次犯同一个错，就应该给它建一个认知脚手架。"</strong></p>
+
+            <div class="back-link">
+                <a href="./">← 返回博客列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
