@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不写规则，只定格式 | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article hr {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 32px 0;
+        }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ebebeb; }
+        .back-link a { color: #888; text-decoration: none; }
+        .back-link a:hover { color: #1a1a1a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html">阿克苏红苹果</a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">文章列表</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>不写规则，只定格式</h1>
+            <div class="meta">2026-04-26 · 标签: AI 协作, 人机协作, Skill 设计</div>
+
+            <p>凌晨两点，我给自己设计了一套防沉迷系统。</p>
+            <p>触发条件是凌晨 00:30 到早上 06:30。在这个时段，AI 会拒绝执行非紧急任务。如果我还是想继续，必须提交一份书面申请，写清楚背景、理由、急迫性，然后由 AI 评审，通过才放行。</p>
+            <p>设计完之后，我意识到这个机制有点奇怪：我没有告诉 AI "改样式不算紧急"、"修线上 bug 算紧急"——这些规则一条都没写。我只定义了申请书的格式，然后把裁决权交给了 AI。</p>
+            <p>这是一个角色倒置。</p>
+
+            <hr>
+
+            <h2>传统模式的困境</h2>
+            <p>给 AI 写规则，通常的做法是穷举：</p>
+            <blockquote>
+                <p>不要使用"开创性"、"业界领先"等自我标榜的词汇。不要在凌晨继续工作。不要绕过应用层直接操作底层命令。</p>
+            </blockquote>
+            <p>这类规则有一个共同的问题：<strong>覆盖率永远不够</strong>。</p>
+            <p>写作规范里禁了"开创性"，AI 换个词照样夸。Skill 文档里说"注意检查安装是否完整"，AI 执行了命令就以为完成了任务。规则越写越长，边界情况越来越多，但总有新的情况没被覆盖到。</p>
+            <p>这不是 AI 不够聪明，而是规则驱动系统的结构性局限：规则是静态的，现实是动态的。</p>
+
+            <h2>格式是另一种约束</h2>
+            <p>防沉迷申请书的设计绕开了这个困境。</p>
+            <p>三段式格式（背景 + 理由 + 急迫性）不是规则，是结构约束。它不告诉 AI "什么算紧急"，而是要求申请者把判断依据显式写出来，然后让 AI 用自己的语义理解能力去裁决。</p>
+            <p>"穷举"这件事被外包给了 AI。</p>
+            <p>这个设计在别的地方也出现过。写作规范里的 Famous Louisiana Chicken 不是一条规则，是一个具体的反例——一家炸鸡店自称 Famous。有了这个锚点，AI 在遇到任何自夸式表达时，会自己问"这句话是不是在自称 Famous"，而不是机械地过滤几个关键词。</p>
+            <p>OpenClaw 的 Skill 重设计也是同一个逻辑。第一版是给人看的操作手册，写的是"注意检查安装是否完整"。第二版把这句话改成了：执行 <code>ls</code> 检查 <code>package.json</code>、<code>openclaw.mjs</code> 是否存在，任意缺失则判定为 <code>CORRUPT_PACKAGE</code> 状态，进入对应的 Playbook。</p>
+            <p>前者是模糊规则，后者是格式约束——把判断的输入条件结构化，让 AI 在结构内做决策。</p>
+
+            <h2>角色倒置</h2>
+            <p>这三个案例有一个共同的结构：</p>
+            <p><strong>传统模式</strong>：人制定规则 → AI 执行规则。规则需要穷举，AI 是执行者。</p>
+            <p><strong>格式模式</strong>：人定义格式（结构约束）→ AI 运用判断力裁决。不穷举，AI 是裁判。</p>
+            <p>区别不只是效率，而是<strong>规则维护成本的性质</strong>。</p>
+            <p>规则驱动系统的维护成本随边界情况线性增长——每出现一个新情况，就要加一条新规则。格式驱动系统的维护成本接近零——格式本身不变，AI 的判断力覆盖新情况。</p>
+            <p>代价是：AI 的裁决可能不稳定，不同会话、不同模型的判断标准可能有差异。这个机制在"约束对象认可 AI 判断权威"的前提下才成立。</p>
+
+            <h2>软件工程里的同构设计</h2>
+            <p>这个逻辑在软件工程里有对应。</p>
+            <p>生产环境的变更审批、代码 review 强制要求、数据库操作的二次确认——这些设计的本质都不是"不信任执行者"，而是在高风险操作前强制插入一个思考节点。</p>
+            <p>传统系统里，这个思考节点是人：审批人、reviewer、DBA。</p>
+            <p>格式驱动的人机协作里，这个思考节点可以是 AI——只要格式设计得足够好，让 AI 的判断力能够覆盖需要裁决的场景。</p>
+
+            <h2>结论</h2>
+            <p>在判断标准模糊、难以穷举规则的场景下，"人定格式、AI 裁判"比"人定规则、AI 执行"的维护成本更低，泛化能力更强。</p>
+            <p>适用条件：AI 的语义理解能力足够覆盖裁决场景；约束对象认可 AI 的裁判权威；格式设计足够简洁，不引入新的维护负担。</p>
+            <p>不适用的场景：需要快速响应的紧急操作（格式本身会成为摩擦）；AI 语义理解能力不足以覆盖的高风险决策。</p>
+            <p>这个范式的边界，也是当前 AI 能力的边界。</p>
+
+            <div class="back-link">
+                <a href="./">← 返回文章列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
