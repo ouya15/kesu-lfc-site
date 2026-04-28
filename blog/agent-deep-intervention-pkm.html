@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>当 Agent 开始管你的笔记 | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article hr {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 32px 0;
+        }
+        article ul { margin: 0 0 16px 0; padding-left: 1.5em; }
+        article li { margin-bottom: 6px; }
+        article a { color: #555; text-decoration: underline; text-decoration-color: #bbb; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.2s, text-decoration-color 0.2s; }
+        article a:hover { color: #1a1a1a; text-decoration-color: #555; }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ebebeb; }
+        .back-link a { color: #888; text-decoration: none; }
+        .back-link a:hover { color: #1a1a1a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html">阿克苏红苹果</a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">文章列表</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>当 Agent 开始管你的笔记</h1>
+            <div class="meta">2026-04-28 · 标签: AI Agent, 人机协作, 知识管理</div>
+
+            <p>一套个人知识管理系统，最初只是 Obsidian 日记模板——每天一个 markdown 文件，记任务和想法。后来 Obsidian 本身被抛弃了（切换到 IDE + Agent 工作流后，GUI 编辑器反而成了多余的中间层），但日记文件的习惯留了下来。</p>
+            <p>问题出在 Agent 介入之后。Agent 能帮你做太多事，反而让知识管理变得更混乱：和 AI 的深度对话产出了有价值的结论，但对话结束后散落在聊天记录里，下次开新 session 全丢了；Agent 能快速调研任何方向，导致注意力发散——什么都可以做，结果什么都没做完；内容素材散落在多个项目里，但发布流程在另一个项目，没有统一的排期。</p>
+            <p>半个多月的迭代里，涌现了四个具体的实践来应对这些问题。每个实践的共同特征是：给 Agent 设计显式的介入接口，而不是让它在自然语言里猜意图。</p>
+
+            <hr>
+
+            <h2>触发词：让人决定什么值得沉淀</h2>
+            <p>在碎碎念条目末尾标注 <code>@ai</code>，表示"这条需要 AI 介入讨论"。AI 在次日开工时自动识别并主动发起讨论。讨论结果按深度分三级沉淀：轻量结论写进 Backlog 内联备注，深度私密内容（情绪、人际）写进专门的目录，深度可通用内容（方法论、技术认知）写进 insights 目录。</p>
+            <p>试过"所有对话自动沉淀"。噪音太大——大量日常指令（"帮我改个格式"、"把这段移到上面"）混在里面，淹没了真正有价值的讨论。翻一遍沉淀记录的心理成本，比手动标记 <code>@ai</code> 高得多。</p>
+            <p>这个设计和<a href="format-as-interface.html">不写规则，只定格式</a>里的逻辑一致——不用规则穷举"什么值得沉淀"，而是用一个显式标记让人做判断，Agent 负责执行沉淀流程。判断权在人，执行权在 Agent。</p>
+
+            <h2>3 天 Sprint：在"聚焦"和"灵活"之间找到的节奏</h2>
+            <p>每 3 天一个周期，强制选出 1-2 个核心产出目标。每日开工时 AI 自动检查：Sprint 剩余天数、目标进度、今日主题是否与目标对齐。偏离时提醒，但不阻止。</p>
+            <p>为什么是 3 天，而不是 1 周或 1 天：1 周太长——AI 时代节奏快，到第 4 天目标可能已经过时；1 天太短——任何需要深度思考的事至少要 2 天才出成果。</p>
+            <p>和传统 Scrum Sprint 的关键区别：不排他。传统 Sprint 期间做 Sprint 外的事是违规的，但个人工作中紧急事务不可预测，完全排他产生的是焦虑而非聚焦。这里的 Sprint 更像导航仪——可以绕路，但它会告诉你偏了多少。Agent 的角色是维持节奏（提醒、对齐、状态同步），不是替你做"今天干什么"的决策。</p>
+
+            <h2>跨 Agent 协作：文件交接，不共享上下文</h2>
+            <p>内容素材散落在多个项目里（知识管理系统积累了几十篇 insights），但发布流程在另一个项目。两个项目各有各的 Agent，各自积累了大量隐式知识——知识管理系统的 Agent 懂排期节奏和素材索引，发布系统的 Agent 懂写作规范、站点结构和已发文章的上下文。</p>
+            <p>考虑过让一个 Agent 包揽全部工作，省去跨项目交接。放弃的原因：把写作规范、人格定义、站点结构这些隐式知识复制到知识管理项目，等于维护两份，长期成本更高。</p>
+            <p>最终方案：通过一个共享的 markdown 文件（发文队列表格）作为唯一交接界面。知识管理系统的 Agent 管排期（每日提醒、节奏驱动），发布系统的 Agent 管生产（读素材索引、按规范撰写、部署到站点）。简单可靠，每个 Agent 只做自己擅长的事。</p>
+
+            <h2>冰箱：被动优于主动</h2>
+            <p>传统 GTD 的 Someday/Maybe 列表有个通病：扔进去就忘了。改进方案是在搁置区标记冻结日期和来源追溯，方便日后回溯。</p>
+            <p>试过自动激活（"冻结超过 7 天自动提醒"），失败了。自动提醒让搁置区变成了另一个焦虑来源——明明是有意搁置的事，系统不停催你。搁置的本质是"现在不做"的主动判断，自动催促在否定这个判断。</p>
+            <p>改为纯被动：只有主动问"搁置区有什么"时才汇报。Agent 维护数据结构（冻结日期、来源、搁置理由），但不主动触发。激活操作是显式的——说"取回 XXX"才执行。</p>
+
+            <h2>结论</h2>
+            <p>四个实践背后的共同判断：<strong>Agent 介入知识管理，需要显式设计的接口，而不是模糊的自然语言约定</strong>。触发词、Sprint 检查清单、发文队列表格、冰箱的激活指令——这些结构化的接口让 Agent 能可靠地参与流程。</p>
+            <p>第二个判断：<strong>节奏驱动优于灵感驱动</strong>。Sprint 和发文队列的共同设计思路是用固定节奏推动产出，不等灵感来了才行动。Agent 的价值在于维持节奏不被打断，而不是替人做决策。</p>
+            <p>适用范围：高强度使用 AI Agent 的知识工作者，且 Agent 具备文件读写能力。Sprint 和发文队列适合有明确产出目标的场景，纯探索性工作不适用。如果 Agent 不可用（切换到没有 Agent 的环境），系统的维护成本会突然升高——日记模板创建、任务归档、状态同步全部回到手动。这是一个真实的 vendor lock-in 风险。</p>
+
+            <div class="back-link">
+                <a href="./">← 返回文章列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
