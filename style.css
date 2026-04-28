@@ -190,6 +190,14 @@ a:visited {
     letter-spacing: 0.02em;
 }
 
+.article-excerpt {
+    font-size: 0.88rem;
+    color: var(--secondary-text);
+    margin-top: 4px;
+    margin-bottom: 6px;
+    line-height: 1.6;
+}
+
 .article-meta a {
     text-decoration: none;
     color: var(--text-color);
