@@ -6,6 +6,51 @@
     <title>文章列表 - 阿克苏红苹果</title>
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .upcoming-section {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px dashed var(--border-color);
+        }
+        .upcoming-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #bbb;
+            margin-bottom: 16px;
+        }
+        .upcoming-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .upcoming-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .upcoming-list li:first-child {
+            border-top: 1px dashed var(--border-color);
+        }
+        .upcoming-title {
+            color: #bbb;
+            font-size: 0.95rem;
+            flex: 1;
+            margin-right: 16px;
+        }
+        .upcoming-tag {
+            font-size: 0.75rem;
+            color: #ccc;
+            background: #f7f7f7;
+            border: 1px solid #e8e8e8;
+            border-radius: 3px;
+            padding: 2px 8px;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -97,6 +142,33 @@
                 <span class="date">2026-04-23</span>
             </li>
         </ul>
+    </main>
+
+        <div class="upcoming-section">
+            <p class="upcoming-label">即将发布</p>
+            <ul class="upcoming-list">
+                <li>
+                    <span class="upcoming-title">Vibe Coding 场景下的人-Agent-文档生产关系</span>
+                    <span class="upcoming-tag">Vibe Coding</span>
+                </li>
+                <li>
+                    <span class="upcoming-title">AI 的注意力漂移与流程防护</span>
+                    <span class="upcoming-tag">AI Agent</span>
+                </li>
+                <li>
+                    <span class="upcoming-title">Session 交接协议——让"开新会话"不再是上下文灾难</span>
+                    <span class="upcoming-tag">工程实践</span>
+                </li>
+                <li>
+                    <span class="upcoming-title">Standard Cycle：AI 时代的个人项目操作系统</span>
+                    <span class="upcoming-tag">人机协作</span>
+                </li>
+                <li>
+                    <span class="upcoming-title">AI 时代的 GTD 范式转变</span>
+                    <span class="upcoming-tag">认知管理</span>
+                </li>
+            </ul>
+        </div>
     </main>
 
     <script>
