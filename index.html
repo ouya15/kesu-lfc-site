@@ -85,6 +85,22 @@
         .all-link:hover {
             color: var(--text-color);
         }
+        .upcoming-pin {
+            font-size: 0.95rem;
+            color: var(--secondary-text);
+            line-height: 1.7;
+            margin-bottom: 4px;
+        }
+        .upcoming-pin a {
+            color: var(--secondary-text);
+            text-decoration: underline;
+            text-decoration-color: #ccc;
+            text-underline-offset: 3px;
+            transition: color 0.2s;
+        }
+        .upcoming-pin a:hover {
+            color: var(--text-color);
+        }
     </style>
 </head>
 <body>
@@ -108,6 +124,13 @@
         </section>
 
         <hr class="divider">
+
+        <p class="recent-label">即将发布</p>
+        <div class="upcoming-pin">
+            这里记录的是已经想清楚、还没来得及写完的题目。<a href="blog/writing-plan.html">查看完整写作计划 →</a>
+        </div>
+
+        <hr class="divider" style="margin-top: 28px;">
 
         <p class="recent-label">最近写的</p>
         <ul class="recent-list">
