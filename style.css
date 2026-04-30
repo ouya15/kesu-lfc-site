@@ -45,13 +45,18 @@ header .container {
 
 header h1 {
     margin: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 header h1 a {
     text-decoration: none;
     color: var(--text-color);
+}
+
+header h1 .site-name {
+    font-weight: 400;
+    letter-spacing: 0.06em;
 }
 
 nav {
