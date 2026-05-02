@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 时代，我们还要不要读大部头？ | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article hr {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 32px 0;
+        }
+        article ul { margin: 0 0 16px 0; padding-left: 1.5em; }
+        article li { margin-bottom: 6px; }
+        article a { color: #555; text-decoration: underline; text-decoration-color: #bbb; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.2s, text-decoration-color 0.2s; }
+        article a:hover { color: #1a1a1a; text-decoration-color: #555; }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ebebeb; }
+        .back-link a { color: #888; text-decoration: none; }
+        .back-link a:hover { color: #1a1a1a; }
+        .dialog-q { background: #f9f9f7; border-left: 3px solid #b8860b; padding: 16px 20px; margin: 24px 0; border-radius: 0 4px 4px 0; }
+        .dialog-a { padding: 16px 20px; margin: 24px 0; border-left: 3px solid #ddd; }
+        .dialog-note { background: #fefefe; border: 1px solid #eee; border-radius: 4px; padding: 16px 20px; margin: 24px 0; font-size: 0.95rem; }
+        .dialog-label { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #999; margin-bottom: 8px; }
+        .dialog-q .dialog-label { color: #b8860b; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html"><span class="site-name">阿克苏红苹果</span></a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">文章列表</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>AI 时代，我们还要不要读大部头？</h1>
+            <div class="meta">2026-04-30 · AI Talks #01 · 标签: AI 认知, 学习方法论</div>
+
+            <p>之前读过一遍 DDIA，没有重读过。有人说这本书是后端架构领域的"圣经"，让 AI 系统给我介绍下。然后聊着聊着，聊到了一个更根本的问题。</p>
+
+            <div class="dialog-q">
+                <div class="dialog-label">Q</div>
+                <p>DDIA 我记得有这么一本书，数据密集型系统设计，你系统给我介绍下。</p>
+            </div>
+
+            <div class="dialog-a">
+                <div class="dialog-label">A · AI</div>
+                <p><strong>《Designing Data-Intensive Applications》</strong>（《数据密集型应用系统设计》），作者 Martin Kleppmann。这本书之所以封神，是因为它没有罗列具体的工具命令，而是讲解这些工具背后的<strong>基本原理、权衡取舍和设计哲学</strong>。</p>
+                <p>全书分为三个部分：</p>
+                <p><strong>第一部分：数据系统基础。</strong>可靠性、可扩展性、可维护性。数据模型（SQL vs NoSQL）。存储引擎底层：B-Tree（适合写少读多）vs LSM-Tree（适合写多读少）。</p>
+                <p><strong>第二部分：分布式数据——最精华部分。</strong>复制、分区、事务、一致性与共识。CAP 定理的深入解读，线性一致性 vs 最终一致性，Paxos/Raft 共识算法。</p>
+                <p><strong>第三部分：衍生数据。</strong>批处理、流处理、系统的系统集成。核心观点：<strong>衍生系统必须能够从源系统重新构建</strong>，源系统不应该关心衍生系统怎么存，衍生系统应该通过消费变更日志来异步更新。</p>
+            </div>
+
+            <div class="dialog-q">
+                <div class="dialog-label">Q</div>
+                <p>之前读过一遍，没有重读。有个疑问：现在 AI 时代了，agent 这么聪明，有什么问题，问一问 AI 都能解决了，甚至 agent 帮你把代码都写完了。我们作为人类程序员还需要反复阅读大部头书吗？虽然知道答案是肯定的，我也是有追求的程序员，但是你能给我讲讲吗，你的思考。</p>
+            </div>
+
+            <div class="dialog-a">
+                <div class="dialog-label">A · AI</div>
+                <p>简短的回答：是的，你绝对需要重读，而且比过去更需要。</p>
+                <p>但理由不再是"为了记住知识点"，而是为了<strong>"建立判断力"</strong>和<strong>"掌握对话的主动权"</strong>。</p>
+                <p><strong>一、AI 是"超级实习生"，你是"首席架构师"。</strong>LLM 像一个博学但缺乏经验、偶尔会幻觉、且没有全局观的超级实习生。它能快速生成样板代码，但不能理解业务的深层约束、权衡复杂的系统取舍、预判长期维护的成本。DDIA 教的是"怎么做决策"。当 Agent 给你生成一段使用 Kafka 的代码时，它不会告诉你分区策略会导致消费者组重平衡耗时过长。只有读过 DDIA 的你，才知道要去追问。</p>
+                <p><strong>二、"知道答案" vs "理解原理"。</strong>AI 擅长提供答案，但人类需要的是理解。AI 可以根据日志关键词告诉你"检查维度配置"，但读过 DDIA 后你会意识到这不是配置错误，而是分布式系统中的 Schema Evolution 问题——为什么上游变了下游没感知？如何设计兼容性层？AI 可以帮你修好今天的 Bug，但只有你能设计出明天不再犯同样错误的系统。</p>
+                <p><strong>三、防御"平庸之恶"。</strong>LLM 的训练数据来自互联网的平均水平，它倾向于给出最常见而非最适合的方案。如果不通过阅读经典建立自己的高品位和高标准，你会不知不觉接受 AI 提供的"平庸解"。</p>
+                <p><strong>四、从"工匠"到"导演"的角色转变。</strong>以前程序员是工匠，亲手打磨每一行代码。现在是导演，AI 是演员和摄影师。导演不需要亲自打光，但必须懂光影美学。你不需要亲手写代码，但必须有能力 Review Agent 写的代码，并指出架构层面的缺陷。</p>
+                <p><strong>五、应对"未知"的唯一武器。</strong>AI 的知识截止于训练数据。面对全新的问题、未知的领域，AI 只能胡编乱造。这时依靠的是从经典中汲取的第一性原理：数据的本质是什么？网络是不可靠的。一致性是有代价的。这些原理是永恒的。</p>
+                <p><strong>总结：AI 是杠杆，而你的知识储备是支点。支点越坚实，杠杆撬动的力量就越大。</strong></p>
+            </div>
+
+            <div class="dialog-note">
+                <div class="dialog-label">按</div>
+                <p>这段话里最有价值的是"支点"和"杠杆"的比喻。我一直在用 AI 写代码、调研、搭建系统，但确实感觉到——当我完全不知道一个领域的基本原理时，AI 给我的答案我也判断不了好坏。</p>
+                <p>还有一点它没展开的：读经典和读文档的区别。很多时候问 AI 一个问题，它给的答案质量取决于我提问的精准度。而提问的精准度，来自我脑子里有没有一个"概念地图"——知道这个领域有哪些核心问题、核心权衡、核心术语。这个地图只能从经典里来，AI 给不了。</p>
+            </div>
+
+            <div class="back-link">
+                <a href="./">← 返回文章列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

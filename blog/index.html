@@ -20,6 +20,27 @@
     </header>
 
     <main class="container">
+        <style>
+            .section-label {
+                font-size: 0.78rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: #999;
+                margin: 36px 0 16px;
+                padding-top: 4px;
+            }
+            .section-label:first-of-type {
+                margin-top: 24px;
+            }
+            .section-desc {
+                font-size: 0.85rem;
+                color: #aaa;
+                margin-bottom: 14px;
+                line-height: 1.6;
+            }
+        </style>
+
         <div class="tag-filter">
             <button class="tag-btn active" data-tag="all">全部</button>
             <button class="tag-btn" data-tag="AI 认知">AI 认知</button>
@@ -27,8 +48,40 @@
             <button class="tag-btn" data-tag="写作规范">写作规范</button>
             <button class="tag-btn" data-tag="人机协作">人机协作</button>
             <button class="tag-btn" data-tag="知识管理">知识管理</button>
+            <button class="tag-btn" data-tag="AI Talks">AI Talks</button>
         </div>
+
+        <p class="section-label">AI Talks</p>
+        <p class="section-desc">和 AI 的对谈录。问一个问题，然后听它怎么答，再记下自己的批注。</p>
         <ul class="article-list" id="article-list">
+            <li data-tags="AI 认知,AI Talks,Prompt Engineering">
+                <div class="article-meta">
+                    <a href="ai-talks-02.html"><span class="article-no">T02</span> Prompt 是凿子，概率空间是大理石——资深程序员如何驾驭 AI</a>
+                    <p class="article-excerpt">礼貌的提问得到礼貌的回答，adversarial 的提问得到深刻的回答。</p>
+                    <div class="article-tags">
+                        <span class="tag">AI Talks</span>
+                        <span class="tag">AI 认知</span>
+                        <span class="tag">Prompt Engineering</span>
+                    </div>
+                </div>
+                <span class="date">2026-05-02</span>
+            </li>
+            <li data-tags="AI 认知,AI Talks,学习方法论">
+                <div class="article-meta">
+                    <a href="ai-talks-01.html"><span class="article-no">T01</span> AI 时代，我们还要不要读大部头？</a>
+                    <p class="article-excerpt">AI 是杠杆，知识储备是支点。支点越坚实，杠杆撬动的力量就越大。</p>
+                    <div class="article-tags">
+                        <span class="tag">AI Talks</span>
+                        <span class="tag">AI 认知</span>
+                        <span class="tag">学习方法论</span>
+                    </div>
+                </div>
+                <span class="date">2026-04-30</span>
+            </li>
+
+            <p class="section-label">工程实践</p>
+            <p class="section-desc">在具体的工程问题里做出的判断和取舍。</p>
+
             <li data-tags="写作规范,AI 认知,人机协作">
                 <div class="article-meta">
                     <a href="negative-constraints-kill-voice.html"><span class="article-no">06</span> 当写作规范变成体检报告——规则越多，文章越无聊</a>
@@ -97,8 +150,6 @@
                 <span class="date">2026-04-23</span>
             </li>
         </ul>
-    </main>
-
     </main>
 
     <script>
