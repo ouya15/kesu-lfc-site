@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给老项目补记忆——终态重建与单一来源 | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article hr {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 32px 0;
+        }
+        article ul { margin: 0 0 16px 0; padding-left: 1.5em; }
+        article li { margin-bottom: 6px; }
+        article a { color: #555; text-decoration: underline; text-decoration-color: #bbb; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.2s, text-decoration-color 0.2s; }
+        article a:hover { color: #1a1a1a; text-decoration-color: #555; }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ebebeb; }
+        .back-link a { color: #888; text-decoration: none; }
+        .back-link a:hover { color: #1a1a1a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html"><span class="site-name">阿克苏红苹果</span></a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">文章列表</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>给老项目补记忆——终态重建与单一来源</h1>
+            <div class="meta">2026-05-03 · 标签: AI Agent, 知识管理, 工程实践</div>
+
+            <p>前三篇讲了记忆系统从无到有的过程：<a href="memory-system-origin-story.html">怎么长出来</a>、<a href="memory-anti-rot.html">怎么防腐</a>、<a href="ddia-meets-memory.html">怎么处理并发</a>。系统搭好了，新项目用起来很顺。</p>
+            <p>然后你看着那些跑了一个多月的老项目——里面有 README、有 insights、有 commit log、有散落各处的手工整理笔记——你会想：能不能给它们也补上记忆？假装我们从一开始就有这套系统？</p>
+
+            <hr>
+
+            <h2>完整重放 vs 终态重建</h2>
+            <p>第一个直觉是"重放"——从第一个 commit 开始，按时间线模拟每次操作，逐步构建记忆。就像数据库的 WAL 重放：从日志里恢复状态。</p>
+            <p>想了五分钟就放弃了。原因有三：</p>
+            <ul>
+                <li><strong>成本。</strong>一个项目几百个 commit，每个 commit 的上下文都需要 AI 阅读和理解。这个时间和 token 成本是实际工作量的数倍。</li>
+                <li><strong>中间状态已过时。</strong>第 30 个 commit 里的经验可能在第 150 个 commit 就被推翻了。重放中间状态相当于把过时的信息也写进记忆——正好违背了<a href="memory-anti-rot.html">第二篇</a>讲的防腐原则。</li>
+                <li><strong>目的不对。</strong>我们要的不是"完整的历史记忆"，而是"当前仍然有效的经验"。这两个东西差别很大。</li>
+            </ul>
+            <p>所以选了另一条路：<strong>终态重建</strong>。不重放过程，只萃取结果。</p>
+
+            <h2>终态重建怎么做</h2>
+            <p>具体操作出奇简单。以一个运维项目为例，这个项目有 39 篇技术洞察文章（insights），记录了从第一天到现在的所有设计决策。</p>
+            <p>终态重建的步骤：</p>
+            <ul>
+                <li><strong>读索引。</strong>先看 insights 目录的 README，了解文章按什么主题分类。这个项目分了 6 个主题域：设计哲学、协作方法论、AI 局限对策、测试工程、编排进化、部署集成。</li>
+                <li><strong>选关键文章。</strong>每个主题域选 2-3 篇最核心的文章精读。不是全读——39 篇全读的成本太高，而且大部分文章的精华已经在后期文章里被吸收了（这个项目做过一次 insights 整理，把 10 篇早期文章的精华合并到了后期文章中）。</li>
+                <li><strong>萃取一句话经验。</strong>每篇文章提炼成一句仍然有效的经验。比如一篇 500 行的文章讲知识层设计，萃取为："知识层是基础设施不是静态文件——案例由运行时 Agent 在诊断成功后自动沉淀，不由开发者手写。"</li>
+                <li><strong>分类标注。</strong>每条经验标注类型（strategy / recovery / optimization）和来源，方便后续检索。</li>
+                <li><strong>写入记忆。</strong>萃取出的 15 条经验写入 <code>.memory/facts/session-learnings.md</code>。同时写入项目状态（<code>context.md</code>）和操作约定（<code>rules/conventions.md</code>）。</li>
+            </ul>
+            <p>整个过程大约 20 分钟。如果用完整重放，估计需要几个小时。</p>
+
+            <h2>为什么终态重建是对的</h2>
+            <p>终态重建的本质是一个判断：<strong>对于记忆系统来说，"当前有效"比"历史完整"更重要。</strong></p>
+            <p>这和数据库快照的逻辑类似。你不需要重放所有的 WAL 日志来恢复数据库——你需要的是最新的一致性快照。快照丢失了中间的变更历史，但对于"恢复到可用状态"这个目标来说，快照就够了。</p>
+            <p>记忆系统也一样。历史完整性由 insights 和 git log 来承担——那些文件还在，需要的时候可以回溯。<code>.memory/</code> 承担的是"快速恢复上下文"的职责，它不需要是完整的历史，它需要是准确的现状。</p>
+
+            <hr>
+
+            <h2>单一来源</h2>
+            <p>做完终态重建，一个新问题浮出水面：同样的信息出现在了好几个地方。</p>
+            <p>项目状态——README 里有一份，<code>.memory/context.md</code> 里有一份。操作约定——<code>SKILL.md</code> 里有，<code>.memory/rules/</code> 里也有。Session 交接——老的 <code>docs/session-handoff.md</code> 还在，新的 <code>.memory/handoff/</code> 也在。</p>
+            <p>多个信息源说同一件事，迟早会不一致。这就是<a href="memory-anti-rot.html">第二篇</a>讲的腐烂的温床——不是一个文件过时了，是两个文件说的不一样，你不知道该信哪个。</p>
+            <p>解法是一个老原则：<strong>Single Source of Truth（单一来源）</strong>。每类信息只在一个地方维护，其他地方放指针。</p>
+            <p>具体的归属：</p>
+            <ul>
+                <li><strong>README</strong>：静态入口。项目定位、上手指南、目录说明。不包含动态状态。</li>
+                <li><strong>SKILL.md</strong>：AI 的执行手册。业务逻辑、操作流程、触发条件。</li>
+                <li><strong><code>.memory/</code></strong>：动态状态。当前进展、经验积累、操作约定、Session 交接。</li>
+                <li><strong>docs/</strong>：深度内容。设计文档、insights、SOP。</li>
+            </ul>
+            <p>重叠的部分怎么办？<code>.memory/context.md</code> 里不重复写 README 已经说过的项目定位，而是直接引用："项目定位见 README"。<code>.memory/rules/</code> 里的发布流程不重复写 SKILL.md 里的操作步骤，而是精炼为一句话约定加指针。</p>
+            <p>这样做的代价是多了一次跳转——AI 要先读 <code>.memory/</code>，再根据指针去读 README 或 SKILL.md。但好处是：<strong>信息只在一个地方更新，不会出现两个文件说法不一致的情况。</strong></p>
+
+            <hr>
+
+            <h2>回过头看</h2>
+            <p>四篇写完，回头看这套记忆系统走过的路：</p>
+            <ul>
+                <li>从痛点出发（AI 失忆），造了一套跨对话持久化机制</li>
+                <li>发现记忆会腐烂，加了免疫系统（操作后自检 + 时间衰减 + 可验证断言）</li>
+                <li>发现多个 AI 并发写入有冲突，用 DDIA 降维解决（文件隔离 + 追加优先 + 两层副本）</li>
+                <li>给老项目补记忆，选了终态重建而非完整重放，顺手解决了信息源冗余（单一来源）</li>
+            </ul>
+            <p>每一步都不是提前规划好的。都是用着用着发现新问题，然后从已有的工程知识库里找到对应的方案降维使用。免疫系统来自生物学类比，并发方案来自 DDIA，终态重建来自数据库快照，单一来源来自软件工程基本原则。</p>
+            <p>这大概就是"概念地图"的价值——不是教你解具体的题，而是让你在新地形上认出老问题。</p>
+
+            <div class="back-link">
+                <a href="./">← 返回文章列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

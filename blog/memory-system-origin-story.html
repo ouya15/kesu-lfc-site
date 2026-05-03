@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 每次开机都是失忆的——从一个痛点到一套记忆系统 | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article hr {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 32px 0;
+        }
+        article ul { margin: 0 0 16px 0; padding-left: 1.5em; }
+        article li { margin-bottom: 6px; }
+        article a { color: #555; text-decoration: underline; text-decoration-color: #bbb; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.2s, text-decoration-color 0.2s; }
+        article a:hover { color: #1a1a1a; text-decoration-color: #555; }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ebebeb; }
+        .back-link a { color: #888; text-decoration: none; }
+        .back-link a:hover { color: #1a1a1a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html"><span class="site-name">阿克苏红苹果</span></a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">文章列表</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>AI 每次开机都是失忆的——从一个痛点到一套记忆系统</h1>
+            <div class="meta">2026-05-03 · 标签: AI Agent, 人机协作, 知识管理</div>
+
+            <p>我和 AI 协作做项目，一天开三五个对话窗口是常事。每次开新窗口，AI 都是白纸一张。上一轮讨论了半小时的架构决策、踩过的坑、验证过的方案——全没了。</p>
+            <p>你只好再解释一遍。</p>
+            <p>这不是偶尔的不便。当你一天跨三四个项目、每个项目都和 AI 密集协作的时候，"每次重新解释"变成了一种税——每次开机都得先花十分钟让 AI 知道自己是谁、在干什么、之前做过什么。这个税随项目数量线性增长。</p>
+            <p>我决定解决它。以下是这套记忆系统是怎么一步步长出来的——不是一张蓝图画好再施工的，每一步都是上一步暴露的问题逼出来的。</p>
+
+            <hr>
+
+            <h2>第一步：让 commit message 当记忆</h2>
+            <p>最早的想法很朴素：git commit message 不就是现成的记忆吗？新窗口开出来，<code>git log</code> 一拉，知道最近改了什么，大致能恢复上下文。</p>
+            <p>我试着写结构化的 commit message——每条包含 Why、What、Impact。新 AI 读完 log，确实能知道"最近改了什么文件"。</p>
+            <p>问题是：commit message 记录的是"改了什么"，不是"为什么这样改"和"下次该注意什么"。"重构了配置加载逻辑"——好的，然后呢？为什么重构？之前的方案有什么坑？这些 commit message 不会告诉你。</p>
+            <p>而且 AI 不会主动去读 git log。你得提醒它"先看看 git log"——但如果你能记得提醒，说明你自己还记得上下文，那就不需要 AI 去读了。这是个鸡生蛋的问题。</p>
+
+            <h2>第二步：文档会骗人</h2>
+            <p>既然 commit message 不够，那用文档呗。我在项目里维护了一个任务清单，标注每个功能的状态——做了、没做、进行中。新 AI 进来先读这个文件，应该就知道项目走到哪了。</p>
+            <p>有一天我问 AI："这个功能做了吗？" AI 检查了任务清单，发现标注是"待做"，回答"还没做"。</p>
+            <p>实际上功能早就做完了。我忘了更新任务清单的状态。</p>
+            <p>这件事的教训比看起来大：<strong>AI 天然信任文档</strong>。文档的认知成本比代码低得多——读一行 markdown 比 grep 整个代码库快多了。所以 AI 碰到文档和代码矛盾的时候，倾向于信文档。但文档是人维护的，人会忘。</p>
+            <p>我审计了一下那个任务清单，6 个条目的状态是过时的。过时的文档比没有文档更危险——没有文档时 AI 会老老实实去读代码，有了过时文档反而被误导。</p>
+            <p>这让我意识到：任何你写下来让 AI 读的东西，都有变成"错误记忆"的风险。这个问题后来花了我很大力气去解决，但那是另一篇文章的事了。</p>
+
+            <h2>第三步：交接棒应该是文件</h2>
+            <p>对话越来越长，AI 的上下文窗口开始压缩旧内容。有些关键信息——发布流程、特殊的配置约定、某个怪异 bug 的绕过方式——被压缩掉了，AI 就不记得了。</p>
+            <p>我开始在旧窗口快结束时让 AI 生成"交接摘要"，然后手动复制给新窗口。相当于接力赛的交接棒。</p>
+            <p>这比 commit message 好多了——AI 总结的是"决策和理由"，不只是"改了什么文件"。但手动复制粘贴的过程太痛苦了：你得记得要生成摘要、你得找到上次的摘要在哪、新窗口要粘到哪里。三个项目同时跑，交接棒很快就乱了。</p>
+            <p>转折点是一个简单的领悟：<strong>交接棒应该是文件，不是对话。</strong></p>
+            <p>旧窗口结束时，AI 把交接信息写进项目目录下的一个文件。新窗口启动时，AI 读这个文件。不需要人手动复制粘贴——文件在那里，谁来都能读。</p>
+            <p>这个设计后来成了整套记忆系统的第一原则："用文件而非对话传递上下文"。原则听起来简单，但背后是几次手动复制粘贴粘错了之后的切肤之痛。</p>
+
+            <h2>第四步：操作知识是另一种东西</h2>
+            <p>某天 AI 完成了一轮开发，所有测试通过，然后执行"发布"。它尝试 <code>git push</code>。</p>
+            <p>但这个项目的发布方式是一个专门的脚本，推送到另一个仓库。<code>git push</code> 推的是开发仓库，不是发布仓库。AI 搞错了。</p>
+            <p>为什么？因为上下文压缩后，那个发布脚本的存在从 AI 的记忆中消失了。AI 用常识推断"发布 = git push"——这在大多数项目里是对的，但在这个项目里是错的。</p>
+            <p>这里有一个微妙但重要的区分：<strong>概念知识</strong>（什么是发布）可以从常识恢复，但<strong>操作知识</strong>（这个项目怎么发布）一旦丢失，AI 会用常识去填充——而常识往往是错的。</p>
+            <p>"所有项目都用 git push 发布"是一个合理的默认假设。但它恰好不适用于你的项目。这种"合理但错误的默认假设"是最危险的，因为 AI 不知道自己在犯错。</p>
+            <p>从这件事开始，我在记忆系统里加了一个专门的区域——"项目约定"：记录那些不能从常识推断的操作规则。发布用什么脚本、部署走什么流程、哪些文件不能随便改——这些东西必须被显式写下来，放在 AI 每次启动都会读到的地方。</p>
+
+            <h2>第五步：记忆不能只跟着项目走</h2>
+            <p>几个项目都有了自己的记忆目录之后，新问题出现了：<strong>经验是跨项目的</strong>。</p>
+            <p>在一个运维项目里踩过的坑——"AI 改完代码后忘了重启服务"——在另一个项目里也适用。但新 AI 进入另一个项目时，只会读那个项目的记忆，不知道运维项目的经验。</p>
+            <p>这像什么？像一个人换了部门就失忆了。你在上一个项目学到的东西，不应该因为打开了另一个项目就消失。</p>
+            <p>解法是加一层全局记忆——不跟着项目走，跟着人走。每个项目有自己的记忆目录，但还有一个全局目录，存放跨项目的通用经验和用户偏好。AI 启动时先读全局记忆，再读当前项目记忆。</p>
+            <p>两层结构。简单，但解决了问题。</p>
+
+            <hr>
+
+            <h2>五步之后的模式</h2>
+            <p>回头看这五步，有一个清晰的模式：<strong>每一步都是上一步暴露的问题的回应。</strong></p>
+            <ul>
+                <li>commit message 不够 → 用文档</li>
+                <li>文档会过时 → 文档信任是个问题（但还没解决）</li>
+                <li>上下文在对话里丢失 → 用文件做交接</li>
+                <li>操作知识被常识覆盖 → 显式记录项目约定</li>
+                <li>经验在项目间断裂 → 全局记忆层</li>
+            </ul>
+            <p>没有人在第一步就设计出"两层记忆架构 + 项目约定 + 全局经验"。每一步都是被问题推着走的——上一步的方案暴露了新问题，新问题逼出了新方案。</p>
+            <p>这其实也是大部分软件系统的真实演化方式。事后写的架构文档看起来像深思熟虑的结果，但实际的开发过程是一连串"上一个方案哪里不够用了"的补丁。区别只在于：有些补丁打得聪明，有些打得不聪明。</p>
+
+            <hr>
+
+            <p>这五步解决了"记忆从哪来、存在哪、怎么传递"的问题。但还有一个更麻烦的问题没解决：<strong>写下来的东西会腐烂。</strong></p>
+            <p>记忆系统越好用，你往里面写的东西越多。写得越多，过时的概率越高。过时的记忆比没有记忆更危险——AI 会信任它，然后犯错。</p>
+            <p>怎么让记忆"保鲜"？怎么让过时的信息被自动发现而不是等人踩坑？</p>
+            <p>这是<a href="agent-deep-intervention-pkm.html">上一篇文章</a>里提到的"Agent 接管维护"的延伸——不只是帮你管任务，还要帮你管记忆的质量。下一篇讲这个。</p>
+
+            <div class="back-link">
+                <a href="./">← 返回文章列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
