@@ -101,6 +101,55 @@
         .upcoming-pin a:hover {
             color: var(--text-color);
         }
+        .series-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px 40px;
+            margin-bottom: 36px;
+        }
+        .series-col h3 {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--secondary-text);
+            margin: 0 0 12px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .series-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .series-col li {
+            padding: 6px 0;
+        }
+        .series-col a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.92rem;
+            font-weight: 500;
+            line-height: 1.5;
+            transition: color 0.2s;
+        }
+        .series-col a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .series-col .series-desc {
+            font-size: 0.78rem;
+            color: #aaa;
+            margin: -4px 0 10px 0;
+            line-height: 1.5;
+        }
+        @media (max-width: 600px) {
+            .series-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -125,29 +174,54 @@
 
         <hr class="divider">
 
-        <p class="recent-label">即将发布</p>
-        <div class="upcoming-pin">
-            这里记录的是已经想清楚、还没来得及写完的题目。<a href="blog/writing-plan.html">查看完整写作计划 →</a>
+        <p class="recent-label">文章专栏</p>
+        <div class="series-grid">
+            <div class="series-col">
+                <h3>记忆系统</h3>
+                <p class="series-desc">从零构建 Agent 记忆系统的工程判断</p>
+                <ul>
+                    <li><a href="blog/memory-system-origin-story.html">AI 每次开机都是失忆的</a></li>
+                    <li><a href="blog/memory-anti-rot.html">当你的笔记开始腐烂</a></li>
+                    <li><a href="blog/ddia-meets-memory.html">用 DDIA 治你的记事本</a></li>
+                    <li><a href="blog/memory-replay.html">给老项目补记忆</a></li>
+                </ul>
+            </div>
+            <div class="series-col">
+                <h3>AI Talks</h3>
+                <p class="series-desc">和 AI 的对谈录。问一个问题，听它怎么答</p>
+                <ul>
+                    <li><a href="blog/ai-talks-01.html">AI 时代，还要不要读大部头？</a></li>
+                    <li><a href="blog/ai-talks-02.html">Prompt 是凿子，概率空间是大理石</a></li>
+                </ul>
+            </div>
+            <div class="series-col">
+                <h3>AI 协作</h3>
+                <p class="series-desc">人和 AI 怎么配合，才能超过各自单干</p>
+                <ul>
+                    <li><a href="blog/how-ai-reads-a-person.html">AI 怎么读懂一个人</a></li>
+                    <li><a href="blog/ai-agent-cognitive-scaffolding.html">给 AI 搭脚手架</a></li>
+                    <li><a href="blog/agent-deep-intervention-pkm.html">Agent 深度介入知识管理</a></li>
+                </ul>
+            </div>
+            <div class="series-col">
+                <h3>写作与表达</h3>
+                <p class="series-desc">关于写作本身的思考</p>
+                <ul>
+                    <li><a href="blog/format-as-interface.html">格式即接口</a></li>
+                    <li><a href="blog/negative-constraints-kill-voice.html">负面约束杀死声音</a></li>
+                    <li><a href="blog/famous-louisiana-chicken.html">路易斯安那炸鸡的启示</a></li>
+                </ul>
+            </div>
         </div>
+
+        <a href="blog/" class="all-link">全部文章 →</a>
 
         <hr class="divider" style="margin-top: 28px;">
 
-        <p class="recent-label">最近写的</p>
-        <ul class="recent-list">
-            <li>
-                <a href="blog/memory-replay.html">给老项目补记忆——终态重建与单一来源</a>
-                <span class="date">2026-05-03</span>
-            </li>
-            <li>
-                <a href="blog/ddia-meets-memory.html">用 DDIA 治你的记事本——当个人笔记遇上分布式系统</a>
-                <span class="date">2026-05-03</span>
-            </li>
-            <li>
-                <a href="blog/memory-anti-rot.html">当你的笔记开始腐烂——给 AI 记忆加一套免疫系统</a>
-                <span class="date">2026-05-03</span>
-            </li>
-        </ul>
-        <a href="blog/" class="all-link">全部文章 →</a>
+        <p class="recent-label">即将发布</p>
+        <div class="upcoming-pin">
+            已经想清楚、还没来得及写完的题目。<a href="blog/writing-plan.html">查看写作计划 →</a>
+        </div>
     </main>
 
     <footer>
