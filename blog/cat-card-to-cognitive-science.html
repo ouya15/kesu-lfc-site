@@ -134,6 +134,33 @@
             <p>如果那天没偶然达标拿到代金券，如果拿到券之后我选择纯水而不是"半水"，如果我没有追问"这个东西在学术上叫什么"——任何一步走岔了，后面就不会发生。</p>
             <p>我妈大概不会想到，她骑电瓶车去批发买菜的那种精打细算，最后在她儿子身上变成了一个认知科学方法论。</p>
 
+            <h2>长什么样</h2>
+            <p>说这么多，不如直接看看实际输出。下面是我拿 Kafka 随手测了一次 DKCP v2 的 Phase 1——初始化阶段产出的全景概览和知识节点表：</p>
+
+            <blockquote>
+            <p><strong>全景概览</strong></p>
+            <p>Apache Kafka 是一个分布式事件流平台，核心定位是在高吞吐、低延迟的前提下，保证消息的有序传递和可靠投递。它不是传统意义上的消息队列——RabbitMQ 解决的是"应用解耦"，Kafka 解决的是"数据流水线的骨干网"。</p>
+            <p>Kafka 的核心设计哲学是：把消息当成不可变的日志条目，追加写入，按分区排序，让消费者自己决定读到哪里。这个看似简单的决策，衍生出了它独特的存储模型、副本机制、Exactly-Once 语义、以及 Streams API 的流处理范式。</p>
+            <p>整个 Kafka 生态的核心矛盾在于：顺序与并发的张力——单分区保证顺序但限制吞吐，多分区提高吞吐但丢失全局顺序。理解这些 tradeoff 比记住配置参数重要得多。</p>
+            </blockquote>
+
+            <table>
+                <tr><th>编号</th><th>知识点</th><th>难度</th><th>核心追问方向</th></tr>
+                <tr><td>A-01</td><td>Topic / Partition / Replica 模型</td><td>入门</td><td>为什么分区是并行度单位？ISR 怎么工作？</td></tr>
+                <tr><td>A-02</td><td>Broker 协调与 Controller 选举</td><td>进阶</td><td>Controller 挂了会怎样？脑裂怎么处理？</td></tr>
+                <tr><td>B-01</td><td>Segment 文件结构与日志索引</td><td>进阶</td><td>.log + .index + .timeindex 怎么协同？</td></tr>
+                <tr><td>B-02</td><td>页缓存 + sendfile 零拷贝</td><td>深入</td><td>为什么 Kafka 不用 JVM 堆管理消息？</td></tr>
+                <tr><td>C-01</td><td>副本同步机制：ISR / UCR</td><td>深入</td><td>min.insync.replicas 怎么配才安全？</td></tr>
+                <tr><td>C-03</td><td>Exactly-Once 语义实现</td><td>深入</td><td>幂等 Producer + 事务怎么协作？</td></tr>
+                <tr><td>D-01</td><td>Consumer Group 与 Rebalance</td><td>进阶</td><td>Rebalance 风暴怎么防？</td></tr>
+                <tr><td>D-03</td><td>Kafka Streams vs KRaft 架构</td><td>深入</td><td>KRaft 去掉 ZooKeeper 后的变化？</td></tr>
+            </table>
+
+            <blockquote>
+            <p>💡 推荐路径：A-01 → C-01 → B-01 → D-01 → C-03 → ……（理解 Kafka 核心设计的依赖链，但你完全可以按兴趣跳着来）</p>
+            <p>🔍 交互：选一个编号提问 → 我深度解析 → 问你一个诊断性问题 → 邀请你用自己的话解释 → 从讨论中提取新探索点，更新节点表 → 循环</p>
+            </blockquote>
+
             <div class="back-link">
                 <a href="../index.html">← 返回首页</a>
             </div>
