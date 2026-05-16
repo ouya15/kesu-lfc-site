@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>从日记模板到 AI 工作台——一个笔记系统两个月的进化 | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article hr {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 32px 0;
+        }
+        article ul { margin: 0 0 16px 0; padding-left: 1.5em; }
+        article li { margin-bottom: 6px; }
+        article a { color: #555; text-decoration: underline; text-decoration-color: #bbb; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.2s, text-decoration-color 0.2s; }
+        article a:hover { color: #1a1a1a; text-decoration-color: #555; }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ebebeb; }
+        .back-link a { color: #888; text-decoration: none; }
+        .back-link a:hover { color: #1a1a1a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html"><span class="site-name">阿克苏红苹果</span></a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">文章列表</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>从日记模板到 AI 工作台——一个笔记系统两个月的进化</h1>
+            <div class="meta">2026-05-17 · 标签: AI Agent, 知识管理, 人机协作</div>
+
+            <blockquote>
+                <p>两个月前我有一个 Obsidian 日记模板。现在我有一个 AI 能主动给我建议、帮我整理想法、替我记住跨项目状态的工作台。中间发生了什么，大部分不是计划出来的。</p>
+            </blockquote>
+
+            <h2>起点：一张每日任务清单</h2>
+
+            <p>三月中旬，我在 Obsidian 里建了一个日记模板。结构非常经典——收集箱、今日必做（最多 3 件）、这几天要做、以后可能做。每天早上打开，把任务从上往下排，完成了打勾。</p>
+
+            <p>这就是 GTD 最朴素的形态。跟十年前用 Todoist、跟二十年前用纸笔本质上没区别。</p>
+
+            <p>唯一的改进是用了 markdown——因为我的日常工作已经在 IDE 里，Obsidian 反而是个多余的窗口。所以很快 Obsidian 本身被抛弃了，但 markdown 日记文件的习惯留了下来。</p>
+
+            <h2>第一次跳跃：让 AI 来理解日记</h2>
+
+            <p>第七天，我给这个系统接入了 AI。不是"用 AI 写日记"，是让 AI 理解日记里写的东西。</p>
+
+            <p>最初的做法很蠢——写了 200 多行 Python 正则去解析日记文件，提取任务状态、识别碎碎念、判断哪些该转移到第二天。</p>
+
+            <p>然后意识到：AI 本来就能读懂自然语言，为什么要用正则？</p>
+
+            <p>删掉了全部正则逻辑。改成：AI 直接读昨天的日记文件，理解每条内容的语义（这是任务还是想法？完成了还是在做？），然后用精确替换写入今天的文件。</p>
+
+            <p>这个决策后来被提炼成一条设计原则：<strong>AI 做语义理解，脚本做确定性操作</strong>。正则脆弱、易错、难维护；AI 理解语义天然鲁棒。这条原则贯穿了后续所有的迭代。</p>
+
+            <h2>碎碎念不是任务</h2>
+
+            <p>日记用了一周后，出现了一个品类问题。</p>
+
+            <p>我在日记里不只写任务。经常写一些随手冒出来的想法——"这个设计有没有可能用在别的地方"、"昨天那个对话让我想到了什么"、"某本书的某个概念好像和我现在做的事有关"。</p>
+
+            <p>这些不是任务。不能排优先级，不能打勾完成，不能转移到第二天。但它们有价值——有时候比任务更有价值。</p>
+
+            <p>于是碎碎念有了自己的区域。它不跨日转移（想法是长期积累的，不是每天的 todo），而是定期被 AI 整理、归档到一个独立的沉淀区。轻量的结论留在 backlog 的内联备注里，深度的私人思考写进一个叫"murmur"的目录，可以通用化的认知收获写成独立的洞察文档。</p>
+
+            <p>后来我加了一个触发词：<code>@ai</code>。在碎碎念末尾标注 <code>@ai</code>，意思是"这条值得讨论"。AI 在次日开工时自动识别，主动发起追问。</p>
+
+            <p>这个机制回头看是一个关键转折——<strong>从"AI 帮我完成任务"变成了"AI 帮我展开思考"</strong>。</p>
+
+            <h2>三天一个 Sprint</h2>
+
+            <p>一个月后，我发现自己经常在日记里忙了一天，但回头看不出这些事指向什么方向。</p>
+
+            <p>AI 时代的节奏太快了。你可以随时让 AI 帮你调研任何方向，于是"什么都可以做"变成一种幻觉。传统 GTD 的周回顾频率太低——到第四天目标可能已经过时了。</p>
+
+            <p>于是在 backlog 里加了 Sprint 区域。3 天一个周期，强制选 1-2 个核心目标。每日开工时 AI 自动检查：Sprint 剩余天数、目标进度、今天的主题是否和目标对齐。偏离了会提醒，但不会阻止——个人工作中突发事务不可预测，完全排他会产生焦虑。</p>
+
+            <p>为什么是 3 天？1 天太短，深度思考至少要 2 天才有成果；1 周太长，到第四天环境可能已经变了。3 天是"保持聚焦"和"留出缓冲"之间的折中。</p>
+
+            <h2>多个 AI 共享一个大脑</h2>
+
+            <p>另一个问题是多端。我有几个不同的 AI agent 分别跑在不同的设备和场景下。它们各自和我对话，各自积累了对我的理解——但互相不知道对方知道什么。</p>
+
+            <p>解决方案是建了一个共享知识库：收集箱、联系人、待办、当前上下文。任何 agent 写入时必须标注身份和时间戳，写入前去重检查，还有审计日志记录每次操作。</p>
+
+            <p>这看起来像个分布式系统问题——因为它就是。多个进程共享一份状态，需要解决写入冲突和一致性。只不过规模小到可以用文件系统而不是数据库来实现。</p>
+
+            <h2>AI 开始给我建议</h2>
+
+            <p>系统跑了一个半月后，记忆基础设施已经相当完整——每个项目有独立的上下文快照、交接文档、经验库。全局层有跨项目状态、用户偏好。</p>
+
+            <p>这时候一个自然的想法冒出来：<strong>AI 能不能在我每天开工时，读完所有这些记忆，给我一份建议稿？</strong></p>
+
+            <p>于是有了 Smart Daily Note。AI 开工时读取全局记忆、各项目的交接状态、未消化的信息、当前 Sprint 目标，然后生成两类建议：建议今天做什么（收件箱条目），建议今天的主题是什么（深度工作方向）。</p>
+
+            <p>关键设计：建议直接写入日记文件，不在聊天窗口输出。因为日记才是我的操作台面——建议写进去才能被"挑选"，在聊天窗口里飞过的东西只会被遗忘。</p>
+
+            <p>而且建议区是临时的——我挑完就删。它是过程产物，不是记录。</p>
+
+            <p>更进一步：AI 静默记录我对每条建议的接受/拒绝模式。积累足够多后，自动提炼成偏好规则。建议质量随使用时间递增，而不是永远靠同一套启发式。</p>
+
+            <h2>文档变成了交互界面</h2>
+
+            <p>最后一个跳跃发生在五月初。</p>
+
+            <p>我在用 AI 生成的一份简报上直接做了批注——在每个章节末尾用 <code>@ai</code> 标记写了意见和补充，然后让 AI 统一处理。</p>
+
+            <p>这个动作看起来很小，但它改变了一个根本假设：<strong>文档不再是 AI 的产出物，而是人和 AI 的共同工作界面。</strong></p>
+
+            <p>传统模式是：人在聊天窗口提需求 → AI 输出结果到文件 → 人查看文件。文件是终点。</p>
+
+            <p>新模式是：AI 在文件里铺设内容 → 人在文件上做批注 → AI 读取批注、更新文件 → 循环。文件是中间态，是协作发生的地方。</p>
+
+            <p>后来这个模式被降维为一个极简设计——"格式化草稿箱"。一个 markdown 文件，AI 分区写入内容，每个区块留 <code>@ai</code> 行给人批注。用完即弃，不做版本管理。它解决的核心问题是：聊天窗口只有一个输入框，而人经常需要对 AI 的多个产出块做平行批注。</p>
+
+            <h2>回头看</h2>
+
+            <p>两个月。从 Obsidian 日记模板到 AI 工作台。</p>
+
+            <p>中间的每一步都不是提前计划的。每次改变都来自同一个触发：<strong>用了一阵子，发现哪里不顺，然后想办法解决</strong>。碎碎念没地方放 → 碎碎念系统。方向感丢失 → Sprint。多设备记忆割裂 → 共享知识库。开工不知道干什么 → Smart Daily Note。聊天窗口不够用 → 文档即界面。</p>
+
+            <p>没有路线图。路线图是走出来之后回头画的。</p>
+
+            <p>但有一条暗线贯穿始终：<strong>AI 的角色一直在变</strong>。从"帮我执行任务"→"帮我理解日记"→"帮我展开思考"→"帮我记住全局"→"帮我规划每一天"→"和我在同一份文档上协作"。</p>
+
+            <p>每一次角色升级，都不是因为 AI 变聪明了（两个月内模型没怎么变），而是因为我给了它更多的上下文。记忆系统、经验库、项目交接文档、用户偏好——这些基础设施让 AI 从一个无状态的工具变成了一个有记忆的协作者。</p>
+
+            <p>笔记系统 AI 化的关键，不在于"用 AI 写笔记"。在于<strong>让 AI 理解你的笔记、记住你的笔记、基于你的笔记给出判断</strong>。</p>
+
+            <p>这件事的前提是：你的笔记得先存在，而且结构化到 AI 能读懂的程度。markdown 天然就是这个格式。</p>
+
+            <div class="back-link">
+                <a href="./">← 返回文章列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
