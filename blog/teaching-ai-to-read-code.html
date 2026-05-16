@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教 AI "读"代码——从扫一眼到真的懂 | 阿克苏红苹果</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        article { padding: 40px 0; }
+        article h1 { font-size: 2rem; margin-bottom: 8px; }
+        article .meta { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+        article h2 { font-size: 1.4rem; margin-top: 40px; margin-bottom: 12px; }
+        article p { margin-bottom: 16px; }
+        article blockquote {
+            border-left: 3px solid #ddd;
+            margin: 16px 0;
+            padding: 8px 16px;
+            color: #555;
+        }
+        article code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        article hr {
+            border: none;
+            border-top: 1px solid #ebebeb;
+            margin: 32px 0;
+        }
+        article ul { margin: 0 0 16px 0; padding-left: 1.5em; }
+        article li { margin-bottom: 6px; }
+        article a { color: #555; text-decoration: underline; text-decoration-color: #bbb; text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color 0.2s, text-decoration-color 0.2s; }
+        article a:hover { color: #1a1a1a; text-decoration-color: #555; }
+        .back-link { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ebebeb; }
+        .back-link a { color: #888; text-decoration: none; }
+        .back-link a:hover { color: #1a1a1a; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html"><span class="site-name">阿克苏红苹果</span></a></h1>
+            <nav>
+                <a href="../index.html">首页</a>
+                <a href="../about.html">关于</a>
+                <a href="./">文章列表</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <h1>教 AI "读"代码——从扫一眼到真的懂</h1>
+            <div class="meta">2026-05-17 · 标签: AI Agent, 工程实践, 人机协作</div>
+
+            <blockquote>
+                <p>Agent 说"我已经读完了这个代码库"。你问它核心模块之间的调用关系，它说不出来。那它读的是什么？</p>
+            </blockquote>
+
+            <h2>"读了"不等于"懂了"</h2>
+
+            <p>Agent 通读代码的默认行为大概是这样的：读 README，扫一眼目录结构，打开几个"看起来重要"的文件，然后说"这个项目的架构是这样的……"</p>
+
+            <p>听起来像某种人类行为：拿到一本书，翻翻目录，读了序言和第一章，就在读书笔记里写"已读"。</p>
+
+            <p>这不是读。这是 glance。</p>
+
+            <p>真正的"读懂"是什么样的？一个新人加入团队，跟一个资深工程师坐了两周，听他讲每个模块为什么是这样的、历史上踩过什么坑、哪些设计决策看起来奇怪但有充分理由、哪些是真正的技术债。两周后新人可以独立接手。</p>
+
+            <p>AI 能不能做到这件事？能。但你得教它一套方法论。</p>
+
+            <h2>边读边写</h2>
+
+            <p>方法论的第一条铁律，也是 Agent 最容易违反的：<strong>读一个模块，写一篇笔记，然后再读下一个。</strong></p>
+
+            <p>这条规则是被失败教出来的。</p>
+
+            <p>早期的做法是：让 Agent 先读完所有核心模块，建立全局理解，最后统一输出。听起来合理——先理解全局再写，产出质量应该更高。</p>
+
+            <p>实际发生的：Agent 读了 10 个模块，上下文窗口快满了。它不得不在输出时压缩——10 个模块的深度理解被压成 3 篇概述。信息丢失是灾难性的。不是"少了些细节"，是"关键设计决策被略过"。</p>
+
+            <p>为什么 Agent 总是犯这个错？三个原因：</p>
+
+            <ul>
+                <li>"先全部理解再输出"是直觉——但上下文窗口有限，理解不能无限积累</li>
+                <li>想通过合并来提效——但合并等于信息丢失，10 篇独立笔记的信息量远超 3 篇合并版</li>
+                <li>没有及时存盘到文件系统——脑子里的理解不写到磁盘就等于不存在</li>
+            </ul>
+
+            <p>所以铁律是：读一个，写一个，存盘，压缩上下文，再读下一个。笨办法。但有效。</p>
+
+            <h2>不是每个代码库都值得深读</h2>
+
+            <p>方法论的第二条：<strong>读之前先评估。</strong></p>
+
+            <p>我们叫它策略评估。三层漏斗：</p>
+
+            <p>第一层看代码库性质。源码、反编译产物、构建产物、fork——性质不同，可读信号差异巨大。反编译的 Java bytecode 没有注释和 git 历史，但有完整的类型信息和方法签名。构建产物（打包后的 JS）几乎不可读。不是所有代码都有"读"的价值。</p>
+
+            <p>第二层看信号质量。命名规范吗？有注释吗？git 历史丰富吗？配置文件完整吗？已有的文档靠谱吗？综合评级高中低。</p>
+
+            <p>第三层做模块分拣。结合研究目标，每个模块标三个级别：核心（必须深读）、上下文（了解即可）、跳过。不做这一步，Agent 会平均分配注意力——在无关模块上花和核心模块一样多的时间。</p>
+
+            <p>做完策略评估，可能的结论是：这个库信号质量太低，深读不值得，做个骨架扫描就行。这种"不读"的决定和"读"一样有价值——它省下的时间可以用在更有价值的地方。</p>
+
+            <h2>六个维度</h2>
+
+            <p>确认要读之后，不是直接打开代码从头看到尾。完整的通读有六个维度：</p>
+
+            <p><strong>代码全景</strong>——用 <code>find</code> 和 <code>wc</code> 画出代码量分布、模块边界、热区在哪。这一步花 10 分钟，能省 2 小时。</p>
+
+            <p><strong>文档金矿</strong>——README、设计文档、内联注释。很多关键决策不在代码里，在文档里。但文档也会骗你——所以最终需要交叉验证。</p>
+
+            <p><strong>commit 历史回放</strong>——如果有 git 历史，<code>git log</code> 是最被低估的信号源。代码告诉你"是什么"，commit 历史告诉你"为什么变成这样"。关键演进节点往往藏在 merge commit 和大重构里。</p>
+
+            <p><strong>配置全景</strong>——配置文件是架构的投影。环境差异、开关体系、默认值——这些比代码更能暴露系统的运行时行为。</p>
+
+            <p><strong>深度代码阅读</strong>——按策略分拣后，核心模块逐行读，理解核心逻辑和设计模式。</p>
+
+            <p><strong>运行时探测</strong>——如果条件允许，跑起来看。日志、调试断点、实际行为。代码说它做 X，运行时可能做的是 Y。</p>
+
+            <p>六个维度不是必须都做。反编译产物没有 git 历史，那第三维度跳过。前端构建产物不可读，那只看配置和文档。方法论是框架，不是清单。</p>
+
+            <h2>数字化的师徒传承</h2>
+
+            <p>通读的产出叫 forge——不是 javadoc，不是 API 文档，不是注释。</p>
+
+            <p>forge 是一个真正理解过这套系统的人写给下一个接手者的笔记。它记录的是：这个模块为什么是这样的、历史上经历了什么变化、哪些设计看起来奇怪但有理由、哪些是真的有问题。</p>
+
+            <p>目标很简单：一个新 Agent 加载这份笔记后，应该能在几分钟内成为这个代码库的专家——不是"知道文件在哪"的那种专家，是"理解为什么这样设计"的那种。</p>
+
+            <h2>两个实验</h2>
+
+            <p>这套方法论在两个截然不同的代码库上做了实战验证。</p>
+
+            <p>第一个是一个 Agent CLI 工具的源码——从 npm source map 反向还原的 TypeScript 代码。有完整的类型信息、清晰的模块结构，但没有注释和 git 历史。策略评级"中偏高"。8 个核心模块全部深读完成，最终产出让任何新 Agent 都能理解这个系统的 ReAct 循环、工具执行、权限模型和上下文管理。</p>
+
+            <p>第二个是一个企业级 IDE 插件——从 Java bytecode 反编译的 1783 个 class 文件。没有注释、没有 git 历史、有三方 jar 依赖不可读。策略评级"中"，采用聚焦模式——只深读和 Agent 架构直接相关的 7 个核心模块，跳过 UI 和辅助模块。</p>
+
+            <p>同一套方法论，信号质量差异巨大的两个场景，都能产出有价值的知识资产。差别在于策略的调整，不在于方法论本身。</p>
+
+            <h2>结论</h2>
+
+            <p>教 AI 读代码，本质上是把"师傅带徒弟"这件事工程化。</p>
+
+            <p>不是给它一行指令"请通读这个代码库"——那和"请读完这本书"一样空泛。是给它一套判断框架：先评估值不值得读，然后决定怎么读，一个模块一个模块地读、写、存盘，最后产出一份任何人（或任何 Agent）都能用的知识资产。</p>
+
+            <p>这套方法论最反直觉的地方在于"边读边写"——它看起来很慢、很笨、很不"AI"。但上下文窗口是硬约束。在这个约束下，"读一个写一个"不是权宜之计，是唯一可靠的策略。</p>
+
+            <p>任何试图"先全部理解再统一输出"的 Agent，最终都会在上下文压力下妥协——而妥协的代价是信息丢失。</p>
+
+            <div class="back-link">
+                <a href="./">← 返回文章列表</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 阿克苏红苹果. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
