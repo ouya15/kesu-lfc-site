@@ -1,6 +1,6 @@
 ---
 title: "从薅代金券到认知科学——要你命三千的诞生"
-short_title: "从薅代金券到认知科学"
+short_title: ""
 date: 2026-05-06
 number: "07"
 categories:

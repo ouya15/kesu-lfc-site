@@ -42,19 +42,17 @@
         </style>
 
         <div class="tag-filter">
-            <button class="tag-btn active" data-tag="all">全部</button>
-            <button class="tag-btn" data-tag="AI 认知">AI 认知</button>
-            <button class="tag-btn" data-tag="AI Agent">AI Agent</button>
-            <button class="tag-btn" data-tag="写作规范">写作规范</button>
-            <button class="tag-btn" data-tag="人机协作">人机协作</button>
-            <button class="tag-btn" data-tag="知识管理">知识管理</button>
-            <button class="tag-btn" data-tag="AI Talks">AI Talks</button>
+            <button class="tag-btn active" data-category="all">全部</button>
+            <button class="tag-btn" data-category="AI Talks">AI Talks</button>
+            <button class="tag-btn" data-category="记忆系统">记忆系统</button>
+            <button class="tag-btn" data-category="工程实践">工程实践</button>
+            <button class="tag-btn" data-category="写作与表达">写作与表达</button>
         </div>
 
-        <p class="section-label">AI Talks</p>
-        <p class="section-desc">和 AI 的对谈录。问一个问题，然后听它怎么答，再记下自己的批注。</p>
+        <p class="section-label" id="ai-talks">AI Talks</p>
+        <p class="section-desc" id="ai-talks-desc">和 AI 的对谈录。问一个问题，然后听它怎么答，再记下自己的批注。</p>
         <ul class="article-list" id="article-list">
-            <li data-tags="AI 认知,AI Talks,Prompt Engineering">
+            <li data-category="AI Talks">
                 <div class="article-meta">
                     <a href="ai-talks-02.html"><span class="article-no">T02</span> Prompt 是凿子，概率空间是大理石——资深程序员如何驾驭 AI</a>
                     <p class="article-excerpt">礼貌的提问得到礼貌的回答，adversarial 的提问得到深刻的回答。</p>
@@ -66,7 +64,7 @@
                 </div>
                 <span class="date">2026-05-02</span>
             </li>
-            <li data-tags="AI 认知,AI Talks,学习方法论">
+            <li data-category="AI Talks">
                 <div class="article-meta">
                     <a href="ai-talks-01.html"><span class="article-no">T01</span> AI 时代，我们还要不要读大部头？</a>
                     <p class="article-excerpt">AI 是杠杆，知识储备是支点。支点越坚实，杠杆撬动的力量就越大。</p>
@@ -78,11 +76,12 @@
                 </div>
                 <span class="date">2026-04-30</span>
             </li>
+        </ul>
 
-            <p class="section-label">记忆系统</p>
-            <p class="section-desc">当 AI 的记忆是你的问题——从零构建 Agent 记忆系统的工程判断。</p>
-
-            <li data-tags="AI Agent,知识管理,工程实践">
+        <p class="section-label" id="memory-system">记忆系统</p>
+        <p class="section-desc" id="memory-system-desc">当 AI 的记忆是你的问题——从零构建 Agent 记忆系统的工程判断。</p>
+        <ul class="article-list">
+            <li data-category="记忆系统">
                 <div class="article-meta">
                     <a href="memory-on-demand-loading-failure.html"><span class="article-no">M06</span> 按需加载为什么失败了——AI 自律是个伪命题</a>
                     <p class="article-excerpt">你设计的渐进式披露，对人有效，对 AI 无效。不是 AI 不够聪明——是你把判断的责任放在了错误的位置。</p>
@@ -94,7 +93,7 @@
                 </div>
                 <span class="date">2026-05-17</span>
             </li>
-            <li data-tags="AI Agent,知识管理,工程实践">
+            <li data-category="记忆系统">
                 <div class="article-meta">
                     <a href="memory-consistency-audit.html"><span class="article-no">M05</span> 给记忆系统做体检——第一个病人是自己</a>
                     <p class="article-excerpt">防腐机制是免疫系统，巡检是体检。设计完巡检机制后对自己跑了一遍，发现 12 项不一致。</p>
@@ -106,7 +105,7 @@
                 </div>
                 <span class="date">2026-05-04</span>
             </li>
-            <li data-tags="AI Agent,知识管理,工程实践">
+            <li data-category="记忆系统">
                 <div class="article-meta">
                     <a href="memory-replay.html"><span class="article-no">M04</span> 给老项目补记忆——终态重建与单一来源</a>
                     <p class="article-excerpt">不重放过程，只萃取结果。历史完整性由 insights 和 git log 承担，记忆承担的是"快速恢复上下文"。</p>
@@ -118,7 +117,7 @@
                 </div>
                 <span class="date">2026-05-03</span>
             </li>
-            <li data-tags="AI Agent,分布式系统,知识管理">
+            <li data-category="记忆系统">
                 <div class="article-meta">
                     <a href="ddia-meets-memory.html"><span class="article-no">M03</span> 用 DDIA 治你的记事本——当个人笔记遇上分布式系统</a>
                     <p class="article-excerpt">分布式系统的教科书，讲的是几百台服务器之间怎么协调。个人笔记系统，是三五个 AI 进程之间怎么协调。规模差了几个数量级，但问题的结构是一样的。</p>
@@ -130,7 +129,7 @@
                 </div>
                 <span class="date">2026-05-03</span>
             </li>
-            <li data-tags="AI Agent,人机协作,知识管理">
+            <li data-category="记忆系统">
                 <div class="article-meta">
                     <a href="memory-anti-rot.html"><span class="article-no">M02</span> 当你的笔记开始腐烂——给 AI 记忆加一套免疫系统</a>
                     <p class="article-excerpt">过时的文档比没有文档更危险。AI 天然信任文档胜过代码——当文档过时的时候，这个信任就变成了陷阱。</p>
@@ -142,7 +141,7 @@
                 </div>
                 <span class="date">2026-05-03</span>
             </li>
-            <li data-tags="AI Agent,人机协作,知识管理">
+            <li data-category="记忆系统">
                 <div class="article-meta">
                     <a href="memory-system-origin-story.html"><span class="article-no">M01</span> AI 每次开机都是失忆的——从一个痛点到一套记忆系统</a>
                     <p class="article-excerpt">没有人在第一步就设计出最终方案。每一步都是上一步暴露的问题逼出来的。</p>
@@ -154,11 +153,12 @@
                 </div>
                 <span class="date">2026-05-03</span>
             </li>
+        </ul>
 
-            <p class="section-label">工程实践</p>
-            <p class="section-desc">在具体的工程问题里做出的判断和取舍。</p>
-
-            <li data-tags="AI Agent,知识管理,人机协作">
+        <p class="section-label" id="engineering">工程实践</p>
+        <p class="section-desc" id="engineering-desc">在具体的工程问题里做出的判断和取舍。</p>
+        <ul class="article-list">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="obp-evolution-notes-to-ai-native.html"><span class="article-no">10</span> 从日记模板到 AI 工作台——一个笔记系统两个月的进化</a>
                     <p class="article-excerpt">两个月前我有一个 Obsidian 日记模板。现在我有一个 AI 能主动给我建议、帮我整理想法、替我记住跨项目状态的工作台。</p>
@@ -170,7 +170,7 @@
                 </div>
                 <span class="date">2026-05-17</span>
             </li>
-            <li data-tags="AI Agent,工程实践,人机协作">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="teaching-ai-to-read-code.html"><span class="article-no">09</span> 教 AI "读"代码——从扫一眼到真的懂</a>
                     <p class="article-excerpt">Agent 说"我已经读完了这个代码库"。你问它核心模块之间的调用关系，它说不出来。那它读的是什么？</p>
@@ -182,7 +182,7 @@
                 </div>
                 <span class="date">2026-05-17</span>
             </li>
-            <li data-tags="AI Agent,人机协作">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="dont-teach-model-to-think.html"><span class="article-no">08</span> 别教模型做事——当脚手架变成栅栏</a>
                     <p class="article-excerpt">你花两天写了一套"教 AI 如何追问"的框架。然后发现 AI 本来就会追问——而且比你教的好。</p>
@@ -193,7 +193,7 @@
                 </div>
                 <span class="date">2026-05-17</span>
             </li>
-            <li data-tags="AI 协作,学习方法论,概念迁移">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="cat-card-to-cognitive-science.html"><span class="article-no">07</span> 从薅代金券到认知科学——要你命三千的诞生</a>
                     <p class="article-excerpt">为了 20 元代金券凑轮次，发明了 keyword list 循环，后来发现这是 DKCP，再后来把五种学习方法一锅炖了。</p>
@@ -205,7 +205,7 @@
                 </div>
                 <span class="date">2026-05-06</span>
             </li>
-            <li data-tags="写作规范,AI 认知,人机协作">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="negative-constraints-kill-voice.html"><span class="article-no">06</span> 当写作规范变成体检报告——规则越多，文章越无聊</a>
                     <p class="article-excerpt">规范越写越完善，文章越来越无聊。12 条"不要"全遵守了，AI 被整无语了。</p>
@@ -217,7 +217,7 @@
                 </div>
                 <span class="date">2026-04-28</span>
             </li>
-            <li data-tags="AI Agent,人机协作,知识管理">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="agent-deep-intervention-pkm.html"><span class="article-no">05</span> 把 GTD 外包给 Agent——那些靠纪律撑着的环节，它全包了</a>
                     <p class="article-excerpt">GTD 的理念没问题，问题一直出在"整理"和"回顾"——这两步全靠人的纪律。现在不用了。</p>
@@ -229,7 +229,7 @@
                 </div>
                 <span class="date">2026-04-28</span>
             </li>
-            <li data-tags="AI 协作,人机协作">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="format-as-interface.html"><span class="article-no">04</span> 不写规则，只定格式——让 AI 当裁判，不当学生</a>
                     <p class="article-excerpt">教 AI 遵守规则，不如给它一个它无法误解的格式。规则会被曲解，格式不会。</p>
@@ -240,7 +240,7 @@
                 </div>
                 <span class="date">2026-04-26</span>
             </li>
-            <li data-tags="AI 认知,人机协作">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="how-ai-reads-a-person.html"><span class="article-no">03</span> AI 是如何读懂一个人的——以及它看不见什么</a>
                     <p class="article-excerpt">AI 能从你的表达里读出模式和气质。但模式背后的来历，它只能猜。</p>
@@ -251,7 +251,7 @@
                 </div>
                 <span class="date">2026-04-26</span>
             </li>
-            <li data-tags="AI Agent,人机协作">
+            <li data-category="工程实践">
                 <div class="article-meta">
                     <a href="ai-agent-cognitive-scaffolding.html"><span class="article-no">02</span> 当 AI 修了三遍还没修好——问题不在代码，在认知</a>
                     <p class="article-excerpt">AI 能修 bug，但它不知道自己为什么会犯这个错。这个差距，比 bug 本身更难修。</p>
@@ -262,7 +262,12 @@
                 </div>
                 <span class="date">2026-04-26</span>
             </li>
-            <li data-tags="写作规范,AI 认知">
+        </ul>
+
+        <p class="section-label" id="writing">写作与表达</p>
+        <p class="section-desc" id="writing-desc">关于写作本身的思考。</p>
+        <ul class="article-list">
+            <li data-category="写作与表达">
                 <div class="article-meta">
                     <a href="famous-louisiana-chicken.html"><span class="article-no">01</span> 不要 Famous Louisiana Chicken——用一个梗驯服 AI 的自夸</a>
                     <div class="article-tags">
@@ -277,24 +282,39 @@
 
     <script>
         const buttons = document.querySelectorAll('.tag-btn');
-        const items = document.querySelectorAll('#article-list li');
+        const items = document.querySelectorAll('.article-list li');
+        const sections = document.querySelectorAll('.section-label, .section-desc');
+
+        function applyFilter(category) {
+            buttons.forEach(b => b.classList.remove('active'));
+            const target = [...buttons].find(b => b.dataset.category === category) || buttons[0];
+            target.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all') {
+                    item.style.display = '';
+                } else {
+                    item.style.display = item.dataset.category === category ? '' : 'none';
+                }
+            });
+
+            sections.forEach(sec => {
+                sec.style.display = category === 'all' ? '' : 'none';
+            });
+        }
 
         buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                buttons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const selectedTag = btn.dataset.tag;
-                items.forEach(item => {
-                    if (selectedTag === 'all') {
-                        item.style.display = '';
-                    } else {
-                        const tags = item.dataset.tags.split(',');
-                        item.style.display = tags.includes(selectedTag) ? '' : 'none';
-                    }
-                });
-            });
+            btn.addEventListener('click', () => applyFilter(btn.dataset.category));
         });
+
+        const hashMap = {
+            'ai-talks': 'AI Talks',
+            'memory-system': '记忆系统',
+            'engineering': '工程实践',
+            'writing': '写作与表达'
+        };
+        const hash = window.location.hash.slice(1);
+        if (hashMap[hash]) applyFilter(hashMap[hash]);
     </script>
 
     <footer>

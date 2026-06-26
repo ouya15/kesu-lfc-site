@@ -1,6 +1,6 @@
 ---
 title: "不要 Famous Louisiana Chicken——用一个梗驯服 AI 的自夸"
-short_title: "不要 Famous Louisiana Chicken"
+short_title: "著名的路易斯安那炸鸡"
 date: 2026-04-23
 number: "01"
 categories:

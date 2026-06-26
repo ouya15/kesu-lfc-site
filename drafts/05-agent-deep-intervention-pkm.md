@@ -1,6 +1,6 @@
 ---
 title: "把 GTD 外包给 Agent——那些靠纪律撑着的环节，它全包了"
-short_title: "把 GTD 外包给 Agent"
+short_title: "Agent 深度介入知识管理"
 date: 2026-04-28
 number: "05"
 categories:

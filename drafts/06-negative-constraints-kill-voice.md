@@ -1,6 +1,6 @@
 ---
 title: "当写作规范变成体检报告——规则越多，文章越无聊"
-short_title: "当写作规范变成体检报告"
+short_title: "负面约束杀死声音"
 date: 2026-04-28
 number: "06"
 categories:

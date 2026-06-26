@@ -1,6 +1,6 @@
 ---
 title: '教 AI "读"代码——从扫一眼到真的懂'
-short_title: '教 AI "读"代码'
+short_title: ""
 date: 2026-05-17
 number: "09"
 categories:

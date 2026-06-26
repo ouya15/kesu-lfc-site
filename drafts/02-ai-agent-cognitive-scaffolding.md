@@ -1,6 +1,6 @@
 ---
 title: "当 AI 修了三遍还没修好——问题不在代码，在认知"
-short_title: "当 AI 修了三遍还没修好"
+short_title: "给 AI 搭脚手架"
 date: 2026-04-26
 number: "02"
 categories:

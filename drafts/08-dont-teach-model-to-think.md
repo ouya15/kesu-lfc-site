@@ -1,6 +1,6 @@
 ---
 title: "别教模型做事——当脚手架变成栅栏"
-short_title: "别教模型做事"
+short_title: ""
 date: 2026-05-17
 number: "08"
 categories:
