@@ -1,3 +1,6 @@
+# VSCode local history
+.history/
+
 # IntelliJ IDEA
 .idea/
 
