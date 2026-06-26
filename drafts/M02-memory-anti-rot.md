@@ -1,5 +1,6 @@
 ---
 title: "当你的笔记开始腐烂——给 AI 记忆加一套免疫系统"
+short_title: "当你的笔记开始腐烂"
 date: 2026-05-03
 number: "M02"
 categories:

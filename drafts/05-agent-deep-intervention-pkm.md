@@ -1,5 +1,6 @@
 ---
 title: "把 GTD 外包给 Agent——那些靠纪律撑着的环节，它全包了"
+short_title: "把 GTD 外包给 Agent"
 date: 2026-04-28
 number: "05"
 categories:

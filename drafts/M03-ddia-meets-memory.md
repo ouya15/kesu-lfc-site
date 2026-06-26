@@ -1,5 +1,6 @@
 ---
 title: "用 DDIA 治你的记事本——当个人笔记遇上分布式系统"
+short_title: "用 DDIA 治你的记事本"
 date: 2026-05-03
 number: "M03"
 categories:

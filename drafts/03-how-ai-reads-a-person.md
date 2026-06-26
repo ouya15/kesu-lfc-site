@@ -1,5 +1,6 @@
 ---
 title: "AI 是如何读懂一个人的——以及它看不见什么"
+short_title: "AI 是如何读懂一个人的"
 date: 2026-04-26
 number: "03"
 categories:

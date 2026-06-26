@@ -1,5 +1,6 @@
 ---
 title: "AI 时代，我们还要不要读大部头？"
+short_title: "AI 时代，我们还要不要读大部头？"
 date: 2026-04-30
 number: "T01"
 categories:

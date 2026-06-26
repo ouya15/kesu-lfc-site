@@ -1,5 +1,6 @@
 ---
 title: "从日记模板到 AI 工作台——一个笔记系统两个月的进化"
+short_title: "从日记模板到 AI 工作台"
 date: 2026-05-17
 number: "10"
 categories:

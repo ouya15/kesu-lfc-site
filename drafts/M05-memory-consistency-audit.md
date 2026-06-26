@@ -1,5 +1,6 @@
 ---
 title: "给记忆系统做体检——第一个病人是自己"
+short_title: "给记忆系统做体检"
 date: 2026-05-04
 number: "M05"
 categories:

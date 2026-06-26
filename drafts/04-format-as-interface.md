@@ -1,5 +1,6 @@
 ---
 title: "不写规则，只定格式——让 AI 当裁判，不当学生"
+short_title: "不写规则，只定格式"
 date: 2026-04-26
 number: "04"
 categories:

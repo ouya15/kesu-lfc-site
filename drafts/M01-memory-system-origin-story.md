@@ -1,5 +1,6 @@
 ---
 title: "AI 每次开机都是失忆的——从一个痛点到一套记忆系统"
+short_title: "AI 每次开机都是失忆的"
 date: 2026-05-03
 number: "M01"
 categories:

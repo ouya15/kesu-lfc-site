@@ -1,5 +1,6 @@
 ---
 title: "按需加载为什么失败了——AI 自律是个伪命题"
+short_title: "按需加载为什么失败了"
 date: 2026-05-17
 number: "M06"
 categories:

@@ -1,5 +1,6 @@
 ---
 title: "给老项目补记忆——终态重建与单一来源"
+short_title: "给老项目补记忆"
 date: 2026-05-03
 number: "M04"
 categories:

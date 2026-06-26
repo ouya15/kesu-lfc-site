@@ -1,5 +1,6 @@
 ---
 title: "Prompt 是凿子，概率空间是大理石——资深程序员如何驾驭 AI"
+short_title: "Prompt 是凿子，概率空间是大理石"
 date: 2026-05-02
 number: "T02"
 categories:
