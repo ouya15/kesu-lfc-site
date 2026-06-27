@@ -165,7 +165,7 @@ def calc_mean(data: List[float]) -> float:
 
  
  
- 我在自己的 AI Skill 工程化体系里其实已经在做类似的事——给 AI 写 SKILL.md 就是给它一份"风格指南 Prompt"。从这个角度看，[《不写规则，只定格式》](format-as-interface.html)那篇文章讨论的"格式即接口"，和这里的 ADR、风格指南 Prompt 是同一个思路的不同表达。
+ 我在自己的 AI Skill 工程化体系里其实已经在做类似的事——给 AI 写 SKILL.md 就是给它一份"风格指南 Prompt"。从这个角度看，[《不要 Famous Louisiana Chicken》](famous-louisiana-chicken.html)那篇文章讨论的"画面传递判断力"，和这里的 ADR、风格指南 Prompt 是同一个思路的不同表达。
 
  
  

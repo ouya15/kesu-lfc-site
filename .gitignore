@@ -6,3 +6,6 @@
 
 # macOS
 .DS_Store
+
+# 垃圾箱（已撤稿文章原文）
+_trash/
