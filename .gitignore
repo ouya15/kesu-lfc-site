@@ -1,0 +1,11 @@
+# VSCode local history
+.history/
+
+# IntelliJ IDEA
+.idea/
+
+# macOS
+.DS_Store
+
+# 垃圾箱（已撤稿文章原文）
+_trash/
