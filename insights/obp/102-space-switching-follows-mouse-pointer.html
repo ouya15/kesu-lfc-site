@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>102 「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon） | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
+<style>
+@import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root{
+  --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7;
+  --serif:'Noto Serif SC','Songti SC',serif;
+  --sans:'Noto Sans SC','PingFang SC',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.7;
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(194,55,43,.07), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(194,55,43,.045), transparent 55%),
+    var(--paper);
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(28,26,23,.05) 1px, transparent 1px);
+  background-size:24px 24px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+a{color:inherit}
+/* header */
+.site-head{border-bottom:1px solid var(--line);background:rgba(245,244,240,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.15rem;text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+.brand-dot{width:11px;height:11px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 3px rgba(194,55,43,.15)}
+.site-head nav{display:flex;gap:22px}
+.site-head nav a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:500;transition:color .18s}
+.site-head nav a:hover{color:var(--red)}
+/* footer */
+.site-foot{border-top:1px solid var(--line);margin-top:72px;padding:30px 0 40px}
+.site-foot p{font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+/* badges (review) */
+.badge-bar{margin:0 0 26px}
+.badge{display:inline-block;color:#fff;padding:2px 10px;border-radius:12px;font-size:.72rem;margin:0 6px 6px 0;font-family:var(--mono)}
+/* article body */
+article{padding:46px 0 20px}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:600}
+article h1{font-family:var(--serif);font-weight:900;font-size:2.15rem;line-height:1.35;margin-bottom:12px;letter-spacing:.01em}
+.meta-line{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.meta-line .sep{margin:0 8px;color:var(--line)}
+article h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:40px 0 14px}
+article h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:28px 0 10px}
+article h4{font-size:1rem;font-weight:700;margin:22px 0 8px}
+article p{margin-bottom:16px;color:#33302b}
+article blockquote{border-left:3px solid var(--red);margin:18px 0;padding:6px 18px;color:var(--muted);background:rgba(194,55,43,.035)}
+article blockquote p{margin-bottom:8px;color:var(--muted)}
+article code{background:#eceae4;padding:2px 6px;border-radius:3px;font-size:.86em;font-family:var(--mono)}
+article pre{background:#23211e;color:#e8e5df;padding:18px;border-radius:6px;overflow-x:auto;margin:18px 0}
+article pre code{background:none;padding:0;color:inherit;font-size:.8rem;line-height:1.6}
+article pre code.hljs{background:transparent;padding:0}
+article hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+article ul,article ol{margin:0 0 16px;padding-left:1.5em}
+article li{margin-bottom:7px;color:#33302b}
+article a{color:var(--red-deep);text-decoration:underline;text-decoration-color:rgba(194,55,43,.4);text-underline-offset:3px;transition:text-decoration-color .18s}
+article a:hover{text-decoration-color:var(--red)}
+.insight-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
+.insight-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:700;font-family:var(--serif)}
+.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:#33302b}
+.back-link{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.back-link a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);transition:color .18s}
+.back-link a:hover{color:var(--red)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .55s ease both}
+</style>
+</head><body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
+</div></header>
+<main><div class="wrap">
+<article class="rise">
+<p class="kicker">工具橱窗</p>
+<h1>102 「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</h1>
+<p class="meta-line">2026-07-29<span class="sep">·</span>obp</p>
+<blockquote>
+<p>日期：2026-07-29</p>
+</blockquote>
+<h2>背景</h2>
+<p>三屏工作环境：笔记本内建屏 + 两台外接显示器。macOS 开了「显示器使用独立空间」（Displays have separate Spaces），每块屏有自己独立的一套全屏空间，用系统快捷键 <code>Control + ←</code> / <code>Control + →</code> 切换。</p>
+<p>这个快捷键只作用于「当前」那块屏。想切 B 屏的空间，得先让系统认为 B 屏是当前屏。我唯一会用的办法是：用鼠标在 B 屏上随便点一下，把焦点移过去，再按 <code>^←/^→</code>。</p>
+<p>想让整个流程键盘化。但 macOS 没有内置「把焦点/指针移到指定显示器」的快捷键，系统只给了鼠标点击这一条路。要键盘化，得找一个能绑全局快捷键、又能操作窗口焦点和鼠标指针的第三方自动化工具。</p>
+<p>工具是 AI 调研后选的：Hammerspoon，macOS 上的开源自动化工具，把系统级 API（辅助功能接口 Accessibility API、Quartz）暴露给 Lua 脚本——在 <code>~/.hammerspoon/init.lua</code> 里写 Lua，它常驻后台，就能绑全局快捷键、读写窗口、移动鼠标、监听系统事件。它做这些几乎都走辅助功能接口，所以装完要授「辅助功能」权限。需求定下来后，让 AI 写脚本，按键直接跳到指定显示器。</p>
+<h2>问题</h2>
+<p>第一版（AI 写的）这样做：给每块屏绑一个快捷键，按键时用 <code>hs.window.filter</code> 找到目标屏上的窗口，调 <code>win:focus()</code> 把键盘焦点给它。</p>
+<p>我用起来，发现两个问题。</p>
+<p>第一个是体感延迟：按一下快捷键，差不多一秒后窗口才有反应。这个延迟是我每天按出来的。</p>
+<p>第二个才是关键：目标屏的窗口确实被激活了、弹到前台了，键盘焦点也过去了，但接着按 <code>^←/^→</code>，切换的还是原来那块屏的空间。也就是说，「聚焦目标屏的窗口」并不等于「让 <code>^←/^→</code> 作用于目标屏」。我本来以为 <code>^←/^→</code> 作用于键盘焦点所在窗口的那块屏，实际不是。</p>
+<h2>分工</h2>
+<p>代码是 AI 写的——选型、Lua 实现、API 调研、两个机制的定位、benchmark、缓存优化，都是 AI 做的。我做的是用和判断：装工具试用，把用出来的问题（一秒延迟、焦点没跟上）描述给 AI，定方向（固定映射而不是循环、开源、这篇的命题）。</p>
+<h2>方案</h2>
+<h3>用对照实验定位「焦点没跟上」</h3>
+<p>AI 不去猜，做了个对照：手动「点一下 B 屏」和脚本流程，差别在哪？</p>
+<p>手动点击实际上做了两件事——① 聚焦 B 屏的窗口，② 把鼠标指针移到 B 屏。脚本只做了 ①。两个流程唯一的差异是鼠标指针有没有移动。</p>
+<p>结论：<code>^←/^→</code> 切换空间，认的是鼠标指针所在的屏，不是键盘焦点所在的屏。第一版漏掉的正是「移动指针」这一半。</p>
+<p>修复是在 <code>win:focus()</code> 之后补上指针移动，完整复刻一次「点击」：</p>
+<pre><code class="language-lua">
+win:focus()                                   -- 点击的前一半：聚焦窗口
+local frame = win:frame()
+hs.mouse.absolutePosition(                    -- 点击的后一半：移动指针
+  hs.geometry.rectMidPoint(frame))
+</code></pre>
+<p>修复后行为和手动点击一致。指针会可见地跳过去——这不是副作用，而是机制本身：空间切换跟着指针走，指针就必须动。</p>
+<h3>性能：window.filter 只订阅，不当查询引擎</h3>
+<p>那一秒的延迟，AI benchmark 下来出在 <code>hs.window.filter:getWindows(sortByFocusedLast)</code>：它每次调用都通过辅助功能接口重新枚举全部窗口并排序，三屏多窗口下实测 1.5 秒以上。</p>
+<p>改法是把「枚举」挪到后台：<code>window.filter</code> 只做事件订阅（<code>windowFocused</code> / <code>windowMoved</code> / <code>windowDestroyed</code>），后台维护一张「每块屏最近聚焦的窗口」缓存表；按键时只查表 + <code>focus()</code>，稳态降到几十毫秒。</p>
+<pre><code class="language-lua">
+local lastOnScreen = {}                       -- screenId -&gt; 最近聚焦的窗口
+wf:subscribe(hs.window.filter.windowFocused, function(win)
+  lastOnScreen[win:screen():id()] = win       -- 后台增量维护
+end)
+-- 按键时：local win = lastOnScreen[targetScreen:id()]  -- 查表，不枚举
+</code></pre>
+<p><code>window.filter</code> 作为事件源是便宜的，作为按需查询引擎是昂贵的。同一个模块，用法不同，性能差一个数量级。</p>
+<h3>测量：别信第一个 benchmark 数字</h3>
+<p>排查时还踩了个测量的坑。第一次测 <code>visibleWindows</code> 枚举得到 1553ms，以为优化无效；单独再测，稳态只有约 80ms。</p>
+<p>差异在于：重载后的第一次调用要现加载 <code>hs.window</code> 扩展（冷启动），这个一次性成本被算进了第一次测量。分离冷启动和稳态之后，数字才反映真实的按键成本。最后在配置加载时预热一次扩展，让冷启动发生在开机而不是第一次按键。</p>
+<p>这和 #98 埋点粒度要能分离竞争假设 是同一类问题：测量粒度不够，会把不同来源的耗时混在一个数字里，得出错误结论。</p>
+<h2>结论</h2>
+<p>机制结论：macOS（开启「显示器使用独立空间」时）的空间切换快捷键跟着鼠标指针所在的屏走，不跟着键盘焦点走。要让一个键盘快捷键作用于指定显示器，必须把键盘焦点和鼠标指针都移到那块屏上。适用条件：macOS + 独立空间模式；对其它「作用于当前屏」类型的空间导航快捷键同理。</p>
+<p>几条可迁移的原则：</p>
+<p>一、系统行为和预期不符时，做对照实验找唯一差异变量，比叠加猜测快。这里手动点击和脚本流程的唯一差异就是指针移动，一轮对照就定位了机制。</p>
+<p>二、「点击」是一个复合动作。用其它手段替代一个交互时，要拆解它的全部组成部分并逐一复刻，漏掉任何一半都会出现「看起来生效了、实际没生效」的假象——窗口聚焦了（可见反馈），但空间切换的目标屏没变（不可见的前提）。</p>
+<p>三、同一个抽象（window.filter）作为事件源和作为查询引擎，性能差一个数量级。重活挪到后台增量维护，热路径只做查表。</p>
+<p>四、性能测量要分离冷启动和稳态，第一个数字往往是冷启动，不能直接当结论。</p>
+<p>五、关于协作：vibe coding 里写代码的是 AI，但「哪里不对」常常是用的人先感觉到的——一秒的延迟、焦点没跟上，这类症状要有身体、有日常工作流才感觉得到。所以这类协作的分工自然落在「人发现问题、AI 诊断实现」。这和 #75 脚本的可丢弃性（AI-primary-actor 范式）是同一个母题。</p>
+<h2>延伸：Hammerspoon 不止于此</h2>
+<p>这次只用到 Hammerspoon 的一个切面。它本质是个通用系统自动化层，常见的拓展用法还有：</p>
+<ul>
+<li>窗口管理：把窗口吸附到屏幕左半/右半/最大化、在多屏间搬窗口、做平铺布局（常和 yabai、Amethyst 这类平铺工具配合，或自己写规则）。</li>
+<li>全局快捷键 / 应用启动器：一键唤起或切换指定应用。</li>
+<li>事件触发自动化：监听文件变化（hs.pathwatcher）、USB 设备插拔（hs.usb）、WiFi 切换（hs.wifi），触发对应脚本。</li>
+<li>通知与菜单栏：自定义通知（hs.notify）、菜单栏小工具（hs.menubar）。</li>
+<li>键鼠改造：按键重映射、鼠标手势。</li>
+</ul>
+<p>换句话说，凡是「macOS 系统层面能做、但没有现成开关」的事，基本都能用它脚本化。跨屏焦点切换只是其中一个小样本。</p>
+<p>脚本已脱敏开源（显示器名做成可配置项）：<a href="https://github.com/AksuRedapple/hammerspoon-focus-display">hammerspoon-focus-display</a>（AksuRedapple）。</p>
+<div class="back-link"><a href="../col/tool-showcase.html">← 返回「工具橱窗」</a></div>
+</article>
+</div></main>
+<footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果 · 把成熟工程实践降维到 AI 协作</p></div></footer>
+<script src="../../assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body></html>

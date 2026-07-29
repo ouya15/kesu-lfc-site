@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阿克苏红苹果 | 阿克苏红苹果</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="assets/github-dark.min.css">
+<title>工具橱窗 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
 <style>
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
@@ -72,61 +72,44 @@ article a:hover{text-decoration-color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
 
-.hero{padding:70px 0 44px}
-.hero .kicker{margin-bottom:18px}
-.hero h1{font-family:var(--serif);font-weight:900;font-size:2.7rem;line-height:1.32;letter-spacing:.01em;max-width:680px}
-.hero h1 .hl{color:var(--red);position:relative}
-.hero-sub{color:var(--muted);font-size:1rem;line-height:1.8;max-width:600px;margin-top:18px}
-.stats{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:38px 0 52px}
-.stat{flex:1;padding:20px 8px;text-align:center;border-right:1px solid var(--line)}
-.stat:last-child{border-right:none}
-.stat b{display:block;font-family:var(--mono);font-size:1.7rem;font-weight:700;color:var(--red)}
-.stat span{font-size:.74rem;color:var(--muted);letter-spacing:.08em}
-.group{margin-bottom:44px}
-.group-label{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;color:var(--red);font-weight:700;margin-bottom:6px;text-transform:uppercase}
-.group-note{font-size:.8rem;color:var(--muted);margin-bottom:14px}
-.col-row{display:flex;align-items:baseline;gap:22px;padding:19px 16px;border-bottom:1px solid var(--line);text-decoration:none;transition:background .18s,transform .18s;border-radius:4px;position:relative}
-.col-row:hover{background:var(--card);transform:translateX(5px)}
-.col-num{font-family:var(--mono);font-size:.85rem;color:var(--muted);min-width:32px;font-weight:600;transition:color .18s}
-.col-row:hover .col-num{color:var(--red)}
-.col-body{flex:1}
-.col-name{font-family:var(--serif);font-weight:700;font-size:1.18rem;color:var(--ink);transition:color .18s;line-height:1.4}
-.col-row:hover .col-name{color:var(--red-deep)}
-.col-cd{font-size:.83rem;color:var(--muted);line-height:1.65;margin-top:3px}
-.col-meta{font-family:var(--mono);font-size:.76rem;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:10px}
-.col-meta .cnt b{color:var(--red);font-weight:700}
-.col-arrow{transition:transform .2s;color:var(--muted)}
-.col-row:hover .col-arrow{transform:translateX(5px);color:var(--red)}
-.local-flag{color:#e8590c}
-@media(max-width:640px){.hero h1{font-size:2rem}.stats{flex-wrap:wrap}.stat{flex:1 1 45%;border-bottom:1px solid var(--line)}.col-row{flex-wrap:wrap;gap:10px}}
+.col-head{padding:52px 0 8px}
+.col-head .kicker{margin-bottom:12px}
+.col-head h1{font-family:var(--serif);font-weight:900;font-size:2rem;line-height:1.3;margin-bottom:12px}
+.col-desc{color:var(--muted);font-size:.95rem;line-height:1.75;max-width:620px;margin-bottom:16px}
+.col-stat{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:34px}
+.col-stat b{color:var(--red);font-weight:700}
+.art-list{list-style:none}
+.art-item{display:flex;gap:20px;align-items:baseline;padding:17px 14px;border-bottom:1px solid var(--line);transition:background .18s,transform .18s;border-radius:4px}
+.art-item:hover{background:var(--card);transform:translateX(4px)}
+.art-idx{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:30px;transition:color .18s}
+.art-item:hover .art-idx{color:var(--red)}
+.art-main{flex:1}
+.art-title{font-size:1rem;font-weight:500;line-height:1.5}
+.art-title a{color:var(--ink);text-decoration:none;transition:color .18s}
+.art-item:hover .art-title a{color:var(--red-deep)}
+.art-date{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+.art-item .badge-bar{margin:6px 0 0}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
-<a class="brand" href="index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="index.html">专栏</a><a href="blog/">文章</a><a href="about.html">关于</a></nav>
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
 </div></header>
 <main><div class="wrap">
-<section class="hero rise">
-<p class="kicker">专栏 · Columns</p>
-<h1>把成熟工程实践，<span class="hl">降维</span>到 AI 协作。</h1>
-<p class="hero-sub">AI 协作过程中写下的文章——每次解决一个具体问题后记录下来的判断和取舍。按主题归入专栏。</p>
-</section>
-<div class="stats rise">
-<div class="stat"><b>1</b><span>篇文章</span></div>
-<div class="stat"><b>1</b><span>个专栏</span></div>
-<div class="stat"><b>2026-07 → 2026-07</b><span>时间跨度</span></div>
+<div class="col-head rise">
+<p class="kicker">专栏 · Column</p>
+<h1>工具橱窗</h1>
+<p class="col-desc">已开源的独立工具与脚本（非 agent skill），及它们背后的设计思考。</p>
+<p class="col-stat">共 <b>1</b> 篇 · 按时间排序</p>
 </div>
-<div class="group rise">
-<p class="group-label">02 · 橱窗</p>
-<p class="group-note">已开源的 skill 与独立工具，及其背后的设计思考</p>
-<a class="col-row" href="insights/col/tool-showcase.html">
-<span class="col-num">01</span>
-<div class="col-body"><div class="col-name">工具橱窗</div><div class="col-cd">已开源的独立工具与脚本（非 agent skill），及它们背后的设计思考。</div></div>
-<span class="col-meta"><span class="cnt"><b>1</b> 篇</span><span class="col-arrow">→</span></span>
-</a>
-</div>
+<ul class="art-list"><li class="art-item">
+<span class="art-idx">01</span>
+<div class="art-main"><div class="art-title"><a href="../obp/102-space-switching-follows-mouse-pointer.html">102 「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</a></div></div>
+<span class="art-date">2026-07-29</span>
+</li></ul>
+<div class="back-link"><a href="../../index.html">← 返回专栏总览</a></div>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果 · 把成熟工程实践降维到 AI 协作</p></div></footer>
-<script src="assets/highlight.min.js"></script>
+<script src="../../assets/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 </body></html>
