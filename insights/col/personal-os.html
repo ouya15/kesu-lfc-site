@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文章列表 | 阿克苏红苹果</title>
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<link rel="stylesheet" href="../assets/github-dark.min.css">
+<title>个人工作系统 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
 <style>
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
@@ -71,27 +71,48 @@ article a:hover{text-decoration-color:var(--red)}
 .back-link a:hover{color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
-.all-articles{list-style:none;margin:28px 0 60px}
-.all-articles li{display:flex;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
-.all-articles .art-no{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:2.2em}
-.all-articles a{color:var(--ink);text-decoration:none;font-size:.95rem}
-.all-articles a:hover{color:var(--red)}</style>
+
+.col-head{padding:52px 0 8px}
+.col-head .kicker{margin-bottom:12px}
+.col-head h1{font-family:var(--serif);font-weight:900;font-size:2rem;line-height:1.3;margin-bottom:12px}
+.col-sub{font-family:var(--mono);font-size:.8rem;color:var(--red);letter-spacing:.08em;margin:-6px 0 14px}
+.col-desc{color:var(--muted);font-size:.95rem;line-height:1.75;max-width:620px;margin-bottom:16px}
+.col-intro{font-size:.95rem;color:#555;line-height:1.85;max-width:620px;margin-bottom:18px}
+.col-stat{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:34px}
+.art-guide{font-size:.85rem;color:#777;line-height:1.7;margin-top:7px;max-width:640px}
+.col-stat b{color:var(--red);font-weight:700}
+.art-list{list-style:none}
+.art-item{display:flex;gap:20px;align-items:baseline;padding:17px 14px;border-bottom:1px solid var(--line);transition:background .18s,transform .18s;border-radius:4px}
+.art-item:hover{background:var(--card);transform:translateX(4px)}
+.art-idx{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:30px;transition:color .18s}
+.art-item:hover .art-idx{color:var(--red)}
+.art-main{flex:1}
+.art-title{font-size:1rem;font-weight:500;line-height:1.5}
+.art-title a{color:var(--ink);text-decoration:none;transition:color .18s}
+.art-item:hover .art-title a{color:var(--red-deep)}
+.art-date{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
+.art-item .badge-bar{margin:6px 0 0}
+</style>
 </head><body>
 <header class="site-head"><div class="wrap">
-<a class="brand" href="../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="../index.html">专栏</a><a href="../blog/">文章</a><a href="../about.html">关于</a></nav>
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
 </div></header>
 <main><div class="wrap">
-<section class="hero rise">
-<p class="kicker">全部文章</p>
-<h1>文章列表</h1>
-<p class="hero-sub">按编号倒排。</p>
-</section>
-<ul class="all-articles rise">
-<li><span class="art-no">106</span><a href="../insights/obp/106-annotate-on-output-edit-the-source.html">在成品上批注，改的却是源头——lfc-studio 的所见即所得评审</a></li><li><span class="art-no">103</span><a href="../insights/obp/103-one-publisher-many-editorials.html">一个出版社，多个编辑部——多 session 协作的内容与分发分离</a></li><li><span class="art-no">102</span><a href="../insights/obp/102-space-switching-follows-mouse-pointer.html">「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</a></li><li><span class="art-no">06</span><a href="../insights/obp/06-negative-constraints-kill-voice.html">负面约束过多会杀死人味：SWG 的矫枉过正事件</a></li>
+<div class="col-head rise">
+<p class="kicker">专栏 · Column</p>
+<h1>个人工作系统</h1>
+
+<p class="col-desc">OBP / GTD / 日记 / 知识管理——个人工作流的工程化。</p>
+
+<p class="col-stat">共 <b>0</b> 篇 · 按时间排序</p>
+</div>
+<ul class="art-list">
+
 </ul>
+<div class="back-link"><a href="../../index.html">← 返回专栏总览</a></div>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
-<script src="../assets/highlight.min.js"></script>
+<script src="../../assets/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 </body></html>
