@@ -4,11 +4,12 @@
 <title>Skill 橱窗 | 阿克苏红苹果</title>
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
+<script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
 <style>
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
   --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
-  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
   --serif:'Noto Serif SC','Songti SC',serif;
   --sans:'Noto Sans SC','PingFang SC',sans-serif;
   --mono:'JetBrains Mono','SF Mono',monospace;
@@ -51,7 +52,7 @@ article h1{font-family:var(--serif);font-weight:900;font-size:2.15rem;line-heigh
 article h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:40px 0 14px}
 article h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:28px 0 10px}
 article h4{font-size:1rem;font-weight:700;margin:22px 0 8px}
-article p{margin-bottom:16px;color:#33302b}
+article p{margin-bottom:16px;color:var(--body)}
 article blockquote{border-left:3px solid var(--red);margin:18px 0;padding:6px 18px;color:var(--muted);background:rgba(194,55,43,.035)}
 article blockquote p{margin-bottom:8px;color:var(--muted)}
 article code{background:#eceae4;padding:2px 6px;border-radius:3px;font-size:.86em;font-family:var(--mono)}
@@ -60,17 +61,44 @@ article pre code{background:none;padding:0;color:inherit;font-size:.8rem;line-he
 article pre code.hljs{background:transparent;padding:0}
 article hr{border:none;border-top:1px solid var(--line);margin:34px 0}
 article ul,article ol{margin:0 0 16px;padding-left:1.5em}
-article li{margin-bottom:7px;color:#33302b}
+article li{margin-bottom:7px;color:var(--body)}
 article a{color:var(--red-deep);text-decoration:underline;text-decoration-color:rgba(194,55,43,.4);text-underline-offset:3px;transition:text-decoration-color .18s}
 article a:hover{text-decoration-color:var(--red)}
 .insight-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
 .insight-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:700;font-family:var(--serif)}
-.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:#33302b}
+.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
 .back-link{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
 .back-link a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);transition:color .18s}
 .back-link a:hover{color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
+/* ===== 夜间模式（纯叠加，html.dark 覆盖，不改动上方任何浅色规则）===== */
+html.dark{
+  --paper:#191714; --ink:#e8e5df; --red:#e05545; --red-deep:#e86a5a;
+  --muted:#9a958c; --line:#3a3630; --card:#26231c; --body:#c9c5bd;
+}
+html.dark body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(224,85,69,.06), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(224,85,69,.04), transparent 55%),
+    var(--paper);
+}
+html.dark body::before{background-image:radial-gradient(rgba(232,229,223,.04) 1px, transparent 1px)}
+html.dark .site-head{background:rgba(25,23,20,.85)}
+html.dark .brand-dot{box-shadow:0 0 0 3px rgba(224,85,69,.2)}
+html.dark article code{background:#26231c}
+html.dark article blockquote{background:rgba(224,85,69,.06)}
+html.dark article a{text-decoration-color:rgba(224,85,69,.5)}
+html.dark .col-intro{color:#b5b0a6}
+html.dark .art-guide{color:#9a958c}
+#theme-toggle{background:none;border:1px solid var(--line);border-radius:50%;cursor:pointer;
+  color:var(--muted);padding:6px;display:flex;align-items:center;justify-content:center;
+  transition:color .18s,border-color .18s}
+#theme-toggle:hover{color:var(--red);border-color:var(--red)}
+#theme-toggle svg{width:15px;height:15px;display:block}
+#theme-toggle .icon-sun{display:none}
+html.dark #theme-toggle .icon-moon{display:none}
+html.dark #theme-toggle .icon-sun{display:block}
 
 .col-head{padding:52px 0 8px}
 .col-head .kicker{margin-bottom:12px}
@@ -96,26 +124,30 @@ article a:hover{text-decoration-color:var(--red)}
 </head><body>
 <header class="site-head"><div class="wrap">
 <a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
 </div></header>
 <main><div class="wrap">
 <div class="col-head rise">
 <p class="kicker">专栏 · Column</p>
 <h1>Skill 橱窗</h1>
 
-<p class="col-desc">已开源的 skill 与工具，及它们背后的设计思考。</p>
-<p class="col-intro">lfc-studio 是把本地 insight 整理发布到博客的内容工作室。这个系列记录工作室自己是怎么被建造的：先立协作架构（#103），再定评审闸的形状（#106），然后是索引与编号的防腐机制（#220），再到库本身的整理方法（#221）。反复出现的主题只有一个：改动只从真相源流向视图，凡是靠"有人记得"的维护，迟早掉队。</p>
-<p class="col-stat">共 <b>2</b> 篇 · 按策展顺序</p>
+<p class="col-desc">本地自研 skill 的设计思考展示柜——不是说明书，是为什么这么做的决策记录。</p>
+<p class="col-intro">本地自研好用的 skill 的设计思考展示柜。不是说明书，不是功能介绍——是"为什么这么做"的决策记录。每个 skill 都有多条可选路径，选了这条不选那条的理由、迭代中什么认知变了、边界在哪、什么情况下它不适用，才是这个橱窗要摆出来的东西。</p>
+<p class="col-stat">共 <b>3</b> 篇 · 按策展顺序</p>
 </div>
 <ul class="art-list">
 <li class="art-item">
 <span class="art-idx">01</span>
-<div class="art-main"><div class="art-title"><a href="../obp/103-one-publisher-many-editorials.html">103 一个出版社，多个编辑部——多 session 协作的内容与分发分离</a></div><p class="art-guide">把"判断内容"和"执行发布"分开：域编辑部管内容与语义级脱敏第一遍，专职出版社管节奏与规则级脱敏第二遍，人工闸守最后。扛得越多、每份上下文越薄——这个系列的起点。</p></div>
-<span class="art-date">2026-07-30</span>
+<div class="art-main"><div class="art-title"><a href="../obp/27-dont-teach-model-to-think.html">27 别教模型做事——pythia 的诞生与归档</a></div><p class="art-guide">第一个问题是"要不要做"。pythia——一个苏格拉底式需求澄清引擎——建好后从未被触发：聪明的模型本来就会追问，显式框架反而限制了它。Skill 体系需要定期做减法审计：不是看该加什么，而是看哪些已经被模型能力淘汰了。</p></div>
+<span class="art-date">2026-05-07</span>
 </li><li class="art-item">
 <span class="art-idx">02</span>
-<div class="art-main"><div class="art-title"><a href="../obp/106-annotate-on-output-edit-the-source.html">106 在成品上批注，改的却是源头——lfc-studio 的所见即所得评审</a></div><p class="art-guide">人工闸长什么样：在渲染后的成品上批注，落回的却是上游 md。视图不手改、改动从上游往下流——这条纪律后来成了索引防腐的根因修复。</p></div>
-<span class="art-date">2026-08-05</span>
+<div class="art-main"><div class="art-title"><a href="../obp/96-subskill-and-cold-discovery.html">96 skill 与 reference 的伪二分——sub-skill 与"冷发现"边界</a></div><p class="art-guide">写好了，什么形态？"做成 skill 还是塞成 reference"是伪问题——真正的轴是冷发现：顶层 skill 能被路由器无提示点着，sub-skill 只有父 skill 在场才存在。合并的真判据是触发时机，不是互引。</p></div>
+<span class="art-date">2026-07-17</span>
+</li><li class="art-item">
+<span class="art-idx">03</span>
+<div class="art-main"><div class="art-title"><a href="../obp/97-standard-cycle-as-phase-transition.html">97 升格仪式——standard-cycle 不是项目的起点，而是探索成熟后的相变</a></div><p class="art-guide">何时引入治理？standard-cycle 不是项目的起点，是探索成熟后的相变。点子萌芽期强上 ROADMAP/BACKLOG，写出来的方向全是凭空编的假共识。治理型方法论要显式声明自己的入场时机。</p></div>
+<span class="art-date">2026-07-23</span>
 </li>
 </ul>
 <div class="back-link"><a href="../../index.html">← 返回专栏总览</a></div>
@@ -123,4 +155,7 @@ article a:hover{text-decoration-color:var(--red)}
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
 <script src="../../assets/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
+<script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
+b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
+try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
 </body></html>
