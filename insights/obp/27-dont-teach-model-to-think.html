@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文章列表 | 阿克苏红苹果</title>
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<link rel="stylesheet" href="../assets/github-dark.min.css">
+<title>27 别教模型做事——pythia 的诞生与归档 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
 <style>
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
@@ -71,27 +71,56 @@ article a:hover{text-decoration-color:var(--red)}
 .back-link a:hover{color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
-.all-articles{list-style:none;margin:28px 0 60px}
-.all-articles li{display:flex;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
-.all-articles .art-no{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:2.2em}
-.all-articles a{color:var(--ink);text-decoration:none;font-size:.95rem}
-.all-articles a:hover{color:var(--red)}</style>
+</style>
 </head><body>
 <header class="site-head"><div class="wrap">
-<a class="brand" href="../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="../index.html">专栏</a><a href="../blog/">文章</a><a href="../about.html">关于</a></nav>
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
 </div></header>
 <main><div class="wrap">
-<section class="hero rise">
-<p class="kicker">全部文章</p>
-<h1>文章列表</h1>
-<p class="hero-sub">按编号倒排。</p>
-</section>
-<ul class="all-articles rise">
-<li><span class="art-no">124</span><a href="../insights/meta/124-wo-removal-three-tiers.html">去"我"的三层判断——在约束中保留人味</a></li><li><span class="art-no">106</span><a href="../insights/obp/106-annotate-on-output-edit-the-source.html">在成品上批注，改的却是源头——lfc-studio 的所见即所得评审</a></li><li><span class="art-no">103</span><a href="../insights/obp/103-one-publisher-many-editorials.html">一个出版社，多个编辑部——多 session 协作的内容与分发分离</a></li><li><span class="art-no">102</span><a href="../insights/obp/102-space-switching-follows-mouse-pointer.html">「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</a></li><li><span class="art-no">98</span><a href="../insights/obp/98-instrumentation-must-separate-hypotheses.html">埋点粒度要能分离竞争假设</a></li><li><span class="art-no">97</span><a href="../insights/obp/97-standard-cycle-as-phase-transition.html">升格仪式——standard-cycle 不是项目的起点，而是探索成熟后的相变</a></li><li><span class="art-no">96</span><a href="../insights/obp/96-subskill-and-cold-discovery.html">skill 与 reference 的伪二分——sub-skill 与"冷发现"边界</a></li><li><span class="art-no">87</span><a href="../insights/obp/87-discretion-spectrum.html">自由裁量权光谱——AI 时代编码知识的正确姿势</a></li><li><span class="art-no">84</span><a href="../insights/obp/84-famous-louisiana-chicken.html">不要 Famous Louisiana Chicken——用一个梗驯服 AI 的自夸</a></li><li><span class="art-no">82</span><a href="../insights/obp/82-scene-as-judgment-carrier.html">从一条规则到一种方法——"画面"的抽象层跃迁</a></li><li><span class="art-no">81</span><a href="../insights/obp/81-swg-flywheel-few-shot-not-rlhf.html">飞轮不是 RLHF——SWG 自改进的校准机制</a></li><li><span class="art-no">27</span><a href="../insights/obp/27-dont-teach-model-to-think.html">别教模型做事——pythia 的诞生与归档</a></li><li><span class="art-no">22</span><a href="../insights/obp/22-instruction-discretion-trap.html">指令工程：AI 指令中的裁量权陷阱</a></li><li><span class="art-no">06</span><a href="../insights/obp/06-negative-constraints-kill-voice.html">负面约束过多会杀死人味：SWG 的矫枉过正事件</a></li>
+<article class="rise">
+<p class="kicker">Skill 工程化</p>
+<h1>27 别教模型做事——pythia 的诞生与归档</h1>
+<p class="meta-line">2026-05-07<span class="sep">·</span>obp</p>
+<blockquote>
+<p>日期：2026-05-07</p>
+</blockquote>
+<h2>背景</h2>
+<p>2026 年 4 月底，在迭代 OBP prompt 体系时，产生了一个想法：能不能把"需求澄清"这件事标准化？于是创建了 pythia——一个苏格拉底式需求澄清引擎，定义了五个追问维度（动机、边界、隐含假设、逻辑一致性、替代方案），试图教 AI 按照固定框架帮用户厘清模糊需求。</p>
+<p>创建它的初始动机之一是<strong>省 token</strong>：如果能用一个轻量模型来引导追问流程，就不需要每次都依赖高阶模型的通用推理能力。</p>
+<h2>问题</h2>
+<p>pythia 创建后，一直没有被触发过。回顾原因：</p>
+<ul>
+<li><strong>聪明的模型本身就是 pythia</strong>。当你对 Deepseek V4 或 Claude Opus 说「我有个想法但没想清楚」，模型自然会启动各种思考策略——追问动机、探测边界、挑战假设——这些思维动作是内化在模型能力中的，不需要外部 Skill 文件来"教"。</li>
 </ul>
+<ul>
+<li><strong>显式框架反而限制了模型的思考空间</strong>。pythia 把追问固定在五个预设维度里，而模型本身可能跳出这个框架、想到更巧妙的角度。好的 prompt 是给模型空间，而不是给它栅栏。</li>
+</ul>
+<ul>
+<li><strong>交互模式不匹配</strong>。pythia 是对话式多轮追问，而用户（我）更偏好 brief 批阅模式——"我写完你来处理"，效率远高于来回问答。</li>
+</ul>
+<ul>
+<li><strong>省 token 的动机本身有问题</strong>。需求澄清是思维展开的关键阶段，恰恰是最不该省钱的环节。pythia 自己的核心信条第一条就写了「需求澄清不能用劣质模型」，但它的存在本身就是在试图用一个静态文本替代模型的动态推理。</li>
+</ul>
+<h2>方案</h2>
+<p>归档 pythia，从 skills 目录和发布映射中移除。将这次经历沉淀为一条判断原则。</p>
+<p><strong>放弃了什么</strong>：五个追问维度的标准化框架。这些维度本身没有错，但把它们写进 Skill 文件让 AI 照着执行，是对模型能力的低估。</p>
+<p><strong>保留了什么</strong>：pythia 的思想——"不要急着给方案，先追问"——这个意识已经内化到日常交互习惯中，不需要一个 Skill 来承载。</p>
+<h2>结论</h2>
+<h3>别教模型做事：人机协作的边界在移动</h3>
+<p>这个 case 暴露了一个认知陷阱：<strong>人习惯性地把自己的思考方法编码成指令，试图"教"模型如何思考</strong>。这在模型能力不足的时代是合理的——你需要用 prompt engineering 弥补模型的短板。但当模型已经足够聪明时，这种做法就变成了班门弄斧。</p>
+<p>判断标准是：<strong>这件事是模型做不好需要我教，还是模型本来就会但我不放心？</strong></p>
+<ul>
+<li>模型做不好的：领域知识注入（如 cost-ops 的集群分析规则）、个人偏好约束（如写作风格规范）、流程性操作（如日记创建的具体步骤）——这些值得写成 Skill。</li>
+<li>模型本来就会的：如何追问、如何拆解需求、如何做批判性思考——这些写成 Skill 是多余的，甚至有害。</li>
+</ul>
+<p>而且这个边界在快速移动。今天模型做不好的事，半年后可能成为基本能力。这意味着 Skill 体系需要定期"减法审计"：<strong>不是看哪些 Skill 该加，而是看哪些 Skill 已经被模型能力淘汰了。</strong></p>
+<p>pythia 是第一个被淘汰的。不会是最后一个。</p>
+<p><strong>观察</strong>：不是所有抽象都有价值——当底层能力已经覆盖时，中间层抽象就变成了负担。这和软件工程里"过早抽象"的反模式是同构的。可串联 #26（Skill 治理膨胀税）。</p>
+<div class="back-link"><a href="../col/skill-engineering.html">← 返回「Skill 工程化」</a></div>
+</article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
-<script src="../assets/highlight.min.js"></script>
+<script src="../../assets/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 </body></html>

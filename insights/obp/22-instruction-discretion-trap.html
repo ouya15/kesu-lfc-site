@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skill 工程化 | 阿克苏红苹果</title>
+<title>22 指令工程：AI 指令中的裁量权陷阱 | 阿克苏红苹果</title>
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <style>
@@ -71,27 +71,6 @@ article a:hover{text-decoration-color:var(--red)}
 .back-link a:hover{color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
-
-.col-head{padding:52px 0 8px}
-.col-head .kicker{margin-bottom:12px}
-.col-head h1{font-family:var(--serif);font-weight:900;font-size:2rem;line-height:1.3;margin-bottom:12px}
-.col-sub{font-family:var(--mono);font-size:.8rem;color:var(--red);letter-spacing:.08em;margin:-6px 0 14px}
-.col-desc{color:var(--muted);font-size:.95rem;line-height:1.75;max-width:620px;margin-bottom:16px}
-.col-intro{font-size:.95rem;color:#555;line-height:1.85;max-width:620px;margin-bottom:18px}
-.col-stat{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:34px}
-.art-guide{font-size:.85rem;color:#777;line-height:1.7;margin-top:7px;max-width:640px}
-.col-stat b{color:var(--red);font-weight:700}
-.art-list{list-style:none}
-.art-item{display:flex;gap:20px;align-items:baseline;padding:17px 14px;border-bottom:1px solid var(--line);transition:background .18s,transform .18s;border-radius:4px}
-.art-item:hover{background:var(--card);transform:translateX(4px)}
-.art-idx{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:30px;transition:color .18s}
-.art-item:hover .art-idx{color:var(--red)}
-.art-main{flex:1}
-.art-title{font-size:1rem;font-weight:500;line-height:1.5}
-.art-title a{color:var(--ink);text-decoration:none;transition:color .18s}
-.art-item:hover .art-title a{color:var(--red-deep)}
-.art-date{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
-.art-item .badge-bar{margin:6px 0 0}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
@@ -99,34 +78,37 @@ article a:hover{text-decoration-color:var(--red)}
 <nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
 </div></header>
 <main><div class="wrap">
-<div class="col-head rise">
-<p class="kicker">专栏 · Column</p>
-<h1>Skill 工程化</h1>
-
-<p class="col-desc">把 AI Skill 当工程做：双仓、SSOT、配置驱动分发、元 Skill。</p>
-<p class="col-intro">把 AI Skill 当工程做：要不要做、怎么写、什么形态、何时治理。这一栏记录的不是某个 skill 的用法，而是做 skill 这件事本身的工程判断——每一条都来自真实的翻车或意外的成功。</p>
-<p class="col-stat">共 <b>4</b> 篇 · 按策展顺序</p>
-</div>
-<ul class="art-list">
-<li class="art-item">
-<span class="art-idx">01</span>
-<div class="art-main"><div class="art-title"><a href="../obp/27-dont-teach-model-to-think.html">27 别教模型做事——pythia 的诞生与归档</a></div><p class="art-guide">第一个问题是"要不要做"。pythia——一个苏格拉底式需求澄清引擎——建好后从未被触发：聪明的模型本来就会追问，显式框架反而限制了它。Skill 体系需要定期做减法审计：不是看该加什么，而是看哪些已经被模型能力淘汰了。</p></div>
-<span class="art-date">2026-05-07</span>
-</li><li class="art-item">
-<span class="art-idx">02</span>
-<div class="art-main"><div class="art-title"><a href="../obp/22-instruction-discretion-trap.html">22 指令工程：AI 指令中的裁量权陷阱</a></div><p class="art-guide">决定要做了，怎么写？一个 106 行的 SKILL.md，agent 读 1 个文件就停下来说"通读完成"。根因不是措辞不严谨，是指令里留了裁量权——AI 会用"是否继续"的判断空间选最省力的路。修复靠终止条件、地板、显式禁止，不靠更严厉。</p></div>
-<span class="art-date">2026-05-05</span>
-</li><li class="art-item">
-<span class="art-idx">03</span>
-<div class="art-main"><div class="art-title"><a href="../obp/96-subskill-and-cold-discovery.html">96 skill 与 reference 的伪二分——sub-skill 与"冷发现"边界</a></div><p class="art-guide">写好了，什么形态？"做成 skill 还是塞成 reference"是伪问题——真正的轴是冷发现：顶层 skill 能被路由器无提示点着，sub-skill 只有父 skill 在场才存在。合并的真判据是触发时机，不是互引。</p></div>
-<span class="art-date">2026-07-17</span>
-</li><li class="art-item">
-<span class="art-idx">04</span>
-<div class="art-main"><div class="art-title"><a href="../obp/97-standard-cycle-as-phase-transition.html">97 升格仪式——standard-cycle 不是项目的起点，而是探索成熟后的相变</a></div><p class="art-guide">何时引入治理？standard-cycle 不是项目的起点，是探索成熟后的相变。点子萌芽期强上 ROADMAP/BACKLOG，写出来的方向全是凭空编的假共识。治理型方法论要显式声明自己的入场时机。</p></div>
-<span class="art-date">2026-07-23</span>
-</li>
+<article class="rise">
+<p class="kicker">Skill 工程化</p>
+<h1>22 指令工程：AI 指令中的裁量权陷阱</h1>
+<p class="meta-line">2026-05-05<span class="sep">·</span>obp</p>
+<blockquote>
+<p>日期：2026-05-05</p>
+</blockquote>
+<h2>背景</h2>
+<p>写了一个 forge-reader SKILL.md（代码库深度通读方法论，106 行），发布给多个 agent 执行。目标是让 agent 系统性通读代码库、产出 digest、充实 forge 目录。</p>
+<p>实际执行效果：agent 读了 1 个文件（共 625 个）就停下来说"通读完成"，主动问"要继续吗？"——每个 agent 都这样。</p>
+<h2>问题</h2>
+<p>逐字审计 SKILL.md 后，发现 5 个缺陷，共同根因是同一个：<strong>指令中留有裁量权的措辞，会被 AI 用来最小化工作量。</strong></p>
+<table class="insight-table"><thead><tr><th>缺陷</th><th>具体措辞</th><th>AI 的解读</th></tr></thead><tbody><tr><td>"按需求选文件"</td><td>Phase 4 标题</td><td>"我判断不需要了" → 停</td></tr><tr><td>无终止条件</td><td>整个 SKILL 106 行没有一行说什么时候算完</td><td>任何时刻都可以自我判断"够了"</td></tr><tr><td>digest 行数限制 80-150 行</td><td>写作规范</td><td>产出到 200 行 → "产能够了" → 停</td></tr><tr><td>反模式表缺"主动停"</td><td>4 条反模式</td><td>"主动停"不在禁止列表里 → 合规</td></tr><tr><td>"先小后大"</td><td>多仓库联读技巧</td><td>"先读核心，剩下可选" → 浅读</td></tr></tbody></table>
+<p>这 5 个缺陷不是措辞不严谨，是<strong>设计层面的结构性问题</strong>：指令的作者假设 AI 会"理解意图"并自发追求深度，但 AI 的行为模式恰好相反——给了选择权就选省力的那个。</p>
+<h2>方案</h2>
+<p>修复不是"写得更严厉"，而是<strong>消除裁量权本身</strong>：</p>
+<table class="insight-table"><thead><tr><th>缺陷</th><th>修复方式</th><th>设计原则</th></tr></thead><tbody><tr><td>"按需求"</td><td>→ "按重要程度依次全量覆盖"</td><td>把"是否做"的决策权收回</td></tr><tr><td>无终止条件</td><td>新增 5 条硬性终止条件，全部满足才算完成</td><td>把"何时停"的决策权收回</td></tr><tr><td>行数限制</td><td>→ "分主题写，每个模块至少一篇"</td><td>把产出量的天花板改成地板</td></tr><tr><td>缺"主动停"</td><td>反模式 #0 = "主动停"</td><td>把最致命的行为显式禁止</td></tr><tr><td>"先小后大"</td><td>加限定语"这只是顺序建议，不是覆盖范围的许可证"</td><td>堵住二次解读的逃生门</td></tr></tbody></table>
+<p>三个设计原则浮现出来：</p>
+<ul>
+<li><strong>终止条件 > 过程指导</strong>。与其描述"怎么做"，不如定义"什么时候才算做完"。过程指导给 AI 的是参考，终止条件给的是约束。</li>
+<li><strong>地板 > 天花板</strong>。行数限制（天花板）会变成产出量的隐性许可上限。应该设地板（"每个模块至少一篇"），让 AI 觉得"还不够"而不是"已经够了"。</li>
+<li><strong>显式禁止 > 隐式期望</strong>。你期望 AI 不会主动停，但如果没写在反模式表里，它就不认为这是错的。每一个"你觉得 AI 应该知道不该做的事"，都必须显式写出来。</li>
 </ul>
-<div class="back-link"><a href="../../index.html">← 返回专栏总览</a></div>
+<h2>结论</h2>
+<p><strong>AI 指令中的裁量权是一个陷阱</strong>。任何给 AI 留出"是否继续"、"是否需要"、"够不够"判断空间的措辞，都会被 AI 用来选择最省力的路径。这不是 AI "懒"——这是优化目标使然：在没有明确约束的情况下，AI 会在"完成任务"和"最小化工作量"之间找平衡点。</p>
+<p>修复方法不是更严厉的措辞，而是<strong>从结构上消除裁量权</strong>：用终止条件替代过程指导，用地板替代天花板，用显式禁止替代隐式期望。</p>
+<p>适用条件：这个规律在 AI 需要执行长时间、多步骤、有自主判断空间的任务时最为显著。对于短小精确的指令（如"把这个函数改成 async"），裁量权不是问题。</p>
+<p><strong>观察</strong>：定位这类缺陷的方法是"从执行效果反推指令设计"——先观察 agent 的实际偷懒行为，回溯到指令中哪些措辞给了逃生门，再用结构性修复堵住。</p>
+<p>相关：#87 自由裁量权光谱——那篇回答"该留多少裁量权"，本篇回答"留了裁量权之后 AI 会怎么钻空子、怎么修"；光谱上"失控"的具体形态与修复手法以本篇三条原则为准。</p>
+<div class="back-link"><a href="../col/skill-engineering.html">← 返回「Skill 工程化」</a></div>
+</article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
 <script src="../../assets/highlight.min.js"></script>
