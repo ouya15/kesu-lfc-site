@@ -104,14 +104,18 @@ article a:hover{text-decoration-color:var(--red)}
 <h1>工具橱窗</h1>
 
 <p class="col-desc">已开源的独立工具与脚本（非 agent skill），及它们背后的设计思考。</p>
-
-<p class="col-stat">共 <b>1</b> 篇 · 按时间排序</p>
+<p class="col-intro">自研工具的展示柜：每篇记录一个工具背后的设计判断——不是使用手册，是"为什么这样做"。</p>
+<p class="col-stat">共 <b>2</b> 篇 · 按策展顺序</p>
 </div>
 <ul class="art-list">
 <li class="art-item">
 <span class="art-idx">01</span>
-<div class="art-main"><div class="art-title"><a href="../obp/102-space-switching-follows-mouse-pointer.html">102 「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</a></div></div>
+<div class="art-main"><div class="art-title"><a href="../obp/102-space-switching-follows-mouse-pointer.html">102 「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</a></div><p class="art-guide">Mac 全键盘跨屏探索：一次"点击为什么没反应"的排查，拆开复合动作的隐藏步骤，最后落在 Hammerspoon 的指针跟随方案。</p></div>
 <span class="art-date">2026-07-29</span>
+</li><li class="art-item">
+<span class="art-idx">02</span>
+<div class="art-main"><div class="art-title"><a href="../obp/98-instrumentation-must-separate-hypotheses.html">98 埋点粒度要能分离竞争假设</a></div><p class="art-guide">JSONTool 冻结排查：方案里写着根因判断，Phase 0 埋点把它推翻了——82ms 的高亮不是元凶，1217ms 的超长行排版才是。测量粒度要能区分竞争解释，"先测再改"是套话，"分离假设"才是原则。</p></div>
+<span class="art-date">2026-07-23</span>
 </li>
 </ul>
 <div class="back-link"><a href="../../index.html">← 返回专栏总览</a></div>

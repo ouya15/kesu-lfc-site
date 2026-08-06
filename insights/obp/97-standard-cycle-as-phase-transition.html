@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文章列表 | 阿克苏红苹果</title>
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<link rel="stylesheet" href="../assets/github-dark.min.css">
+<title>97 升格仪式——standard-cycle 不是项目的起点，而是探索成熟后的相变 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
 <style>
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
@@ -71,27 +71,46 @@ article a:hover{text-decoration-color:var(--red)}
 .back-link a:hover{color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
-.all-articles{list-style:none;margin:28px 0 60px}
-.all-articles li{display:flex;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
-.all-articles .art-no{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:2.2em}
-.all-articles a{color:var(--ink);text-decoration:none;font-size:.95rem}
-.all-articles a:hover{color:var(--red)}</style>
+</style>
 </head><body>
 <header class="site-head"><div class="wrap">
-<a class="brand" href="../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="../index.html">专栏</a><a href="../blog/">文章</a><a href="../about.html">关于</a></nav>
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
 </div></header>
 <main><div class="wrap">
-<section class="hero rise">
-<p class="kicker">全部文章</p>
-<h1>文章列表</h1>
-<p class="hero-sub">按编号倒排。</p>
-</section>
-<ul class="all-articles rise">
-<li><span class="art-no">124</span><a href="../insights/meta/124-wo-removal-three-tiers.html">去"我"的三层判断——在约束中保留人味</a></li><li><span class="art-no">106</span><a href="../insights/obp/106-annotate-on-output-edit-the-source.html">在成品上批注，改的却是源头——lfc-studio 的所见即所得评审</a></li><li><span class="art-no">103</span><a href="../insights/obp/103-one-publisher-many-editorials.html">一个出版社，多个编辑部——多 session 协作的内容与分发分离</a></li><li><span class="art-no">102</span><a href="../insights/obp/102-space-switching-follows-mouse-pointer.html">「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</a></li><li><span class="art-no">98</span><a href="../insights/obp/98-instrumentation-must-separate-hypotheses.html">埋点粒度要能分离竞争假设</a></li><li><span class="art-no">97</span><a href="../insights/obp/97-standard-cycle-as-phase-transition.html">升格仪式——standard-cycle 不是项目的起点，而是探索成熟后的相变</a></li><li><span class="art-no">96</span><a href="../insights/obp/96-subskill-and-cold-discovery.html">skill 与 reference 的伪二分——sub-skill 与"冷发现"边界</a></li><li><span class="art-no">87</span><a href="../insights/obp/87-discretion-spectrum.html">自由裁量权光谱——AI 时代编码知识的正确姿势</a></li><li><span class="art-no">84</span><a href="../insights/obp/84-famous-louisiana-chicken.html">不要 Famous Louisiana Chicken——用一个梗驯服 AI 的自夸</a></li><li><span class="art-no">82</span><a href="../insights/obp/82-scene-as-judgment-carrier.html">从一条规则到一种方法——"画面"的抽象层跃迁</a></li><li><span class="art-no">81</span><a href="../insights/obp/81-swg-flywheel-few-shot-not-rlhf.html">飞轮不是 RLHF——SWG 自改进的校准机制</a></li><li><span class="art-no">06</span><a href="../insights/obp/06-negative-constraints-kill-voice.html">负面约束过多会杀死人味：SWG 的矫枉过正事件</a></li>
+<article class="rise">
+<p class="kicker">Skill 工程化</p>
+<h1>97 升格仪式——standard-cycle 不是项目的起点，而是探索成熟后的相变</h1>
+<p class="meta-line">2026-07-23<span class="sep">·</span>obp</p>
+<blockquote>
+<p>日期：2026-07-23</p>
+</blockquote>
+<h2>背景</h2>
+<p>standard-cycle 是一套文档驱动的 AI 协作项目框架（设计见 #09 奠基篇、#95 编排层定位）：ROADMAP 管方向、BACKLOG 管带验收标准的任务、designs/ 管事前方案。它默认的使用姿态，读起来像是"启动一个新项目，就该先把这套文档搭起来"。</p>
+<p>但自己长期用下来，出现一个和设计姿态相悖的事实：<strong>我几乎从不一开始就用它。</strong> 绝大多数事情是从一个点子的自由探索开始的——先捣鼓、先试，跑一阵子觉得"这事儿要认真做了"，才回过头把它套进标准循环。</p>
+<p>一开始我把这归为自己用得不规范。</p>
+<h2>问题</h2>
+<p>真正的问题不在使用者，在框架对自己的定位。</p>
+<p>点子刚冒出来时，你<strong>不知道</strong>它值不值得做、边界在哪、该分几个阶段。此时强上 ROADMAP/BACKLOG，写出来的方向、边界、阶段全是凭空编的——不但是空话，而且<strong>有害</strong>：它把一个还没想清的方向过早地固化成白纸黑字，之后反而要花力气去推翻这些"假共识"。</p>
+<p>也就是说，"新项目就套上框架"这个隐含姿态，把框架用在了它根本不适用的阶段。框架擅长的是"治理"，而萌芽期需要的是"发散"——两者是冲突的。</p>
+<h2>方案</h2>
+<p>把 standard-cycle 重新定位为<strong>相变点</strong>，而不是起点：它不是项目的出生证，是探索成熟到值得郑重对待时的一次升格。</p>
+<p>对应两个落地动作：</p>
+<ul>
+<li><strong>显式承认"默认从探索起步"</strong>。SKILL 增加"何时引入"一节：默认让点子在自由探索里跑（这正是 spike 型任务的领域，产出是结论而非成品），只有出现<strong>升格信号</strong>时才引入标准循环——信号是"要长期做下去了 / 新需求开始乱窜、边界守不住了 / 需要别人或未来的自己能接手"。</li>
 </ul>
+<ul>
+<li><strong>让框架声明自己的边界</strong>。这套框架的核心动作之一就是逼项目声明"不做什么"；那么框架自己也该有边界——<strong>它明确不适用于点子的萌芽期</strong>。一个教别人声明边界的工具，如果自己什么都想管，就不自洽。</li>
+</ul>
+<p>这也顺带解释了另一个配套改动（spike 豁免）为什么必要：探索型任务动手前无法预知验收标准，硬编一个假验收就是"过早固化"在任务粒度上的翻版。</p>
+<h2>结论</h2>
+<p>一套"治理型"方法论，要显式声明自己的<strong>入场时机</strong>，而不是默认"越早用越好"。治理的前提是"有值得治理的东西"；在对象还没成形时施加治理，秩序会挤掉探索。</p>
+<p>适用条件：这条针对的是"发散—收敛"有明确先后的创造性工作（写作、软件、研究）。对一开始边界就清晰的执行性任务（有既定 PRD、按标准流程走的交付），可以跳过探索期直接进框架——那种场景本就不存在"萌芽期"。</p>
+<p>关联：#09 standard-cycle 奠基、#95 编排层 vs 单元层、#96 sub-skill 与冷发现。本篇还更新了 #96 的一个具体应用：基于"标准循环晚引入"这一事实，设计文档三件套（livedoc/skeleton/discussion-framework）从 standard-cycle 的 sub-skill 升为独立顶层 skill <code>tech-design</code>——#96 的冷发现判据不变，变的是判据的输入。</p>
+<div class="back-link"><a href="../col/skill-engineering.html">← 返回「Skill 工程化」</a></div>
+</article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
-<script src="../assets/highlight.min.js"></script>
+<script src="../../assets/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 </body></html>
