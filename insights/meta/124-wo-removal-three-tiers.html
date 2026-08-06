@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>文章列表 | 阿克苏红苹果</title>
-<link rel="icon" type="image/svg+xml" href="../favicon.svg">
-<link rel="stylesheet" href="../assets/github-dark.min.css">
+<title>124 去"我"的三层判断——在约束中保留人味 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
 <style>
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
@@ -71,27 +71,61 @@ article a:hover{text-decoration-color:var(--red)}
 .back-link a:hover{color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
-.all-articles{list-style:none;margin:28px 0 60px}
-.all-articles li{display:flex;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
-.all-articles .art-no{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:2.2em}
-.all-articles a{color:var(--ink);text-decoration:none;font-size:.95rem}
-.all-articles a:hover{color:var(--red)}</style>
+</style>
 </head><body>
 <header class="site-head"><div class="wrap">
-<a class="brand" href="../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="../index.html">专栏</a><a href="../blog/">文章</a><a href="../about.html">关于</a></nav>
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
 </div></header>
 <main><div class="wrap">
-<section class="hero rise">
-<p class="kicker">全部文章</p>
-<h1>文章列表</h1>
-<p class="hero-sub">按编号倒排。</p>
-</section>
-<ul class="all-articles rise">
-<li><span class="art-no">124</span><a href="../insights/meta/124-wo-removal-three-tiers.html">去"我"的三层判断——在约束中保留人味</a></li><li><span class="art-no">106</span><a href="../insights/obp/106-annotate-on-output-edit-the-source.html">在成品上批注，改的却是源头——lfc-studio 的所见即所得评审</a></li><li><span class="art-no">103</span><a href="../insights/obp/103-one-publisher-many-editorials.html">一个出版社，多个编辑部——多 session 协作的内容与分发分离</a></li><li><span class="art-no">102</span><a href="../insights/obp/102-space-switching-follows-mouse-pointer.html">「点击」是一个复合动作——记一次 Mac 全键盘跨屏的探索（Hammerspoon）</a></li><li><span class="art-no">87</span><a href="../insights/obp/87-discretion-spectrum.html">自由裁量权光谱——AI 时代编码知识的正确姿势</a></li><li><span class="art-no">84</span><a href="../insights/obp/84-famous-louisiana-chicken.html">不要 Famous Louisiana Chicken——用一个梗驯服 AI 的自夸</a></li><li><span class="art-no">82</span><a href="../insights/obp/82-scene-as-judgment-carrier.html">从一条规则到一种方法——"画面"的抽象层跃迁</a></li><li><span class="art-no">81</span><a href="../insights/obp/81-swg-flywheel-few-shot-not-rlhf.html">飞轮不是 RLHF——SWG 自改进的校准机制</a></li><li><span class="art-no">06</span><a href="../insights/obp/06-negative-constraints-kill-voice.html">负面约束过多会杀死人味：SWG 的矫枉过正事件</a></li>
+<article class="rise">
+<p class="kicker">AI 写作与表达</p>
+<h1>124 去"我"的三层判断——在约束中保留人味</h1>
+<p class="meta-line">2026-05-01<span class="sep">·</span>meta</p>
+<blockquote>
+<p>日期：2026-05-01</p>
+</blockquote>
+<h2>背景</h2>
+<p>把和 AI 的对谈整理成对话录发布时，我一开始定了一条规则：<strong>Q（人的部分）原话一个字不改</strong>。</p>
+<p>但这条规则很快遇到了例外。我说话习惯带大量"我"——"我之前读过一遍"、"我有个疑问"——读起来啰嗦，以自我为中心。于是我要求 AI 在整理 Q 时删掉多余的"我"。</p>
+<p>矛盾来了：原话一个字不改，但"我"要删。度在哪里？</p>
+<h2>问题</h2>
+<p>最初的判断标准只有一句："删掉后句意不变、语气不僵硬，就删；删掉后句子不通或失真，保留。"</p>
+<p>方向对，但太粗。AI 每次都要自己揣摩"什么算僵硬"、"什么算失真"，结果不一致。第一次处理对话录，删了 3 处、留了 2 处；我让它按这条规则重新过一遍，这次删得太多，句子变干了。我反馈："删的有点多了，能不能平衡下。"</p>
+<p>随后我把核心诉求说清楚：<strong>"不能啰嗦以自我为中心，同时要保留一些我，不然太干，没有温度。"</strong></p>
+<p>这不是删不删的二值判断，是配比问题。</p>
+<h2>方案</h2>
+<p>我反馈之后，AI 把规则重新设计成三部分。</p>
+<h3>1. 分层判断</h3>
+<p>把"我"分为三层，每层有不同的操作：</p>
+<table class="insight-table"><thead><tr><th>层级</th><th>判断标准</th><th>操作</th></tr></thead><tbody><tr><td><strong>必删</strong></td><td>"我"是发语词/口头禅，删掉后句意完整、主语自明</td><td>直接删除</td></tr><tr><td><strong>必留</strong></td><td>"我"承载身份认同、主观感受或情感温度，删掉后句子变干、失去人味</td><td>保留</td></tr><tr><td><strong>可删可留</strong></td><td>"我"做主语但不承载情感，删了通顺、留了也无害</td><td>看上下文密度决定</td></tr></tbody></table>
+<p>选三层不是更多层，是因为三层给了 AI 足够的判断粒度，又不至于过度分类。</p>
+<h3>2. 密度控制（硬指标）</h3>
+<p>"可删可留"的处置引入密度控制：</p>
+<ul>
+<li>同一段内"我"出现超过 3 次 → 删</li>
+<li>不超过 → 留</li>
 </ul>
+<p>再加两个绝对上限：一句话最多一个"我"，一段话里"我"的密度不超过每两句一个。</p>
+<p>密度控制把"温度"从一个模糊的感觉变成可检查的指标——给噪音定一个阈值。</p>
+<h3>3. 双信号自检回路</h3>
+<p>处理完整篇 Q 后，读一遍，检查两个信号：</p>
+<ul>
+<li><strong>啰嗦信号</strong>：读起来像在听一个以自我为中心的人说话 → 往回再删一轮</li>
+<li><strong>干涩信号</strong>：读起来像机器写的、没有人味 → 往回再留一轮</li>
+</ul>
+<p>三层分类只是判断的起点，不是终点。最终裁判是读一遍、听语气。</p>
+<h3>设计取舍</h3>
+<p>放弃了完全的确定性。一刀切的规则（"所有'我'都删"）最简单、最可预测，但会失去人味。选了模糊但有温度的方案，接受每次应用时 AI 都要自己跑一遍自检回路。</p>
+<p>代价是不同 AI、不同会话可能给出不同结果。但在这个场景下，一致性不如人味重要——对话录如果读起来像机器整理的，就失败了。</p>
+<h2>结论</h2>
+<p>这个框架在硬约束和软感知之间做了分工：必删/必留的分类、密度上限是规则，管住下限；人味、温度这些规则穷举不了的部分，交给自检回路兜底。</p>
+<p>适用条件：人机协作写作，特别是"人的原话需要整理但必须保留人的声音"的场景。不适用于纯技术文档、纯 AI 生成内容——那些场景下"我"本身就是噪音，不需要温度。</p>
+<p>自检回路也是裁量权的一种用法：规则管下限，剩下的判断空间留给 AI 的耳朵。这个思路在 #87 自由裁量权光谱里展开。</p>
+<div class="back-link"><a href="../col/ai-writing.html">← 返回「AI 写作与表达」</a></div>
+</article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
-<script src="../assets/highlight.min.js"></script>
+<script src="../../assets/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 </body></html>
