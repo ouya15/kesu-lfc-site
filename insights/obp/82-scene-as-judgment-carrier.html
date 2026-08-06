@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阿克苏红苹果 | 阿克苏红苹果</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="stylesheet" href="assets/github-dark.min.css">
+<title>82 从一条规则到一种方法——"画面"的抽象层跃迁 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
 <style>
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
@@ -71,74 +71,39 @@ article a:hover{text-decoration-color:var(--red)}
 .back-link a:hover{color:var(--red)}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rise{animation:rise .55s ease both}
-
-.hero{padding:70px 0 44px}
-.hero .kicker{margin-bottom:18px}
-.hero h1{font-family:var(--serif);font-weight:900;font-size:2.7rem;line-height:1.32;letter-spacing:.01em;max-width:680px}
-.hero h1 .hl{color:var(--red);position:relative;white-space:nowrap}
-.hero-sub{color:var(--muted);font-size:1rem;line-height:1.8;max-width:600px;margin-top:18px}
-.stats{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:38px 0 52px}
-.stat{flex:1;padding:20px 8px;text-align:center;border-right:1px solid var(--line)}
-.stat:last-child{border-right:none}
-.stat b{display:block;font-family:var(--mono);font-size:1.7rem;font-weight:700;color:var(--red)}
-.stat span{font-size:.74rem;color:var(--muted);letter-spacing:.08em}
-.group{margin-bottom:44px}
-.group-label{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;color:var(--red);font-weight:700;margin-bottom:6px;text-transform:uppercase}
-.group-note{font-size:.8rem;color:var(--muted);margin-bottom:14px}
-.col-row{display:flex;align-items:baseline;gap:22px;padding:19px 16px;border-bottom:1px solid var(--line);text-decoration:none;transition:background .18s,transform .18s;border-radius:4px;position:relative}
-.col-row:hover{background:var(--card);transform:translateX(5px)}
-.col-num{font-family:var(--mono);font-size:.85rem;color:var(--muted);min-width:32px;font-weight:600;transition:color .18s}
-.col-row:hover .col-num{color:var(--red)}
-.col-body{flex:1}
-.col-name{font-family:var(--serif);font-weight:700;font-size:1.18rem;color:var(--ink);transition:color .18s;line-height:1.4}
-.col-row:hover .col-name{color:var(--red-deep)}
-.col-cd{font-size:.83rem;color:var(--muted);line-height:1.65;margin-top:3px}
-.col-meta{font-family:var(--mono);font-size:.76rem;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:10px}
-.col-meta .cnt b{color:var(--red);font-weight:700}
-.col-arrow{transition:transform .2s;color:var(--muted)}
-.col-row:hover .col-arrow{transform:translateX(5px);color:var(--red)}
-.local-flag{color:#e8590c}
-@media(max-width:640px){.hero h1{font-size:2rem}.stats{flex-wrap:wrap}.stat{flex:1 1 45%;border-bottom:1px solid var(--line)}.col-row{flex-wrap:wrap;gap:10px}}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
-<a class="brand" href="index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="index.html">专栏</a><a href="blog/">文章</a><a href="about.html">关于</a></nav>
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a></nav>
 </div></header>
 <main><div class="wrap">
-<section class="hero rise">
-<p class="kicker">专栏 · Columns</p>
-<h1>和 AI 协作时，记下的<span class="hl">判断与取舍</span>。</h1>
-<p class="hero-sub">每次解决一个具体问题后写下来，按主题归入专栏。</p>
-</section>
-<div class="stats rise">
-<div class="stat"><b>8</b><span>篇文章</span></div>
-<div class="stat"><b>3</b><span>个专栏</span></div>
-<div class="stat"><b>2026-03 → 2026-08</b><span>时间跨度</span></div>
-</div>
-<div class="group rise">
-<p class="group-label">01 · 个人方法论</p>
-<p class="group-note">这些是公开发布的方法论沉淀</p>
-<a class="col-row" href="insights/col/ai-writing.html">
-<span class="col-num">01</span>
-<div class="col-body"><div class="col-name">AI 写作与表达</div><div class="col-cd">AI 时代的写作方法论：声音、画面、场景、负面约束。</div></div>
-<span class="col-meta"><span class="cnt"><b>5</b> 篇</span><span class="col-arrow">→</span></span>
-</a>
-</div><div class="group rise">
-<p class="group-label">02 · 橱窗</p>
-<p class="group-note">已开源的 skill 与独立工具，及其背后的设计思考</p>
-<a class="col-row" href="insights/col/showcase.html">
-<span class="col-num">02</span>
-<div class="col-body"><div class="col-name">Skill 橱窗</div><div class="col-cd">已开源的 skill 与工具，及它们背后的设计思考。</div></div>
-<span class="col-meta"><span class="cnt"><b>2</b> 篇</span><span class="col-arrow">→</span></span>
-</a><a class="col-row" href="insights/col/tool-showcase.html">
-<span class="col-num">03</span>
-<div class="col-body"><div class="col-name">工具橱窗</div><div class="col-cd">已开源的独立工具与脚本（非 agent skill），及它们背后的设计思考。</div></div>
-<span class="col-meta"><span class="cnt"><b>1</b> 篇</span><span class="col-arrow">→</span></span>
-</a>
-</div>
+<article class="rise">
+<p class="kicker">AI 写作与表达</p>
+<h1>82 从一条规则到一种方法——"画面"的抽象层跃迁</h1>
+<p class="meta-line">2026-06-27<span class="sep">·</span>obp</p>
+<blockquote>
+<p>日期：2026-06-27</p>
+</blockquote>
+<h2>背景</h2>
+<p>Famous Louisiana Chicken 提出了一个核心判断：一个具体的画面（炸鸡店自称 Famous）比一条干规则（"不要自夸"）更能传递判断力。</p>
+<h2>问题</h2>
+<p>FLC 是一条具体的规则。但当 SWG 的反模式表越来越长时，发现规则太多会杀死正面表达。需要一个比"FLC"更上层的概念来统摄这两条。</p>
+<h2>方案</h2>
+<p>抽象一层：FLC 不是"关于自夸的规则"，而是"画面传递判断力"这个方法论的一个实例。</p>
+<p>画面库的设计原则：</p>
+<ul>
+<li>每个画面是一个<strong>具体场景</strong>（"一个人在跟朋友聊天"、"删掉这个词意思没变"），不是一条规则</li>
+<li>每个画面附带 1-2 个代表性 before/after 样本</li>
+<li>Agent 读画面校准味道，不读反模式表逐条检查</li>
+</ul>
+<p>FLC 本身也成了画面库的一个画面：<strong>"一家炸鸡店自称 Famous"</strong>——传递的判断力是"好不好，读者自己判断"。</p>
+<h2>结论</h2>
+<p>规则的载体可以是规则本身，也可以是画面。画面比规则更有传递力，因为画面携带了判断的<strong>上下文</strong>——它不只是告诉你"别这样做"，它让你看到"这样做是什么样子的"。这个抽象和 Famous Chicken + 负面约束 + few-shot 校准形成闭环。</p>
+<div class="back-link"><a href="../col/ai-writing.html">← 返回「AI 写作与表达」</a></div>
+</article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
-<script src="assets/highlight.min.js"></script>
+<script src="../../assets/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
 </body></html>
