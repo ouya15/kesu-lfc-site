@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>106 lfc-studio：一个内容工作室的 CMS 系统 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
+<script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+@import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root{
+  --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --serif:'Noto Serif SC','Songti SC',serif;
+  --sans:'Noto Sans SC','PingFang SC',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.7;
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(194,55,43,.07), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(194,55,43,.045), transparent 55%),
+    var(--paper);
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(28,26,23,.05) 1px, transparent 1px);
+  background-size:24px 24px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+a{color:inherit}
+/* header */
+.site-head{border-bottom:1px solid var(--line);background:rgba(245,244,240,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.15rem;text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+.brand-dot{width:11px;height:11px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 3px rgba(194,55,43,.15)}
+.site-head nav{display:flex;gap:22px}
+.site-head nav a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:500;transition:color .18s}
+.site-head nav a:hover{color:var(--red)}
+/* footer */
+.site-foot{border-top:1px solid var(--line);margin-top:72px;padding:30px 0 40px}
+.site-foot p{font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+/* badges (review) */
+.badge-bar{margin:0 0 26px}
+.badge{display:inline-block;color:#fff;padding:2px 10px;border-radius:12px;font-size:.72rem;margin:0 6px 6px 0;font-family:var(--mono)}
+/* article body */
+article{padding:46px 0 20px}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:600}
+article h1{font-family:var(--serif);font-weight:900;font-size:2.15rem;line-height:1.35;margin-bottom:12px;letter-spacing:.01em}
+.meta-line{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.meta-line .sep{margin:0 8px;color:var(--line)}
+article h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:40px 0 14px}
+article h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:28px 0 10px}
+article h4{font-size:1rem;font-weight:700;margin:22px 0 8px}
+article p{margin-bottom:16px;color:var(--body)}
+article blockquote{border-left:3px solid var(--red);margin:18px 0;padding:6px 18px;color:var(--muted);background:rgba(194,55,43,.035)}
+article blockquote p{margin-bottom:8px;color:var(--muted)}
+article code{background:#eceae4;padding:2px 6px;border-radius:3px;font-size:.86em;font-family:var(--mono)}
+article pre{background:#23211e;color:#e8e5df;padding:18px;border-radius:6px;overflow-x:auto;margin:18px 0}
+article pre code{background:none;padding:0;color:inherit;font-size:.8rem;line-height:1.6}
+article pre code.hljs{background:transparent;padding:0}
+article hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+article ul,article ol{margin:0 0 16px;padding-left:1.5em}
+article li{margin-bottom:7px;color:var(--body)}
+article a{color:var(--red-deep);text-decoration:underline;text-decoration-color:rgba(194,55,43,.4);text-underline-offset:3px;transition:text-decoration-color .18s}
+article a:hover{text-decoration-color:var(--red)}
+.insight-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
+.insight-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:700;font-family:var(--serif)}
+.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
+.back-link{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.back-link a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);transition:color .18s}
+.back-link a:hover{color:var(--red)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .55s ease both}
+/* ===== 夜间模式（纯叠加，html.dark 覆盖，不改动上方任何浅色规则）===== */
+html.dark{
+  --paper:#191714; --ink:#e8e5df; --red:#e05545; --red-deep:#e86a5a;
+  --muted:#9a958c; --line:#3a3630; --card:#26231c; --body:#c9c5bd;
+}
+html.dark body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(224,85,69,.06), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(224,85,69,.04), transparent 55%),
+    var(--paper);
+}
+html.dark body::before{background-image:radial-gradient(rgba(232,229,223,.04) 1px, transparent 1px)}
+html.dark .site-head{background:rgba(25,23,20,.85)}
+html.dark .brand-dot{box-shadow:0 0 0 3px rgba(224,85,69,.2)}
+html.dark article code{background:#26231c}
+html.dark article blockquote{background:rgba(224,85,69,.06)}
+html.dark article a{text-decoration-color:rgba(224,85,69,.5)}
+html.dark .col-intro{color:#b5b0a6}
+html.dark .art-guide{color:#9a958c}
+#theme-toggle{background:none;border:1px solid var(--line);border-radius:50%;cursor:pointer;
+  color:var(--muted);padding:6px;display:flex;align-items:center;justify-content:center;
+  transition:color .18s,border-color .18s}
+#theme-toggle:hover{color:var(--red);border-color:var(--red)}
+#theme-toggle svg{width:15px;height:15px;display:block}
+#theme-toggle .icon-sun{display:none}
+html.dark #theme-toggle .icon-moon{display:none}
+html.dark #theme-toggle .icon-sun{display:block}
+/* ===== 滚动坍缩红线（业界标准：下滑收成顶部一条红线，点击展开）===== */
+body[data-scrolled] .site-head{position:fixed;top:0;left:0;right:0;width:auto;height:5px;padding:0;border:none;background:var(--red);z-index:999;cursor:pointer;backdrop-filter:none;box-shadow:none;transition:height .25s,background .25s}
+body[data-scrolled] .site-head .wrap{display:none}
+@media(hover:hover){
+body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+body[data-scrolled] .site-head:hover .wrap{display:flex}
+html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
+</style>
+</head><body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+</div></header>
+<main><div class="wrap">
+<article class="rise">
+<p class="kicker">工作室札记</p>
+<h1>106 lfc-studio：一个内容工作室的 CMS 系统</h1>
+<p class="meta-line">2026-08-05<span class="sep">·</span>obp</p>
+<blockquote>
+<p>日期：2026-08-05</p>
+<p>状态：<strong>活文档</strong>——lfc-studio 边用边改，本文随它的形态更新，此处是某一阶段的快照。</p>
+<p>体裁：centroid 文章——本文是 CMS 系列的 centroid 文章，簇内 insights：#103 协作架构、#220 索引防腐、#221 批量 merge 方法论</p>
+</blockquote>
+<h2 id="概述">概述</h2>
+<p>lfc-studio 是一个小型 CMS 系统。它管的不是内容生产（内容在 5 个源仓库里写），也不是线上展示（那是 GitHub Pages），而是<strong>中间那道人工闸</strong>：发之前我亲自过目，发现问题直接在页面上写批注，批注锚在引文上，改动流回上游 markdown——一条"表现层发现问题 → 源头修改 → 重渲染"的回路。</p>
+<p>整套体系长这样：</p>
+<pre><code>
+┌─────────────────────────────────────────────────────────┐
+│ ① 编辑部层（内容生产）                                    │
+│   obp / cost-ops / meta / forge / dhr 五个仓库的 md       │
+│   用 insights-guide 规范写作 → 原子取号                   │
+└──────────────────────┬────────────────────────────────────┘
+                       ▼ 收稿
+┌─────────────────────────────────────────────────────────┐
+│ ② 出版社工作台（lfc-staging，出版社主 session）            │
+│                                                        │
+│   catalog.json  ← 元数据 SSOT（desc/status/tags/column） │
+│        │  make_catalog.py 重扫 5 仓库（保留手动字段）     │
+│        │  scan.py 巡检（变更/索引反查/台账核对）          │
+│        ▼                                                │
+│   build_site.py 渲染 ──► site/（全量+徽章，评审用）       │
+│        │                                                │
+│        ├─► studio.py + annotations.json ◄── CMS/批注    │
+│        │    （选中文字→写批注→AI 落实→回标已实施，         │
+│        │      全程走 HTTP 接口串行化）                    │
+│        │                                                │
+│        ▼  is_pub 过滤 + 去徽章                           │
+│   publish.py ──► site-publish/ ──► leak_scan 红线自检    │
+│        │                                                │
+│        ▼ git push                                       │
+│   线上仓库 ──► GitHub Pages ──► 博客站点                  │
+│                                                        │
+│   columns/{slug}.md 策展层：前言（小故事）/导读/副题      │
+│   work/ROADMAP.md 状态与纪律 · BACKLOG.md 任务与打点     │
+└─────────────────────────────────────────────────────────┘
+</code></pre>
+<p>相关 skill 家族：</p>
+<table class="insight-table"><thead><tr><th>skill</th><th>管什么</th><th>谁用</th></tr></thead><tbody><tr><td>lfc-publish</td><td>出版社操作手册：发布流程/脱敏阈值/取号/专栏术语表</td><td>出版社主 session</td></tr><tr><td>insights-guide</td><td>写作+审计规范：结构/语气/通病清单/生命周期</td><td>编辑部 + 出版社审计</td></tr></tbody></table>
+<h2 id="核心概念">核心概念</h2>
+<p><strong>SSOT 三层。</strong> markdown 是内容源（唯一可编辑），catalog.json 是元数据源（status / tags / column / keywords 手动维护），HTML 是渲染产物。改动只从上游往下游流，不改生成物。</p>
+<p><strong>编辑部 / 出版社分离。</strong> 各域 session 当编辑部：管内容正确性、语义级脱敏、批注落实。lfc 主 session 当出版社：管 catalog/build/publish、规则级脱敏、发布。同一套 CMS 两个角色都用，边界画在写权限上——编辑部只写文章 md，出版社才有 catalog / 构建 / 发布的写权限。</p>
+<p><strong>is_pub。</strong> 发布过滤谓词：source ∈ {obp, meta} + status ∈ {已评审,已同步lfc,已提交,已发布} + tags 含「可发布候选」且不含「仅本地」「有敏感」「含项目名」。不在 is_pub 里的文章不出现在线上站。</p>
+<p><strong>红线。</strong> 发布前自检身份代号（王二/王小波/wangxiaobo/公司名/内网等）、内部平台名（内部系统a/内部论坛b）、绝对路径、内部服务名、内部仓库名。此外还检查徽章残留和未发布文章页——确保线上站没有内部状态标签。红线是提醒单不是禁写令——命中时停下报告，最终决策权在用户。</p>
+<p><strong>centroid 文章。</strong> 本文所属的体裁，概念迁移自向量检索的 IVF 质心。每个专栏是一个簇，centroid 文章是簇的代表点，insights 是簇内细节证据。</p>
+<h2 id="体系结构">体系结构</h2>
+<h3 id="组件">组件</h3>
+<table class="insight-table"><thead><tr><th>组件</th><th>文件</th><th>职责</th></tr></thead><tbody><tr><td>元数据管理器</td><td>make_catalog.py</td><td>重扫 5 仓库，启发式归档+自动打标签，保留手动字段</td></tr><tr><td>巡检器</td><td>scan.py</td><td>变更检测（与上次同步态对比）、取号台账核对、索引反查</td></tr><tr><td>渲染器</td><td>build_site.py</td><td>md → HTML，专栏页/文章页/首页/关于页生成</td></tr><tr><td>评审服务器</td><td>studio.py</td><td>静态服务 + 批注 widget（注入 HTML），选中文字 → 写批注</td></tr><tr><td>发布器</td><td>publish.py</td><td>is_pub 过滤 → 干净版生成 → 红线自检 → 同步线上</td></tr><tr><td>策展层</td><td>columns/{slug}.md</td><td>副题、前言（小故事）、每篇文章的导读，顺序 = 展示顺序</td></tr><tr><td>监控器</td><td>anno_watch.py</td><td>后台常驻 3 秒轮询 annotations.json，检测新增/回复变动</td></tr><tr><td>原子取号器</td><td>take_number.py</td><td>文件锁内全库查重 + 预占台账，防并发撞号</td></tr></tbody></table>
+<h2 id="工作流">工作流</h2>
+<h3 id="评审闭环-核心">评审闭环（核心）</h3>
+<ul>
+<li>在浏览器打开 <code>localhost:8015</code>（或 preview.sh 的双端口方案）</li>
+<li>选中任意一段文字 → 点击 ✎ 按钮 → 写批注 → 提交</li>
+<li>批注落 <code>annotations.json</code>（含 page/quote/note/time/status）</li>
+<li>AI 读批注 → 理解意图 → 改上游 markdown 或 catalog</li>
+<li>改完后通过 studio 接口回标「已实施」</li>
+<li><code>scan.py --apply</code> 重建预览——评审通过后再 <code>publish.py --push</code> 上线</li>
+</ul>
+<p>批注有生命周期：待处理 → 讨论中 → 已确认方案 → 已实施/搁置（这是操作规范，不是代码强制——studio 接口允许任意状态值，生命周期靠人工遵守）。批注是协作接口不是留言板——每条批注有引文锚点、有状态追踪、有决策记录。批注一律走 HTTP 接口（POST /__annotate、/__annotate/update、/__annotate/delete），禁直接改 annotations.json。</p>
+<p>一条批注的数据模型：</p>
+<table class="insight-table"><thead><tr><th>字段</th><th>用途</th></tr></thead><tbody><tr><td>page / quote / time</td><td>定位：哪篇文章、哪段引文、什么时候写的（time 是唯一键）</td></tr><tr><td>note</td><td>批注内容</td></tr><tr><td>status</td><td>生命周期状态（待处理/讨论中/已确认方案/已实施/搁置）</td></tr><tr><td>scope</td><td>影响范围（单篇/模板级/全站）</td></tr><tr><td>options / decision</td><td>备选方案与最终决定（记录决策过程）</td></tr><tr><td>source</td><td>用户批注为空；系统建议为 "system"（蓝色气泡+蓝色折线区分，右下角标「系统建议」）</td></tr><tr><td>comment</td><td>用户对系统建议的评论（点开详情卡片，独立评论输入框）</td></tr><tr><td>anchor_heading / anchor_element</td><td>结构锚点：批注所在标题路径 + 元素 DOM 路径（引文被改后分级回退定位用）</td></tr></tbody></table>
+<p>系统建议没有状态机（不需要待处理→已实施），用户评论即可；AI 落实后改状态为已实施，进入归档区。这个机制让 AI 可以主动标记问题（通病、瘦身、遗漏），但不动原文、不替用户决策——用户评论了，AI 才行动。</p>
+<h3 id="发布流程">发布流程</h3>
+<ul>
+<li><code>scan.py</code> 巡检变更 → <code>scan.py --apply</code> 刷新索引 + 重建</li>
+<li><code>publish.py --push</code> → 生成干净版（is_pub 过滤 + 去徽章）→ leak_scan 红线自检 → 命中时暂停报告，用户决策（改/--force）→ 同步到 ~/lfc-site → git commit + push</li>
+<li>GitHub Pages 自动部署（约 1 分钟）</li>
+</ul>
+<h3 id="撤稿流程">撤稿流程</h3>
+<p>已上线文章如有补充且有疑问 → catalog 该篇 status 改回「待评审」(is_pub 过滤后线上自动消失) → 人工评审 → 通过后 status 改回「已发布」重新上线。</p>
+<h3 id="批注监控">批注监控</h3>
+<p><code>Monitor</code> 是 CLI 的原生工具：在后台跑一条 shell 命令，命令每输出一行 stdout，就把这行推给 AI 会话——相当于给 AI 装了一个"事件通知"耳朵。<code>anno_watch.py</code> 就是这个耳朵的监听逻辑：每 3 秒轮询 <code>annotations.json</code>，检测两类变动：① 新增批注（time > 基线）；② 已有批注被回复/改状态（note/status/decision 内容变化）。基线在首次启动时设为当前时刻前 2 分钟（避免吞掉启动前刚写的批注），重启后沿用持久化时间戳。每行变动通知推给主 session，用户评注后无需手动告知 AI。</p>
+<p>这一步其实是把整个工作流打通的关键：用户在页面写批注 → AI 自动收到 → 落实 → 回标 → 重建 → 上线，形成一条完整的内部自动化 loop。以前评注和 AI 之间隔着一层"手动告知"，现在这层摩擦被 monitor 消掉了——体验从"两段式"变成"连续式"，这是这个 CMS 最顺滑的一环。</p>
+<p><strong>monitor 防死循环</strong>：<code>anno_watch.py</code> 识别 <code>source</code> 字段——系统建议的新增不触发通知（AI 自己加的，不自激）；只监控用户对系统建议的<strong>评论</strong>（<code>comment</code> 字段变化）和用户批注的变动，通知主 session 处理。</p>
+<h2 id="设计决策">设计决策</h2>
+<h3 id="批注落表现层-不改源文件">批注落表现层，不改源文件</h3>
+<p>当初有两个方向：在 markdown 里加批注标记（入侵式），或者在渲染后的 HTML 表现层叠批注。选了后者——批注锚在引文上存 <code>annotations.json</code>，HTML 重新生成不影响批注，批注不违反 SSOT。引文被改动后靠结构锚点回退定位（元素路径 → 标题章节），全部回退失败才进孤儿面板（不消失，留痕）。</p>
+<h3 id="红线-提醒-不是禁写">红线 = 提醒，不是禁写</h3>
+<p>红线词表是历史泄漏事故的教训集合：身份代号、内部平台、绝对路径、内部服务、内部仓库。它守的不是"内容不能写"，而是"发之前有人知道"；<code>--force</code> 是用户的决策通道。</p>
+<h2 id="演化脉络">演化脉络</h2>
+<p><strong>阶段一：割裂期。</strong> 在浏览器看成品，发现问题记在脑子里或聊天窗口里，再切回编辑器找到对应 markdown 去改。看的地方和改的地方是两处，中间靠人脑做映射。评审意见没有落点，没有状态，过两天对不上号。</p>
+<p>这套模式撑到一百多篇时撞上了天花板——割裂的代价超过了手动操作的成本，需要一个工具把"看"和"改"连接起来。</p>
+<p><strong>阶段二：CMS 评审期。</strong> studio.py 把"看"和"改"连接起来——批注落在表现层，改动流回源头。交互细节一个个改出来的：批注气泡从挡住正文改成两侧空白+折线，输入框从自动消失改成手动生命周期，详情面板砍掉没人用的"待选方案/最终决定"字段。</p>
+<p><strong>阶段三：自动化监控期。</strong> anno_watch.py 后台轮询 annotations.json，用户评注后 AI 自动收到通知并落实，不再需要手动说"有新注释"。</p>
+<h2 id="边界与对照">边界与对照</h2>
+<ul>
+<li><strong>这不是索引维护器。</strong> GLOBAL-INDEX 表格区是从 catalog 自动生成的产物，禁止手改——索引防腐是另一套机制（见 #220）。</li>
+<li><strong>这不是知识库。</strong> 知识沉淀在 catalog 的 keywords 和 notes 字段，以及 GLOBAL-INDEX 的归并记录里。</li>
+</ul>
+<div class="back-link"><a href="../col/studio-notes.html">← 返回「工作室札记」</a></div>
+</article>
+</div></main>
+<footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
+<script src="../../assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
+b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
+try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});var head=document.querySelector('.site-head');if(head){head.addEventListener('click',function(e){if(document.body.hasAttribute('data-scrolled')){e.preventDefault();document.body.removeAttribute('data-scrolled');lastY=window.scrollY}})};s(true)})();</script>
+</body></html>
