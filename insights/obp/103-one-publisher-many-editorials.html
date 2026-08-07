@@ -147,7 +147,7 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 ├── memory-system-curation.md               专栏策展活文档（逐篇定级 / 标风险 / 写意见）
 └── submission-102-hammerspoon.md           单篇付印稿（齐清定后交发布）
 </code></pre>
-<p>一是<strong>内容的单一事实源</strong>（SSOT），拆成三层：markdown 原文是内容源，catalog 是元数据（状态、标签、专栏归属），站点 HTML 是预渲染的 CMS 表现层。三层之间改动只能从上游往下游流，但人不用直接改上游：在 CMS 表现层评注，修订同步回 markdown，HTML 再重渲染——SSOT 由这条回路保障。</p>
+<p>一是<strong>内容的单一事实源</strong>（SSOT）：markdown 是内容源、catalog 是元数据、HTML 是表现层，改动只从上游往下游流。分层细节与批注回路见 #106。</p>
 <p>二是<strong>收稿协议</strong>，也就是编辑部和出版社之间的两个接口：整条专栏的批量策展走一份活文档，逐篇定级、标风险、写意见；单篇急稿走一份"付印稿"。付印稿结构固定——稿件信息（标题、分级、风险、脱敏状态、专栏归属）、编辑部策展意见、出版社待办清单、一份只增不改的变更日志。编辑部写完就是齐清定，出版社照待办执行，把每步记进日志，一次交接的完整轨迹留在一份文档里。</p>
 <p>三是<strong>两层脱敏的规则清单</strong>。规则级的关键词清单住在 skill 里，随每次复盘加词，配合编辑部在域内做的语义脱敏。</p>
 <h2 id="还没想清楚的">还没想清楚的</h2>
