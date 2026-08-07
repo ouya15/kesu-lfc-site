@@ -128,7 +128,10 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 .art-item:hover .art-title a{color:var(--red-deep)}
 .art-date{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
 .art-item .badge-bar{margin:6px 0 0}
-.art-sep{list-style:none;height:1px;background:var(--line);margin:8px 14px;padding:0}
+.art-sep{list-style:none;display:flex;align-items:center;gap:10px;margin:14px 14px 10px;color:var(--muted);font-size:.72rem;letter-spacing:.1em;padding:0}
+.art-sep::before,.art-sep::after{content:"";flex:1;height:1px;background:var(--line)}
+.art-sep-plain::before,.art-sep-plain::after{content:none}
+.art-sep-plain{height:1px;background:var(--line);margin:10px 14px}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
@@ -141,17 +144,17 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <h1>工作室札记</h1>
 
 <p class="col-desc">lfc 内容工作室的建造记录——协作架构、评审闸、索引防腐、库整理。</p>
-<p class="col-intro">lfc 内容工作室自身是怎么被建造的。这里不写方法论的通用结论，也不写 skill 的设计判断——那些归各自的专栏——只记录这套发行流水线自身的设计决策：先立协作架构（#103），再定评审闸的形状（#106），然后是索引与编号的防腐机制（#220），再到库本身的整理方法（#221）。反复出现的主题只有一个：改动只从真相源流向视图，凡是靠"有人记得"的维护，迟早掉队。</p>
+<p class="col-intro">改动只从真相源流向视图。</p>
 <p class="col-stat">共 <b>2</b> 篇</p>
 </div>
 <ul class="art-list">
-<li class="art-item">
+<li class="art-sep"><span>中心文章</span></li><li class="art-item">
 <span class="art-idx">01</span>
-<div class="art-main"><div class="art-title"><a href="../obp/106-annotate-on-output-edit-the-source.html">106 lfc-studio：一个内容工作室的 CMS 系统</a></div><p class="art-guide">人工闸长什么样：在渲染后的成品上批注，落回的却是上游 md。视图不手改、改动从上游往下流——这条纪律后来成了索引防腐的根因修复。</p></div>
+<div class="art-main"><div class="art-title"><a href="../obp/106-annotate-on-output-edit-the-source.html">106 lfc-studio：一个内容工作室的 CMS 系统</a></div><p class="art-guide">lfc-studio 是内容工作室的 CMS：内容在源仓库里写，它管中间那道人工闸——页面上写批注，改动流回上游 md，AI 落实后回标归档。批注带生命周期和结构锚点，系统建议用蓝色气泡区分。</p></div>
 <span class="art-date">2026-08-05</span>
-</li><li class="art-sep"></li><li class="art-item">
+</li><li class="art-sep art-sep-plain"></li><li class="art-item">
 <span class="art-idx">02</span>
-<div class="art-main"><div class="art-title"><a href="../obp/103-one-publisher-many-editorials.html">103 一个出版社，多个编辑部——职责分离，而不是 session 分离</a></div><p class="art-guide">把"判断内容"和"执行发布"分开：域编辑部管内容与语义级脱敏第一遍，专职出版社管节奏与规则级脱敏第二遍，人工闸守最后。扛得越多、每份上下文越薄——这个系列的起点。</p></div>
+<div class="art-main"><div class="art-title"><a href="../obp/103-one-publisher-many-editorials.html">103 一个出版社，多个编辑部——职责分离，而不是 session 分离</a></div></div>
 <span class="art-date">2026-07-30</span>
 </li>
 </ul>

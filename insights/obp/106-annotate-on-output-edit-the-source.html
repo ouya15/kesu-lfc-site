@@ -162,7 +162,7 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <p><strong>SSOT 三层。</strong> markdown 是内容源（唯一可编辑），catalog.json 是元数据源（status / tags / column / keywords 手动维护），HTML 是渲染产物。改动只从上游往下游流，不改生成物。</p>
 <p><strong>编辑部 / 出版社分离。</strong> 各域 session 当编辑部：管内容正确性、语义级脱敏、批注落实。lfc 主 session 当出版社：管 catalog/build/publish、规则级脱敏、发布。同一套 CMS 两个角色都用，边界画在写权限上——编辑部只写文章 md，出版社才有 catalog / 构建 / 发布的写权限。</p>
 <p><strong>is_pub。</strong> 发布过滤谓词：source ∈ {obp, meta} + status ∈ {已评审,已同步lfc,已提交,已发布} + tags 含「可发布候选」且不含「仅本地」「有敏感」「含项目名」。不在 is_pub 里的文章不出现在线上站。</p>
-<p><strong>红线。</strong> 发布前自检身份代号（王二/王小波/wangxiaobo/公司名/内网等）、内部平台名（内部系统a/内部论坛b）、绝对路径、内部服务名、内部仓库名。此外还检查徽章残留和未发布文章页——确保线上站没有内部状态标签。红线是提醒单不是禁写令——命中时停下报告，最终决策权在用户。</p>
+<p><strong>红线。</strong> 发布前自检身份代号（王二/王小波/wangxiaobo/公司名等）、内部平台名（内部系统a/内部论坛b）、绝对路径、内部服务名、内部仓库名。此外还检查徽章残留和未发布文章页——确保线上站没有内部状态标签。红线是提醒单不是禁写令——命中时停下报告，最终决策权在用户。</p>
 <p><strong>centroid 文章。</strong> 本文所属的体裁，概念迁移自向量检索的 IVF 质心。每个专栏是一个簇，centroid 文章是簇的代表点，insights 是簇内细节证据。</p>
 <h2 id="体系结构">体系结构</h2>
 <h3 id="组件">组件</h3>
