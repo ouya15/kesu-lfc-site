@@ -99,15 +99,14 @@ html.dark .art-guide{color:#9a958c}
 #theme-toggle .icon-sun{display:none}
 html.dark #theme-toggle .icon-moon{display:none}
 html.dark #theme-toggle .icon-sun{display:block}
-/* ===== 滚动缩点 ===== */
-body[data-scrolled] .site-head{position:fixed;top:8px;left:8px;width:auto;height:auto;padding:0;border:none;background:transparent;z-index:999;backdrop-filter:none;box-shadow:none;transition:padding .25s,border-radius .25s,background .25s,box-shadow .25s}
-body[data-scrolled] .site-head .wrap{display:flex;align-items:center;gap:16px;height:auto;padding:0}
-body[data-scrolled] .site-head .brand{visibility:hidden;width:0;overflow:visible;white-space:nowrap;transition:width .25s}
-body[data-scrolled] .site-head .brand-dot{visibility:visible;display:inline-block;margin:0;flex-shrink:0}
-body[data-scrolled] .site-head nav{visibility:hidden;width:0;overflow:hidden;white-space:nowrap;transition:visibility .2s,width .25s}
-body[data-scrolled] .site-head:hover .brand,body[data-scrolled] .site-head:hover nav{visibility:visible;width:auto;overflow:visible}
-body[data-scrolled] .site-head:hover{padding:7px 16px;border-radius:8px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+/* ===== 滚动坍缩红线（业界标准：下滑收成顶部一条红线，点击展开）===== */
+body[data-scrolled] .site-head{position:fixed;top:0;left:0;right:0;width:auto;height:5px;padding:0;border:none;background:var(--red);z-index:999;cursor:pointer;backdrop-filter:none;box-shadow:none;transition:height .25s,background .25s}
+body[data-scrolled] .site-head .wrap{display:none}
+@media(hover:hover){
+body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+body[data-scrolled] .site-head:hover .wrap{display:flex}
 html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
@@ -123,19 +122,19 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <p>日期：2026-07-30</p>
 <p>状态：<strong>活文档</strong>——CMS 与发文体系仍在边跑边迭代，本文随这套编辑部/出版社模型的演进持续更新，此处是某一阶段的快照。</p>
 </blockquote>
-<h2>背景</h2>
+<h2 id="背景">背景</h2>
 <p>老剧《编辑部的故事》里，那间乱哄哄又较真的编辑部，是我特别喜欢的一个意象。稿子在编辑部里被判断、被打磨、被卡下来或放出去，然后才轮到印刷发行。</p>
 <p>我本地有不少技术 insight——个人知识管理的、搜索性能的、Skill 工程的、记忆系统的，散落在不同的项目仓库里，在不同的 session 下写的。对应的公开博客，持续整理发布中。</p>
-<h2>问题</h2>
+<h2 id="问题">问题</h2>
 <p>判断内容是一回事，把它发出去是另一回事。最早我让一个 session 做选稿、脱敏、排版、上线的全流程工作。</p>
 <p>一个 session 全包的问题，是太重。选稿要内容判断，脱敏要知道每个域里什么算敏感，排版上线要熟工具和节奏——它得同时装着所有域的上下文，每次编辑内容都得先喂一大段背景，整个 session 越来越重。</p>
 <p>而扛得越多，每份上下文就越薄。做发布的那个 session，并不写搜索性能那些文章，它没有那个域的上下文。它不知道某个缩写是内部系统名，正如一个不跑口的编辑，认不出某篇稿子里的化名指的是谁。脱敏扫描是按关键词匹配的，可关键词清单本身也是那个 session 列的——它列不出它根本不知道的词。</p>
-<h2>方案</h2>
+<h2 id="方案">方案</h2>
 <p>把"判断内容"和"执行发布"拆开。一个出版社，多个编辑部。</p>
 <p><strong>编辑部</strong>是每个域的 session：它陪着我写那个域的文章，知道哪句话在域内是敏感的、哪个数据断言要核实、哪几篇该合成一个系列。它负责内容正确性、分级、把修订落到源文件，以及<strong>语义级脱敏的第一遍</strong>——识别"什么词在这个域里是敏感的"。</p>
 <p><strong>出版社</strong>是一个专职的发布 session：它不判断内容对不对，管节奏、跨专栏一致性、目录、站点 CMS 评审、<strong>规则级脱敏的第二遍</strong>（关键词扫描），以及守住最后一道人工闸——发之前我亲自过目。两层脱敏是纵深防御：任何一层漏了，另一层还在。</p>
 <p>接口也标准化了。单篇新稿走"付印稿"：编辑部把稿子做到齐清定（内容定了、脱敏过了、分级标好了），写一份结构固定的交接文档，出版社拿到只管排版上线。整个专栏的批量策展走另一份活文档，逐篇定级、标风险、写意见。出版社的工作于是从"读懂全部文章"塌缩成"处理 N 份结构一致的管道文档"——它不需要懂内容，只需要相信编辑部已经把内容这一关把住了。</p>
-<h2>落到一个 skill：lfc-publish</h2>
+<h2 id="落到一个-skill-lfc-publish">落到一个 skill：lfc-publish</h2>
 <p>上面这套东西不是一次性的默契，它固化成了一份两个角色都会读的操作手册——一个叫 <code>lfc-publish</code> 的 skill。它不是出版社的私产：编辑部读它，知道自己该交出什么；出版社读它，知道怎么接。分工钉在同一份文档上，规则改了只改一处。它规定三样东西。</p>
 <pre><code>
 ~/skills/lfc-publish/                       两个角色共读的操作手册
@@ -151,7 +150,7 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <p>一是<strong>内容的单一事实源</strong>（SSOT），拆成三层：markdown 原文是内容源，catalog 是元数据（状态、标签、专栏归属），站点 HTML 是预渲染的 CMS 表现层。三层之间改动只能从上游往下游流，但人不用直接改上游：在 CMS 表现层评注，修订同步回 markdown，HTML 再重渲染——SSOT 由这条回路保障。</p>
 <p>二是<strong>收稿协议</strong>，也就是编辑部和出版社之间的两个接口：整条专栏的批量策展走一份活文档，逐篇定级、标风险、写意见；单篇急稿走一份"付印稿"。付印稿结构固定——稿件信息（标题、分级、风险、脱敏状态、专栏归属）、编辑部策展意见、出版社待办清单、一份只增不改的变更日志。编辑部写完就是齐清定，出版社照待办执行，把每步记进日志，一次交接的完整轨迹留在一份文档里。</p>
 <p>三是<strong>两层脱敏的规则清单</strong>。规则级的关键词清单住在 skill 里，随每次复盘加词，配合编辑部在域内做的语义脱敏。</p>
-<h2>还没想清楚的</h2>
+<h2 id="还没想清楚的">还没想清楚的</h2>
 <p>这个分离的核心，目前我信的是这句话：<strong>内容判断需要域上下文，分发执行需要一致性和工具，这两样很难在同一个 session 里同时强。</strong> 但它还没被足够多的场景验证，下面几个问题我自己也还没想透。</p>
 <p>我问自己最多的一个：两个 session 面前坐的是同一个人，这种分工是不是过家家？目前的回答是：分工管的不是信任，是认知负荷——强制一次显式交接，就强制一次"把隐性判断写下来"，跟自己下棋也算练习是一个道理。但这个答案站不站得住，得等这套流程再跑一段时间。</p>
 <p>另一处边界是软的：CMS 预览工具编辑部也能用，出版社真正独占的只有生产目录的写权限、规则级脱敏和 push。也就是说，分离靠的是权限和纪律，不是工具隔离。这样够不够稳，也是开放问题。这个 CMS 具体怎么做的，见 #106 在成品上批注，改的却是源头。</p>
@@ -165,5 +164,5 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
 b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
 try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
-<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});s(true)})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});var head=document.querySelector('.site-head');if(head){head.addEventListener('click',function(e){if(document.body.hasAttribute('data-scrolled')){e.preventDefault();document.body.removeAttribute('data-scrolled');lastY=window.scrollY}})};s(true)})();</script>
 </body></html>

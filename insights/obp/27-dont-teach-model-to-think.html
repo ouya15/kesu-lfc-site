@@ -99,15 +99,14 @@ html.dark .art-guide{color:#9a958c}
 #theme-toggle .icon-sun{display:none}
 html.dark #theme-toggle .icon-moon{display:none}
 html.dark #theme-toggle .icon-sun{display:block}
-/* ===== 滚动缩点 ===== */
-body[data-scrolled] .site-head{position:fixed;top:8px;left:8px;width:auto;height:auto;padding:0;border:none;background:transparent;z-index:999;backdrop-filter:none;box-shadow:none;transition:padding .25s,border-radius .25s,background .25s,box-shadow .25s}
-body[data-scrolled] .site-head .wrap{display:flex;align-items:center;gap:16px;height:auto;padding:0}
-body[data-scrolled] .site-head .brand{visibility:hidden;width:0;overflow:visible;white-space:nowrap;transition:width .25s}
-body[data-scrolled] .site-head .brand-dot{visibility:visible;display:inline-block;margin:0;flex-shrink:0}
-body[data-scrolled] .site-head nav{visibility:hidden;width:0;overflow:hidden;white-space:nowrap;transition:visibility .2s,width .25s}
-body[data-scrolled] .site-head:hover .brand,body[data-scrolled] .site-head:hover nav{visibility:visible;width:auto;overflow:visible}
-body[data-scrolled] .site-head:hover{padding:7px 16px;border-radius:8px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+/* ===== 滚动坍缩红线（业界标准：下滑收成顶部一条红线，点击展开）===== */
+body[data-scrolled] .site-head{position:fixed;top:0;left:0;right:0;width:auto;height:5px;padding:0;border:none;background:var(--red);z-index:999;cursor:pointer;backdrop-filter:none;box-shadow:none;transition:height .25s,background .25s}
+body[data-scrolled] .site-head .wrap{display:none}
+@media(hover:hover){
+body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+body[data-scrolled] .site-head:hover .wrap{display:flex}
 html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
@@ -122,10 +121,10 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <blockquote>
 <p>日期：2026-05-07</p>
 </blockquote>
-<h2>背景</h2>
+<h2 id="背景">背景</h2>
 <p>2026 年 4 月底，在迭代 OBP prompt 体系时，产生了一个想法：能不能把"需求澄清"这件事标准化？于是创建了 pythia——一个苏格拉底式需求澄清引擎，定义了五个追问维度（动机、边界、隐含假设、逻辑一致性、替代方案），试图教 AI 按照固定框架帮用户厘清模糊需求。</p>
 <p>创建它的初始动机之一是<strong>省 token</strong>：如果能用一个轻量模型来引导追问流程，就不需要每次都依赖高阶模型的通用推理能力。</p>
-<h2>问题</h2>
+<h2 id="问题">问题</h2>
 <p>pythia 创建后，一直没有被触发过。回顾原因：</p>
 <ul>
 <li><strong>聪明的模型本身就是 pythia</strong>。当你对 Deepseek V4 或 Claude Opus 说「我有个想法但没想清楚」，模型自然会启动各种思考策略——追问动机、探测边界、挑战假设——这些思维动作是内化在模型能力中的，不需要外部 Skill 文件来"教"。</li>
@@ -139,12 +138,12 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <ul>
 <li><strong>省 token 的动机本身有问题</strong>。需求澄清是思维展开的关键阶段，恰恰是最不该省钱的环节。pythia 自己的核心信条第一条就写了「需求澄清不能用劣质模型」，但它的存在本身就是在试图用一个静态文本替代模型的动态推理。</li>
 </ul>
-<h2>方案</h2>
+<h2 id="方案">方案</h2>
 <p>归档 pythia，从 skills 目录和发布映射中移除。将这次经历沉淀为一条判断原则。</p>
 <p><strong>放弃了什么</strong>：五个追问维度的标准化框架。这些维度本身没有错，但把它们写进 Skill 文件让 AI 照着执行，是对模型能力的低估。</p>
 <p><strong>保留了什么</strong>：pythia 的思想——"不要急着给方案，先追问"——这个意识已经内化到日常交互习惯中，不需要一个 Skill 来承载。</p>
-<h2>结论</h2>
-<h3>别教模型做事：人机协作的边界在移动</h3>
+<h2 id="结论">结论</h2>
+<h3 id="别教模型做事-人机协作的边界在移动">别教模型做事：人机协作的边界在移动</h3>
 <p>这个 case 暴露了一个认知陷阱：<strong>人习惯性地把自己的思考方法编码成指令，试图"教"模型如何思考</strong>。这在模型能力不足的时代是合理的——你需要用 prompt engineering 弥补模型的短板。但当模型已经足够聪明时，这种做法就变成了班门弄斧。</p>
 <p>判断标准是：<strong>这件事是模型做不好需要我教，还是模型本来就会但我不放心？</strong></p>
 <ul>
@@ -163,5 +162,5 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
 b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
 try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
-<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});s(true)})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});var head=document.querySelector('.site-head');if(head){head.addEventListener('click',function(e){if(document.body.hasAttribute('data-scrolled')){e.preventDefault();document.body.removeAttribute('data-scrolled');lastY=window.scrollY}})};s(true)})();</script>
 </body></html>
