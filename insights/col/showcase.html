@@ -99,6 +99,15 @@ html.dark .art-guide{color:#9a958c}
 #theme-toggle .icon-sun{display:none}
 html.dark #theme-toggle .icon-moon{display:none}
 html.dark #theme-toggle .icon-sun{display:block}
+/* ===== 滚动缩点 ===== */
+body[data-scrolled] .site-head{position:fixed;top:8px;left:8px;width:auto;height:auto;padding:0;border:none;background:transparent;z-index:999;backdrop-filter:none;box-shadow:none;transition:padding .25s,border-radius .25s,background .25s,box-shadow .25s}
+body[data-scrolled] .site-head .wrap{display:flex;align-items:center;gap:16px;height:auto;padding:0}
+body[data-scrolled] .site-head .brand{visibility:hidden;width:0;overflow:visible;white-space:nowrap;transition:width .25s}
+body[data-scrolled] .site-head .brand-dot{visibility:visible;display:inline-block;margin:0;flex-shrink:0}
+body[data-scrolled] .site-head nav{visibility:hidden;width:0;overflow:hidden;white-space:nowrap;transition:visibility .2s,width .25s}
+body[data-scrolled] .site-head:hover .brand,body[data-scrolled] .site-head:hover nav{visibility:visible;width:auto;overflow:visible}
+body[data-scrolled] .site-head:hover{padding:7px 16px;border-radius:8px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 
 .col-head{padding:52px 0 8px}
 .col-head .kicker{margin-bottom:12px}
@@ -120,6 +129,7 @@ html.dark #theme-toggle .icon-sun{display:block}
 .art-item:hover .art-title a{color:var(--red-deep)}
 .art-date{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
 .art-item .badge-bar{margin:6px 0 0}
+.art-sep{list-style:none;height:1px;background:var(--line);margin:8px 14px;padding:0}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
@@ -158,4 +168,5 @@ html.dark #theme-toggle .icon-sun{display:block}
 <script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
 b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
 try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});s(true)})();</script>
 </body></html>
