@@ -119,14 +119,14 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <h1>106 lfc-studio：一个内容工作室的 CMS 系统</h1>
 <p class="meta-line">2026-08-05<span class="sep">·</span>obp</p>
 <blockquote>
-<p>日期：2026-08-05</p>
-<p>状态：<strong>活文档</strong>——lfc-studio 边用边改，本文随它的形态更新，此处是某一阶段的快照。</p>
-<p>体裁：centroid 文章——本文是 CMS 系列的 centroid 文章，簇内 insights：#103 协作架构、#220 索引防腐、#221 批量 merge 方法论</p>
+<p data-md-line="3">日期：2026-08-05</p>
+<p data-md-line="4">状态：<strong>活文档</strong>——lfc-studio 边用边改，本文随它的形态更新，此处是某一阶段的快照。</p>
+<p data-md-line="5">体裁：centroid 文章——本文是 CMS 系列的 centroid 文章，簇内 insights：#103 协作架构、#220 索引防腐、#221 批量 merge 方法论</p>
 </blockquote>
-<h2 id="概述">概述</h2>
-<p>lfc-studio 是一个小型 CMS 系统。它管的不是内容生产（内容在 5 个源仓库里写），也不是线上展示（那是 GitHub Pages），而是<strong>中间那道人工闸</strong>：发之前我亲自过目，发现问题直接在页面上写批注，批注锚在引文上，改动流回上游 markdown——一条"表现层发现问题 → 源头修改 → 重渲染"的回路。</p>
-<p>整套体系长这样：</p>
-<pre><code>
+<h2 id="概述" data-md-line="7">概述</h2>
+<p data-md-line="9">lfc-studio 是一个小型 CMS 系统。它管的不是内容生产（内容在 5 个源仓库里写），也不是线上展示（那是 GitHub Pages），而是<strong>中间那道人工闸</strong>：发之前我亲自过目，发现问题直接在页面上写批注，批注锚在引文上，改动流回上游 markdown——一条"表现层发现问题 → 源头修改 → 重渲染"的回路。</p>
+<p data-md-line="11">整套体系长这样：</p>
+<pre data-md-line="13"><code>
 ┌─────────────────────────────────────────────────────────┐
 │ ① 编辑部层（内容生产）                                    │
 │   obp / cost-ops / meta / forge / dhr 五个仓库的 md       │
@@ -156,57 +156,57 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 │   work/ROADMAP.md 状态与纪律 · BACKLOG.md 任务与打点     │
 └─────────────────────────────────────────────────────────┘
 </code></pre>
-<p>相关 skill 家族：</p>
+<p data-md-line="44">相关 skill 家族：</p>
 <table class="insight-table"><thead><tr><th>skill</th><th>管什么</th><th>谁用</th></tr></thead><tbody><tr><td>lfc-publish</td><td>出版社操作手册：发布流程/脱敏阈值/取号/专栏术语表</td><td>出版社主 session</td></tr><tr><td>insights-guide</td><td>写作+审计规范：结构/语气/通病清单/生命周期</td><td>编辑部 + 出版社审计</td></tr></tbody></table>
-<h2 id="核心概念">核心概念</h2>
-<p><strong>SSOT 三层。</strong> markdown 是内容源（唯一可编辑），catalog.json 是元数据源（status / tags / column / keywords 手动维护），HTML 是渲染产物。改动只从上游往下游流，不改生成物。</p>
-<p><strong>编辑部 / 出版社分离。</strong> 各域 session 当编辑部：管内容正确性、语义级脱敏、批注落实。lfc 主 session 当出版社：管 catalog/build/publish、规则级脱敏、发布。同一套 CMS 两个角色都用，边界画在写权限上——编辑部只写文章 md，出版社才有 catalog / 构建 / 发布的写权限。</p>
-<p><strong>is_pub。</strong> 发布过滤谓词：source ∈ {obp, meta} + status ∈ {已评审,已同步lfc,已提交,已发布} + tags 含「可发布候选」且不含「仅本地」「有敏感」「含项目名」。不在 is_pub 里的文章不出现在线上站。</p>
-<p><strong>红线。</strong> 发布前自检身份代号（王二/王小波/wangxiaobo/公司名等）、内部平台名（内部系统a/内部论坛b）、绝对路径、内部服务名、内部仓库名。此外还检查徽章残留和未发布文章页——确保线上站没有内部状态标签。红线是提醒单不是禁写令——命中时停下报告，最终决策权在用户。</p>
-<p><strong>centroid 文章。</strong> 本文所属的体裁，概念迁移自向量检索的 IVF 质心。每个专栏是一个簇，centroid 文章是簇的代表点，insights 是簇内细节证据。</p>
-<h2 id="体系结构">体系结构</h2>
-<h3 id="组件">组件</h3>
+<h2 id="核心概念" data-md-line="51">核心概念</h2>
+<p data-md-line="53"><strong>SSOT 三层。</strong> markdown 是内容源（唯一可编辑），catalog.json 是元数据源（status / tags / column / keywords 手动维护），HTML 是渲染产物。改动只从上游往下游流，不改生成物。</p>
+<p data-md-line="55"><strong>编辑部 / 出版社分离。</strong> 各域 session 当编辑部：管内容正确性、语义级脱敏、批注落实。lfc 主 session 当出版社：管 catalog/build/publish、规则级脱敏、发布。同一套 CMS 两个角色都用，边界画在写权限上——编辑部只写文章 md，出版社才有 catalog / 构建 / 发布的写权限。</p>
+<p data-md-line="57"><strong>is_pub。</strong> 发布过滤谓词：source ∈ {obp, meta} + status ∈ {已评审,已同步lfc,已提交,已发布} + tags 含「可发布候选」且不含「仅本地」「有敏感」「含项目名」。不在 is_pub 里的文章不出现在线上站。</p>
+<p data-md-line="59"><strong>红线。</strong> 发布前自检身份代号（王二/王小波/wangxiaobo/公司名等）、内部平台名（内部系统a/内部论坛b）、绝对路径、内部服务名、内部仓库名。此外还检查徽章残留和未发布文章页——确保线上站没有内部状态标签。红线是提醒单不是禁写令——命中时停下报告，最终决策权在用户。</p>
+<p data-md-line="61"><strong>centroid 文章。</strong> 本文所属的体裁，概念迁移自向量检索的 IVF 质心。每个专栏是一个簇，centroid 文章是簇的代表点，insights 是簇内细节证据。</p>
+<h2 id="体系结构" data-md-line="63">体系结构</h2>
+<h3 id="组件" data-md-line="65">组件</h3>
 <table class="insight-table"><thead><tr><th>组件</th><th>文件</th><th>职责</th></tr></thead><tbody><tr><td>元数据管理器</td><td>make_catalog.py</td><td>重扫 5 仓库，启发式归档+自动打标签，保留手动字段</td></tr><tr><td>巡检器</td><td>scan.py</td><td>变更检测（与上次同步态对比）、取号台账核对、索引反查</td></tr><tr><td>渲染器</td><td>build_site.py</td><td>md → HTML，专栏页/文章页/首页/关于页生成</td></tr><tr><td>评审服务器</td><td>studio.py</td><td>静态服务 + 批注 widget（注入 HTML），选中文字 → 写批注</td></tr><tr><td>发布器</td><td>publish.py</td><td>is_pub 过滤 → 干净版生成 → 红线自检 → 同步线上</td></tr><tr><td>策展层</td><td>columns/{slug}.md</td><td>副题、前言（小故事）、每篇文章的导读，顺序 = 展示顺序</td></tr><tr><td>监控器</td><td>anno_watch.py</td><td>后台常驻 3 秒轮询 annotations.json，检测新增/回复变动</td></tr><tr><td>原子取号器</td><td>take_number.py</td><td>文件锁内全库查重 + 预占台账，防并发撞号</td></tr></tbody></table>
-<h2 id="工作流">工作流</h2>
-<h3 id="评审闭环-核心">评审闭环（核心）</h3>
+<h2 id="工作流" data-md-line="78">工作流</h2>
+<h3 id="评审闭环-核心" data-md-line="80">评审闭环（核心）</h3>
 <ul>
-<li>在浏览器打开 <code>localhost:8015</code>（或 preview.sh 的双端口方案）</li>
-<li>选中任意一段文字 → 点击 ✎ 按钮 → 写批注 → 提交</li>
-<li>批注落 <code>annotations.json</code>（含 page/quote/note/time/status）</li>
-<li>AI 读批注 → 理解意图 → 改上游 markdown 或 catalog</li>
-<li>改完后通过 studio 接口回标「已实施」</li>
-<li><code>scan.py --apply</code> 重建预览——评审通过后再 <code>publish.py --push</code> 上线</li>
+<li data-md-line="82">在浏览器打开 <code>localhost:8015</code>（或 preview.sh 的双端口方案）</li>
+<li data-md-line="83">选中任意一段文字 → 点击 ✎ 按钮 → 写批注 → 提交</li>
+<li data-md-line="84">批注落 <code>annotations.json</code>（含 page/quote/note/time/status）</li>
+<li data-md-line="85">AI 读批注 → 理解意图 → 改上游 markdown 或 catalog</li>
+<li data-md-line="86">改完后通过 studio 接口回标「已实施」</li>
+<li data-md-line="87"><code>scan.py --apply</code> 重建预览——评审通过后再 <code>publish.py --push</code> 上线</li>
 </ul>
-<p>批注有生命周期：待处理 → 讨论中 → 已确认方案 → 已实施/搁置（这是操作规范，不是代码强制——studio 接口允许任意状态值，生命周期靠人工遵守）。批注是协作接口不是留言板——每条批注有引文锚点、有状态追踪、有决策记录。批注一律走 HTTP 接口（POST /__annotate、/__annotate/update、/__annotate/delete），禁直接改 annotations.json。</p>
-<p>一条批注的数据模型：</p>
+<p data-md-line="89">批注有生命周期：待处理 → 讨论中 → 已确认方案 → 已实施/搁置（这是操作规范，不是代码强制——studio 接口允许任意状态值，生命周期靠人工遵守）。批注是协作接口不是留言板——每条批注有引文锚点、有状态追踪、有决策记录。批注一律走 HTTP 接口（POST /__annotate、/__annotate/update、/__annotate/delete），禁直接改 annotations.json。</p>
+<p data-md-line="91">一条批注的数据模型：</p>
 <table class="insight-table"><thead><tr><th>字段</th><th>用途</th></tr></thead><tbody><tr><td>page / quote / time</td><td>定位：哪篇文章、哪段引文、什么时候写的（time 是唯一键）</td></tr><tr><td>note</td><td>批注内容</td></tr><tr><td>status</td><td>生命周期状态（待处理/讨论中/已确认方案/已实施/搁置）</td></tr><tr><td>scope</td><td>影响范围（单篇/模板级/全站）</td></tr><tr><td>options / decision</td><td>备选方案与最终决定（记录决策过程）</td></tr><tr><td>source</td><td>用户批注为空；系统建议为 "system"（蓝色气泡+蓝色折线区分，右下角标「系统建议」）</td></tr><tr><td>comment</td><td>用户对系统建议的评论（点开详情卡片，独立评论输入框）</td></tr><tr><td>anchor_heading / anchor_element</td><td>结构锚点：批注所在标题路径 + 元素 DOM 路径（引文被改后分级回退定位用）</td></tr></tbody></table>
-<p>系统建议没有状态机（不需要待处理→已实施），用户评论即可；AI 落实后改状态为已实施，进入归档区。这个机制让 AI 可以主动标记问题（通病、瘦身、遗漏），但不动原文、不替用户决策——用户评论了，AI 才行动。</p>
-<h3 id="发布流程">发布流程</h3>
+<p data-md-line="104">系统建议没有状态机（不需要待处理→已实施），用户评论即可；AI 落实后改状态为已实施，进入归档区。这个机制让 AI 可以主动标记问题（通病、瘦身、遗漏），但不动原文、不替用户决策——用户评论了，AI 才行动。</p>
+<h3 id="发布流程" data-md-line="106">发布流程</h3>
 <ul>
-<li><code>scan.py</code> 巡检变更 → <code>scan.py --apply</code> 刷新索引 + 重建</li>
-<li><code>publish.py --push</code> → 生成干净版（is_pub 过滤 + 去徽章）→ leak_scan 红线自检 → 命中时暂停报告，用户决策（改/--force）→ 同步到 ~/lfc-site → git commit + push</li>
-<li>GitHub Pages 自动部署（约 1 分钟）</li>
+<li data-md-line="108"><code>scan.py</code> 巡检变更 → <code>scan.py --apply</code> 刷新索引 + 重建</li>
+<li data-md-line="109"><code>publish.py --push</code> → 生成干净版（is_pub 过滤 + 去徽章）→ leak_scan 红线自检 → 命中时暂停报告，用户决策（改/--force）→ 同步到 ~/lfc-site → git commit + push</li>
+<li data-md-line="110">GitHub Pages 自动部署（约 1 分钟）</li>
 </ul>
-<h3 id="撤稿流程">撤稿流程</h3>
-<p>已上线文章如有补充且有疑问 → catalog 该篇 status 改回「待评审」(is_pub 过滤后线上自动消失) → 人工评审 → 通过后 status 改回「已发布」重新上线。</p>
-<h3 id="批注监控">批注监控</h3>
-<p><code>Monitor</code> 是 CLI 的原生工具：在后台跑一条 shell 命令，命令每输出一行 stdout，就把这行推给 AI 会话——相当于给 AI 装了一个"事件通知"耳朵。<code>anno_watch.py</code> 就是这个耳朵的监听逻辑：每 3 秒轮询 <code>annotations.json</code>，检测两类变动：① 新增批注（time > 基线）；② 已有批注被回复/改状态（note/status/decision 内容变化）。基线在首次启动时设为当前时刻前 2 分钟（避免吞掉启动前刚写的批注），重启后沿用持久化时间戳。每行变动通知推给主 session，用户评注后无需手动告知 AI。</p>
-<p>这一步其实是把整个工作流打通的关键：用户在页面写批注 → AI 自动收到 → 落实 → 回标 → 重建 → 上线，形成一条完整的内部自动化 loop。以前评注和 AI 之间隔着一层"手动告知"，现在这层摩擦被 monitor 消掉了——体验从"两段式"变成"连续式"，这是这个 CMS 最顺滑的一环。</p>
-<p><strong>monitor 防死循环</strong>：<code>anno_watch.py</code> 识别 <code>source</code> 字段——系统建议的新增不触发通知（AI 自己加的，不自激）；只监控用户对系统建议的<strong>评论</strong>（<code>comment</code> 字段变化）和用户批注的变动，通知主 session 处理。</p>
-<h2 id="设计决策">设计决策</h2>
-<h3 id="批注落表现层-不改源文件">批注落表现层，不改源文件</h3>
-<p>当初有两个方向：在 markdown 里加批注标记（入侵式），或者在渲染后的 HTML 表现层叠批注。选了后者——批注锚在引文上存 <code>annotations.json</code>，HTML 重新生成不影响批注，批注不违反 SSOT。引文被改动后靠结构锚点回退定位（元素路径 → 标题章节），全部回退失败才进孤儿面板（不消失，留痕）。</p>
-<h3 id="红线-提醒-不是禁写">红线 = 提醒，不是禁写</h3>
-<p>红线词表是历史泄漏事故的教训集合：身份代号、内部平台、绝对路径、内部服务、内部仓库。它守的不是"内容不能写"，而是"发之前有人知道"；<code>--force</code> 是用户的决策通道。</p>
-<h2 id="演化脉络">演化脉络</h2>
-<p><strong>阶段一：割裂期。</strong> 在浏览器看成品，发现问题记在脑子里或聊天窗口里，再切回编辑器找到对应 markdown 去改。看的地方和改的地方是两处，中间靠人脑做映射。评审意见没有落点，没有状态，过两天对不上号。</p>
-<p>这套模式撑到一百多篇时撞上了天花板——割裂的代价超过了手动操作的成本，需要一个工具把"看"和"改"连接起来。</p>
-<p><strong>阶段二：CMS 评审期。</strong> studio.py 把"看"和"改"连接起来——批注落在表现层，改动流回源头。交互细节一个个改出来的：批注气泡从挡住正文改成两侧空白+折线，输入框从自动消失改成手动生命周期，详情面板砍掉没人用的"待选方案/最终决定"字段。</p>
-<p><strong>阶段三：自动化监控期。</strong> anno_watch.py 后台轮询 annotations.json，用户评注后 AI 自动收到通知并落实，不再需要手动说"有新注释"。</p>
-<h2 id="边界与对照">边界与对照</h2>
+<h3 id="撤稿流程" data-md-line="112">撤稿流程</h3>
+<p data-md-line="114">已上线文章如有补充且有疑问 → catalog 该篇 status 改回「待评审」(is_pub 过滤后线上自动消失) → 人工评审 → 通过后 status 改回「已发布」重新上线。</p>
+<h3 id="批注监控" data-md-line="116">批注监控</h3>
+<p data-md-line="118"><code>Monitor</code> 是 CLI 的原生工具：在后台跑一条 shell 命令，命令每输出一行 stdout，就把这行推给 AI 会话——相当于给 AI 装了一个"事件通知"耳朵。<code>anno_watch.py</code> 就是这个耳朵的监听逻辑：每 3 秒轮询 <code>annotations.json</code>，检测两类变动：① 新增批注（time > 基线）；② 已有批注被回复/改状态（note/status/decision 内容变化）。基线在首次启动时设为当前时刻前 2 分钟（避免吞掉启动前刚写的批注），重启后沿用持久化时间戳。每行变动通知推给主 session，用户评注后无需手动告知 AI。</p>
+<p data-md-line="120">这一步其实是把整个工作流打通的关键：用户在页面写批注 → AI 自动收到 → 落实 → 回标 → 重建 → 上线，形成一条完整的内部自动化 loop。以前评注和 AI 之间隔着一层"手动告知"，现在这层摩擦被 monitor 消掉了——体验从"两段式"变成"连续式"，这是这个 CMS 最顺滑的一环。</p>
+<p data-md-line="122"><strong>monitor 防死循环</strong>：<code>anno_watch.py</code> 识别 <code>source</code> 字段——系统建议的新增不触发通知（AI 自己加的，不自激）；只监控用户对系统建议的<strong>评论</strong>（<code>comment</code> 字段变化）和用户批注的变动，通知主 session 处理。</p>
+<h2 id="设计决策" data-md-line="124">设计决策</h2>
+<h3 id="批注落表现层-不改源文件" data-md-line="126">批注落表现层，不改源文件</h3>
+<p data-md-line="128">当初有两个方向：在 markdown 里加批注标记（入侵式），或者在渲染后的 HTML 表现层叠批注。选了后者——批注锚在引文上存 <code>annotations.json</code>，HTML 重新生成不影响批注，批注不违反 SSOT。引文被改动后靠结构锚点回退定位（元素路径 → 标题章节），全部回退失败才进孤儿面板（不消失，留痕）。</p>
+<h3 id="红线-提醒-不是禁写" data-md-line="130">红线 = 提醒，不是禁写</h3>
+<p data-md-line="132">红线词表是历史泄漏事故的教训集合：身份代号、内部平台、绝对路径、内部服务、内部仓库。它守的不是"内容不能写"，而是"发之前有人知道"；<code>--force</code> 是用户的决策通道。</p>
+<h2 id="演化脉络" data-md-line="134">演化脉络</h2>
+<p data-md-line="136"><strong>阶段一：割裂期。</strong> 在浏览器看成品，发现问题记在脑子里或聊天窗口里，再切回编辑器找到对应 markdown 去改。看的地方和改的地方是两处，中间靠人脑做映射。评审意见没有落点，没有状态，过两天对不上号。</p>
+<p data-md-line="138">这套模式撑到一百多篇时撞上了天花板——割裂的代价超过了手动操作的成本，需要一个工具把"看"和"改"连接起来。</p>
+<p data-md-line="140"><strong>阶段二：CMS 评审期。</strong> studio.py 把"看"和"改"连接起来——批注落在表现层，改动流回源头。交互细节一个个改出来的：批注气泡从挡住正文改成两侧空白+折线，输入框从自动消失改成手动生命周期，详情面板砍掉没人用的"待选方案/最终决定"字段。</p>
+<p data-md-line="142"><strong>阶段三：自动化监控期。</strong> anno_watch.py 后台轮询 annotations.json，用户评注后 AI 自动收到通知并落实，不再需要手动说"有新注释"。</p>
+<h2 id="边界与对照" data-md-line="144">边界与对照</h2>
 <ul>
-<li><strong>这不是索引维护器。</strong> GLOBAL-INDEX 表格区是从 catalog 自动生成的产物，禁止手改——索引防腐是另一套机制（见 #220）。</li>
-<li><strong>这不是知识库。</strong> 知识沉淀在 catalog 的 keywords 和 notes 字段，以及 GLOBAL-INDEX 的归并记录里。</li>
+<li data-md-line="146"><strong>这不是索引维护器。</strong> GLOBAL-INDEX 表格区是从 catalog 自动生成的产物，禁止手改——索引防腐是另一套机制（见 #220）。</li>
+<li data-md-line="147"><strong>这不是知识库。</strong> 知识沉淀在 catalog 的 keywords 和 notes 字段，以及 GLOBAL-INDEX 的归并记录里。</li>
 </ul>
 <div class="back-link"><a href="../col/studio-notes.html">← 返回「工作室札记」</a></div>
 </article>

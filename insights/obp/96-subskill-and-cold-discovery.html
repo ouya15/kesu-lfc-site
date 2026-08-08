@@ -119,48 +119,48 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <h1>96 skill 与 reference 的伪二分——sub-skill 与"冷发现"边界</h1>
 <p class="meta-line">2026-07-17<span class="sep">·</span>obp</p>
 <blockquote>
-<p>日期：2026-07-17</p>
+<p data-md-line="3">日期：2026-07-17</p>
 </blockquote>
-<h2 id="背景">背景</h2>
-<p>把一套文档方法论（活文档 SSOT + CR 前移，见 #93、#94、#95）沉淀成可复用资产时，卡在一个形态问题：它该是一个独立的 skill，还是塞进已有的 <code>standard-cycle</code>（个人项目 OS skill）里当一份 reference？</p>
-<p>讨论中被连续追问两次：</p>
+<h2 id="背景" data-md-line="5">背景</h2>
+<p data-md-line="7">把一套文档方法论（活文档 SSOT + CR 前移，见 #93、#94、#95）沉淀成可复用资产时，卡在一个形态问题：它该是一个独立的 skill，还是塞进已有的 <code>standard-cycle</code>（个人项目 OS skill）里当一份 reference？</p>
+<p data-md-line="9">讨论中被连续追问两次：</p>
 <ul>
-<li>"如果两个 skill 需要互相索引引用，那为什么不合成一个？"</li>
-<li>"SKILL.md 支持子 skill 吗？一个 reference 也可以有自己的触发词，agent 能读懂语义、也能被直接点名去执行——skill 不是程序，没那么死板。"</li>
+<li data-md-line="11">"如果两个 skill 需要互相索引引用，那为什么不合成一个？"</li>
+<li data-md-line="12">"SKILL.md 支持子 skill 吗？一个 reference 也可以有自己的触发词，agent 能读懂语义、也能被直接点名去执行——skill 不是程序，没那么死板。"</li>
 </ul>
-<h2 id="问题">问题</h2>
-<p>争论一开始被两个错位卡住：</p>
+<h2 id="问题" data-md-line="14">问题</h2>
+<p data-md-line="16">争论一开始被两个错位卡住：</p>
 <ul>
-<li><strong>把"skill vs reference"当成布尔二分。</strong> 要么是个正经 skill（有 name/description、进路由表），要么是个"哑" reference（只是被读的文件）。中间没有档位。</li>
-<li><strong>用"有没有互引"当合并判据。</strong> 直觉是：两个东西要互相引用 = 耦合 = 该合并。</li>
+<li data-md-line="18"><strong>把"skill vs reference"当成布尔二分。</strong> 要么是个正经 skill（有 name/description、进路由表），要么是个"哑" reference（只是被读的文件）。中间没有档位。</li>
+<li data-md-line="19"><strong>用"有没有互引"当合并判据。</strong> 直觉是：两个东西要互相引用 = 耦合 = 该合并。</li>
 </ul>
-<p>两个都不准。skill 工厂自己的反例就摆着：<code>skill-creator</code> 和 <code>skill-iterating</code> 互相引用（还专门有 SKILL_WORKFLOW.md 做互引枢纽），却不合并。</p>
-<h2 id="方案">方案</h2>
-<p><strong>合并的真判据是触发时机，不是互引。</strong></p>
+<p data-md-line="21">两个都不准。skill 工厂自己的反例就摆着：<code>skill-creator</code> 和 <code>skill-iterating</code> 互相引用（还专门有 SKILL_WORKFLOW.md 做互引枢纽），却不合并。</p>
+<h2 id="方案" data-md-line="23">方案</h2>
+<p data-md-line="25"><strong>合并的真判据是触发时机，不是互引。</strong></p>
 <ul>
-<li>互引 + 触发时机相同 → 合并（互引是多此一举的味道）。</li>
-<li>互引 + 触发时机不同 → 可以分（creator 在 0→1、iterating 在 1→N，时机截然不同，值得忍受互引成本）。</li>
-<li>单向委托（A 用一下 B，B 不依赖 A）本就不是合并信号；双向死锁式依赖才是。</li>
+<li data-md-line="27">互引 + 触发时机相同 → 合并（互引是多此一举的味道）。</li>
+<li data-md-line="28">互引 + 触发时机不同 → 可以分（creator 在 0→1、iterating 在 1→N，时机截然不同，值得忍受互引成本）。</li>
+<li data-md-line="29">单向委托（A 用一下 B，B 不依赖 A）本就不是合并信号；双向死锁式依赖才是。</li>
 </ul>
-<p><strong>skill 和 reference 之间有个没被建模的中间档：sub-skill。</strong></p>
-<p>一个 reference 可以自带"何时用"的触发提示，既能被父 skill 的流程带出来、也能被一句"去读 X 执行它"直接点名。在 agent 眼里它就是一个能被意义寻址的独立功能单元——因为 agent 按语义路由，不按注册表。它是<strong>语义构造，不是语法构造</strong>：frontmatter 里没有子 skill 语法，但语义调用不需要语法支持。</p>
-<p><strong>顶层 skill 与 sub-skill 唯一的实质差别 = 冷发现。</strong></p>
+<p data-md-line="31"><strong>skill 和 reference 之间有个没被建模的中间档：sub-skill。</strong></p>
+<p data-md-line="33">一个 reference 可以自带"何时用"的触发提示，既能被父 skill 的流程带出来、也能被一句"去读 X 执行它"直接点名。在 agent 眼里它就是一个能被意义寻址的独立功能单元——因为 agent 按语义路由，不按注册表。它是<strong>语义构造，不是语法构造</strong>：frontmatter 里没有子 skill 语法，但语义调用不需要语法支持。</p>
+<p data-md-line="35"><strong>顶层 skill 与 sub-skill 唯一的实质差别 = 冷发现。</strong></p>
 <ul>
-<li>顶层 skill：触发词在路由表里，<strong>哪怕上下文什么都没加载</strong>，用户一说相关的话，路由器就能无提示冷启动点起它。</li>
-<li>sub-skill：触发词埋在父 skill 体内，路由器没见过——<strong>只有父 skill 先在场，agent 才知道这个子功能存在</strong>。</li>
+<li data-md-line="37">顶层 skill：触发词在路由表里，<strong>哪怕上下文什么都没加载</strong>，用户一说相关的话，路由器就能无提示冷启动点起它。</li>
+<li data-md-line="38">sub-skill：触发词埋在父 skill 体内，路由器没见过——<strong>只有父 skill 先在场，agent 才知道这个子功能存在</strong>。</li>
 </ul>
-<p>所以"直接点名 agent 读某个 reference 执行"这条路，在人来驱动 / 父 skill 已在场时很顺；但在全自动、无人提示、父 skill 又没被触发的场景，子功能不会自己冒出来——语义再强，也点不着一个路由器从没见过的触发词。</p>
-<p>这给了"何时把 sub-skill 毕业成顶层 skill"一个精确的、机制层的判据：<strong>当你需要它在"父 skill 不会被加载的场景"里、无人提示地冷触发时，才毕业。</strong> 在那之前，sub-skill 通吃。</p>
-<h2 id="结论">结论</h2>
-<p>"是不是一个 skill"是伪问题。真正的轴是<strong>独立可寻址性 / 冷发现</strong>，一个连续量，不是布尔。判断 skill 边界的两步：</p>
+<p data-md-line="40">所以"直接点名 agent 读某个 reference 执行"这条路，在人来驱动 / 父 skill 已在场时很顺；但在全自动、无人提示、父 skill 又没被触发的场景，子功能不会自己冒出来——语义再强，也点不着一个路由器从没见过的触发词。</p>
+<p data-md-line="42">这给了"何时把 sub-skill 毕业成顶层 skill"一个精确的、机制层的判据：<strong>当你需要它在"父 skill 不会被加载的场景"里、无人提示地冷触发时，才毕业。</strong> 在那之前，sub-skill 通吃。</p>
+<h2 id="结论" data-md-line="44">结论</h2>
+<p data-md-line="46">"是不是一个 skill"是伪问题。真正的轴是<strong>独立可寻址性 / 冷发现</strong>，一个连续量，不是布尔。判断 skill 边界的两步：</p>
 <ul>
-<li><strong>触发时机是否够不同？</strong> 不同才值得分开（否则合并）。</li>
-<li><strong>是否需要冷发现？</strong> 需要才升顶层 skill；否则做 sub-skill（reference + 自带触发提示 + 可直接点名），寄在父 skill 里。</li>
+<li data-md-line="48"><strong>触发时机是否够不同？</strong> 不同才值得分开（否则合并）。</li>
+<li data-md-line="49"><strong>是否需要冷发现？</strong> 需要才升顶层 skill；否则做 sub-skill（reference + 自带触发提示 + 可直接点名），寄在父 skill 里。</li>
 </ul>
-<p>适用条件：agent 按语义调用的体系（SKILL.md 这类自然语言定义的 skill）。纯程序化的插件注册（靠精确 id 匹配）不适用——那里 reference 没有"自带触发词也能被认出"这回事。</p>
-<p>交叉引用：#95 编排层 vs 单元层（本篇续它，把"单元层该以什么形态存在"讲清）、#49 注入位置决定合规率（触发词放在哪决定能否被点着，正是"冷发现"的机制层）、#26 Skill 治理（sub-skill 让你不必为一个小功能立顶层 skill，省膨胀税）。</p>
+<p data-md-line="51">适用条件：agent 按语义调用的体系（SKILL.md 这类自然语言定义的 skill）。纯程序化的插件注册（靠精确 id 匹配）不适用——那里 reference 没有"自带触发词也能被认出"这回事。</p>
+<p data-md-line="53">交叉引用：#95 编排层 vs 单元层（本篇续它，把"单元层该以什么形态存在"讲清）、#49 注入位置决定合规率（触发词放在哪决定能否被点着，正是"冷发现"的机制层）、#26 Skill 治理（sub-skill 让你不必为一个小功能立顶层 skill，省膨胀税）。</p>
 <hr>
-<p><strong>后续修正（2026-07-23，见 #97）</strong>：本篇的判据不变，但它当初推理的那个具体对象——设计文档三件套（livedoc / skeleton / discussion-framework）——最初据此判为 standard-cycle 的 sub-skill，后来升成了独立顶层 skill <code>tech-design</code>。原因不是判据错，而是新信息让判据的输入变了：#97 确立"standard-cycle 是探索成熟后才引入的升格仪式"，而写设计文档常发生在探索期、父 skill 尚未加载时——即它确实需要冷发现。这反而是个佐证：一个足够好的判据，会反过来修正提出它时所举的例子。</p>
+<p data-md-line="57"><strong>后续修正（2026-07-23，见 #97）</strong>：本篇的判据不变，但它当初推理的那个具体对象——设计文档三件套（livedoc / skeleton / discussion-framework）——最初据此判为 standard-cycle 的 sub-skill，后来升成了独立顶层 skill <code>tech-design</code>。原因不是判据错，而是新信息让判据的输入变了：#97 确立"standard-cycle 是探索成熟后才引入的升格仪式"，而写设计文档常发生在探索期、父 skill 尚未加载时——即它确实需要冷发现。这反而是个佐证：一个足够好的判据，会反过来修正提出它时所举的例子。</p>
 <div class="back-link"><a href="../col/showcase.html">← 返回「Skill 橱窗」</a></div>
 </article>
 </div></main>

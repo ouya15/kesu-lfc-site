@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>81 飞轮不是 RLHF——SWG 自改进的校准机制 | 阿克苏红苹果</title>
+<title>220 索引防腐与原子取号 | 阿克苏红苹果</title>
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -115,30 +115,22 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 </div></header>
 <main><div class="wrap">
 <article class="rise">
-<p class="kicker">AI 写作与表达</p>
-<h1>81 飞轮不是 RLHF——SWG 自改进的校准机制</h1>
-<p class="meta-line">2026-06-27<span class="sep">·</span>obp</p>
+<p class="kicker">工作室札记</p>
+<h1>220 索引防腐与原子取号</h1>
+<p class="meta-line">2026-08-06<span class="sep">·</span>obp</p>
 <blockquote>
-<p data-md-line="3">日期：2026-06-27</p>
+<p data-md-line="3">日期：2026-08-06</p>
+<p data-md-line="4">状态：活文档</p>
 </blockquote>
-<h2 id="背景" data-md-line="5">背景</h2>
-<p data-md-line="7">SWG（站点写作规范）有一套 Scorecard + 反模式表 + 样本库。每次用户修改文章后，AI 采集 before/after 样本写入规范，形成"越用越好"的飞轮。最初类比是 LoRA + RLHF。</p>
-<h2 id="问题" data-md-line="9">问题</h2>
-<p data-md-line="11">类比不准确，而且机制本身有隐患：</p>
-<ul>
-<li data-md-line="13"><strong>LoRA/RLHF 改不了</strong>：我们改不了模型权重，只能改 context window 里的内容。真正的机制是 few-shot prompting——Agent 读到样本，生成风格向样本方向偏移</li>
-<li data-md-line="14"><strong>样本堆积 = 规则堆积</strong>：负面约束太多的后果是"正面表达就死了"。如果样本库无限增长，Agent 会变成逐条检查的模式，和干规则的问题一样</li>
-</ul>
-<h2 id="方案" data-md-line="16">方案</h2>
-<p data-md-line="18">飞轮重构为两级：</p>
-<ul>
-<li data-md-line="20"><strong>画面库</strong>（主要读取对象）：3-4 个具体画面，每个画面 1-2 个代表性样本。Agent 写文章前读这些，校准"味道对不对"</li>
-<li data-md-line="21"><strong>反模式表 + Scorecard</strong>（校准参考，不逐条检查）：用于自评，不作为写作时的主要参照</li>
-</ul>
-<p data-md-line="23">飞轮流程从"写入样本库"改为"提炼画面"。样本是原材料，画面是产物。不是无限堆积，是少而精。</p>
-<h2 id="结论" data-md-line="25">结论</h2>
-<p data-md-line="27">Agent 的行为校准靠 few-shot，不靠训练。few-shot 示例应该少而精（画面），多而碎（逐条 case）会让 Agent 机械匹配。规则越多的系统越容易杀死弹性——这和 Famous Chicken、负面约束的结论是同构的。</p>
-<div class="back-link"><a href="../col/ai-writing.html">← 返回「AI 写作与表达」</a></div>
+<h2 id="问题" data-md-line="6">问题</h2>
+<p data-md-line="8">全局索引是手维护的，取号是先查再用。索引的对照源 catalog.json 每次巡检自动重扫，索引本身却要每个 session 记得手动更新，手改的那个掉队；取号是 check-then-act，竞态窗口就在查和做之间；号段规则是静态文字，仓库目录是动态的，两者不同步。于是腐化是必然：孤儿文章没人登记，号被并发的 session 撞走。</p>
+<h2 id="方案" data-md-line="10">方案</h2>
+<p data-md-line="12"><strong>索引改成生成物。</strong> catalog.json 定为唯一真相源，make_index.py 从它生成索引表格区，禁止手改，人工只维护管理原则与归并记录。</p>
+<p data-md-line="14"><strong>取号改成原子操作。</strong> take_number.py 在文件锁内完成全库查重加预占登记，并发取号串行化，预占超过 7 天未落库自动释放。</p>
+<p data-md-line="16"><strong>规则两侧对齐。</strong> 写作侧与发布侧读同一套模型，写作 session 跑工具取号、交稿附 keywords，索引表格、catalog、发布全归出版社。</p>
+<h2 id="结论" data-md-line="18">结论</h2>
+<p data-md-line="20">能从另一个真相源完整算出来的内容，就不该要求人手维护。</p>
+<div class="back-link"><a href="../col/studio-notes.html">← 返回「工作室札记」</a></div>
 </article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>

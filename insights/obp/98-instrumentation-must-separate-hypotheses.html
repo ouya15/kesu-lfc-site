@@ -119,43 +119,43 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <h1>98 埋点粒度要能分离竞争假设</h1>
 <p class="meta-line">2026-07-23<span class="sep">·</span>obp</p>
 <blockquote>
-<p>日期：2026-07-23</p>
+<p data-md-line="3">日期：2026-07-23</p>
 </blockquote>
-<h2 id="背景">背景</h2>
-<p>JSONTool 有个已知症状：加载 8MB 的接口返回文件（里面有一行 200 万字符的日志），搜索完全没问题，但搜到那一行、把匹配滚到屏幕上时会冻结好几秒。为了根治，我做了 TextKit 1 → TextKit 2 的迁移设计（<code>docs/textkit2-migration-plan.md</code>）——TK2 的高亮机制不用临时属性，理论上不再强制排版。计划 6–10 人天，四个阶段。</p>
-<p>方案里明确写着一句根因判断：<code>applyAll</code> 里的 <code>setTemporaryAttributes</code> 是冻结元凶——搜索完给命中设高亮时，超长行被强制排版。因此 Phase 1 的重头戏是把高亮解耦。</p>
-<h2 id="问题">问题</h2>
-<p>按 standard-cycle 的纪律，动手前先做 Phase 0：埋点采基线。5 个点位——<code>applyAll</code> / <code>moveCurrent</code> / <code>DocRef.set</code> / <code>applyWrap</code> / 滚动到指定匹配。</p>
-<p>关键选择在最后一个：<strong>滚动怎么算？</strong></p>
-<p>有两个粒度可选：</p>
+<h2 id="背景" data-md-line="5">背景</h2>
+<p data-md-line="7">JSONTool 有个已知症状：加载 8MB 的接口返回文件（里面有一行 200 万字符的日志），搜索完全没问题，但搜到那一行、把匹配滚到屏幕上时会冻结好几秒。为了根治，我做了 TextKit 1 → TextKit 2 的迁移设计（<code>docs/textkit2-migration-plan.md</code>）——TK2 的高亮机制不用临时属性，理论上不再强制排版。计划 6–10 人天，四个阶段。</p>
+<p data-md-line="9">方案里明确写着一句根因判断：<code>applyAll</code> 里的 <code>setTemporaryAttributes</code> 是冻结元凶——搜索完给命中设高亮时，超长行被强制排版。因此 Phase 1 的重头戏是把高亮解耦。</p>
+<h2 id="问题" data-md-line="11">问题</h2>
+<p data-md-line="13">按 standard-cycle 的纪律，动手前先做 Phase 0：埋点采基线。5 个点位——<code>applyAll</code> / <code>moveCurrent</code> / <code>DocRef.set</code> / <code>applyWrap</code> / 滚动到指定匹配。</p>
+<p data-md-line="15">关键选择在最后一个：<strong>滚动怎么算？</strong></p>
+<p data-md-line="17">有两个粒度可选：</p>
 <ul>
-<li>(A) 只测 <code>moveCurrent</code> 全程（"上一个 / 下一个"从按下到完成的总耗时）</li>
-<li>(B) <code>moveCurrent</code> 全程 + 内部单独测 <code>scrollRangeToVisible</code> 那一次调用</li>
+<li data-md-line="19">(A) 只测 <code>moveCurrent</code> 全程（"上一个 / 下一个"从按下到完成的总耗时）</li>
+<li data-md-line="20">(B) <code>moveCurrent</code> 全程 + 内部单独测 <code>scrollRangeToVisible</code> 那一次调用</li>
 </ul>
-<p>方案 A 简单一层，方案 B 多一层嵌套 measure。为省事似乎该走 A。</p>
-<h2 id="方案">方案</h2>
-<p>选了 B——理由是<strong>方案 A 只能证明"慢"，不能证明"谁在慢"</strong>。而根因判断"是设临时属性的锅"是可证伪的：如果 scroll 分量占大头，就证伪；如果设属性占大头，就证实。分离测量是这次改动的整个价值所在。</p>
-<p>基线数据：</p>
+<p data-md-line="22">方案 A 简单一层，方案 B 多一层嵌套 measure。为省事似乎该走 A。</p>
+<h2 id="方案" data-md-line="24">方案</h2>
+<p data-md-line="26">选了 B——理由是<strong>方案 A 只能证明"慢"，不能证明"谁在慢"</strong>。而根因判断"是设临时属性的锅"是可证伪的：如果 scroll 分量占大头，就证伪；如果设属性占大头，就证实。分离测量是这次改动的整个价值所在。</p>
+<p data-md-line="28">基线数据：</p>
 <ul>
-<li><code>applyAll</code>（搜索→全部高亮完成）：<strong>82 ms</strong></li>
-<li><code>moveCurrent</code>（导航到 200 万字符行）：<strong>1217 ms</strong></li>
-<li>其中 <code>moveCurrent.scroll</code> 分量：<strong>1216.7 ms</strong>（99.9%）</li>
-<li>剩下的 ~0.4 ms 是设临时属性</li>
+<li data-md-line="30"><code>applyAll</code>（搜索→全部高亮完成）：<strong>82 ms</strong></li>
+<li data-md-line="31"><code>moveCurrent</code>（导航到 200 万字符行）：<strong>1217 ms</strong></li>
+<li data-md-line="32">其中 <code>moveCurrent.scroll</code> 分量：<strong>1216.7 ms</strong>（99.9%）</li>
+<li data-md-line="33">剩下的 ~0.4 ms 是设临时属性</li>
 </ul>
-<p>数据推翻了根因判断。冻结源不在高亮（82ms 而已，压根不是主诉），而在<strong>把超长行滚入视口时被迫排版整行</strong>——这是 TextKit 1 和 TextKit 2 都躲不掉的固有成本（TK2 只是布局单位换成 fragment，200 万字符仍是一个 fragment）。TK2 的"高亮解耦"对导航冻结帮助有限。</p>
-<p>方向纠偏：不做 TK2 全量迁移，改做 Phase 3.5 病理长行自动软换行（30 行代码）。换行后同一操作 25–90 ms，直接治主诉。</p>
-<h2 id="结论">结论</h2>
-<p><strong>测量的粒度要能区分互相竞争的解释，不能只是"能测出快慢"。</strong></p>
-<p>具体判断链：</p>
+<p data-md-line="35">数据推翻了根因判断。冻结源不在高亮（82ms 而已，压根不是主诉），而在<strong>把超长行滚入视口时被迫排版整行</strong>——这是 TextKit 1 和 TextKit 2 都躲不掉的固有成本（TK2 只是布局单位换成 fragment，200 万字符仍是一个 fragment）。TK2 的"高亮解耦"对导航冻结帮助有限。</p>
+<p data-md-line="37">方向纠偏：不做 TK2 全量迁移，改做 Phase 3.5 病理长行自动软换行（30 行代码）。换行后同一操作 25–90 ms，直接治主诉。</p>
+<h2 id="结论" data-md-line="39">结论</h2>
+<p data-md-line="41"><strong>测量的粒度要能区分互相竞争的解释，不能只是"能测出快慢"。</strong></p>
+<p data-md-line="43">具体判断链：</p>
 <ul>
-<li>手头有一个待验证的根因判断（"X 是元凶"）</li>
-<li>有另一个可能的替代解释（"其实是 Y"）</li>
-<li>埋点的最粗粒度必须能把 X 和 Y 分开，否则测出来只能得出"总耗时"这一个数字，没法验证或证伪任何一方</li>
-<li>多一层 measure 的成本远小于选错方向的成本——特别是当"根据根因判断做出的下一步动作"是数千行代码的迁移时</li>
+<li data-md-line="45">手头有一个待验证的根因判断（"X 是元凶"）</li>
+<li data-md-line="46">有另一个可能的替代解释（"其实是 Y"）</li>
+<li data-md-line="47">埋点的最粗粒度必须能把 X 和 Y 分开，否则测出来只能得出"总耗时"这一个数字，没法验证或证伪任何一方</li>
+<li data-md-line="48">多一层 measure 的成本远小于选错方向的成本——特别是当"根据根因判断做出的下一步动作"是数千行代码的迁移时</li>
 </ul>
-<p>反过来说：<strong>如果一份优化方案的根因判断只有一种解释、没有备选</strong>，那要么问题真的很简单，要么方案没想清楚。多数复杂问题应该至少能列出 2–3 种可能的瓶颈，埋点必须能把它们逐一验证或排除。方案 A（只测总时长）在这种场景下相当于"我要去看医生但只告诉他我不舒服"——医生要给你验血，不是让你自评。</p>
-<p><strong>"先测再改"是套话，"测量粒度要能分离假设"才是可执行的原则。</strong> 前者能被随便一层粗埋点满足，后者迫使你在动手前先想清楚"我现在的假设是什么、它的对立面是什么、我要看到什么数据才能判定"。</p>
-<p>限定条件：这条原则用在有明确根因猜测、且改动成本远大于埋点成本时。纯性能剖析（不带假设，只是看哪里慢）不需要——那种场景下 Time Profiler 全采样即可。有假设、要验证，才用得上这条。</p>
+<p data-md-line="50">反过来说：<strong>如果一份优化方案的根因判断只有一种解释、没有备选</strong>，那要么问题真的很简单，要么方案没想清楚。多数复杂问题应该至少能列出 2–3 种可能的瓶颈，埋点必须能把它们逐一验证或排除。方案 A（只测总时长）在这种场景下相当于"我要去看医生但只告诉他我不舒服"——医生要给你验血，不是让你自评。</p>
+<p data-md-line="52"><strong>"先测再改"是套话，"测量粒度要能分离假设"才是可执行的原则。</strong> 前者能被随便一层粗埋点满足，后者迫使你在动手前先想清楚"我现在的假设是什么、它的对立面是什么、我要看到什么数据才能判定"。</p>
+<p data-md-line="54">限定条件：这条原则用在有明确根因猜测、且改动成本远大于埋点成本时。纯性能剖析（不带假设，只是看哪里慢）不需要——那种场景下 Time Profiler 全采样即可。有假设、要验证，才用得上这条。</p>
 <div class="back-link"><a href="../col/tool-showcase.html">← 返回「工具橱窗」</a></div>
 </article>
 </div></main>
