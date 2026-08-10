@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>222 三层评测：为 agent 流水线建立"每次改动有判决"的机制 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
+<script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+@import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root{
+  --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --serif:'Noto Serif SC','Songti SC',serif;
+  --sans:'Noto Sans SC','PingFang SC',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.7;
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(194,55,43,.07), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(194,55,43,.045), transparent 55%),
+    var(--paper);
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(28,26,23,.05) 1px, transparent 1px);
+  background-size:24px 24px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+a{color:inherit}
+/* header */
+.site-head{border-bottom:1px solid var(--line);background:rgba(245,244,240,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.15rem;text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+.brand-dot{width:11px;height:11px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 3px rgba(194,55,43,.15)}
+.site-head nav{display:flex;gap:22px}
+.site-head nav a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:500;transition:color .18s}
+.site-head nav a:hover{color:var(--red)}
+/* footer */
+.site-foot{border-top:1px solid var(--line);margin-top:72px;padding:30px 0 40px}
+.site-foot p{font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+/* badges (review) */
+.badge-bar{margin:0 0 26px}
+.badge{display:inline-block;color:#fff;padding:2px 10px;border-radius:12px;font-size:.72rem;margin:0 6px 6px 0;font-family:var(--mono)}
+/* article body */
+article{padding:46px 0 20px}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:600}
+article h1{font-family:var(--serif);font-weight:900;font-size:2.15rem;line-height:1.35;margin-bottom:12px;letter-spacing:.01em}
+.meta-line{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.meta-line .sep{margin:0 8px;color:var(--line)}
+article h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:40px 0 14px}
+article h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:28px 0 10px}
+article h4{font-size:1rem;font-weight:700;margin:22px 0 8px}
+article p{margin-bottom:16px;color:var(--body)}
+article blockquote{border-left:3px solid var(--red);margin:18px 0;padding:6px 18px;color:var(--muted);background:rgba(194,55,43,.035)}
+article blockquote p{margin-bottom:8px;color:var(--muted)}
+article code{background:#eceae4;padding:2px 6px;border-radius:3px;font-size:.86em;font-family:var(--mono)}
+article pre{background:#23211e;color:#e8e5df;padding:18px;border-radius:6px;overflow-x:auto;margin:18px 0}
+article pre code{background:none;padding:0;color:inherit;font-size:.8rem;line-height:1.6}
+article pre code.hljs{background:transparent;padding:0}
+article hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+article ul,article ol{margin:0 0 16px;padding-left:1.5em}
+article li{margin-bottom:7px;color:var(--body)}
+article a{color:var(--red-deep);text-decoration:underline;text-decoration-color:rgba(194,55,43,.4);text-underline-offset:3px;transition:text-decoration-color .18s}
+article a:hover{text-decoration-color:var(--red)}
+.insight-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
+.insight-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:700;font-family:var(--serif)}
+.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
+.back-link{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.back-link a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);transition:color .18s}
+.back-link a:hover{color:var(--red)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .55s ease both}
+/* ===== 夜间模式（纯叠加，html.dark 覆盖，不改动上方任何浅色规则）===== */
+html.dark{
+  --paper:#191714; --ink:#e8e5df; --red:#e05545; --red-deep:#e86a5a;
+  --muted:#9a958c; --line:#3a3630; --card:#26231c; --body:#c9c5bd;
+}
+html.dark body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(224,85,69,.06), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(224,85,69,.04), transparent 55%),
+    var(--paper);
+}
+html.dark body::before{background-image:radial-gradient(rgba(232,229,223,.04) 1px, transparent 1px)}
+html.dark .site-head{background:rgba(25,23,20,.85)}
+html.dark .brand-dot{box-shadow:0 0 0 3px rgba(224,85,69,.2)}
+html.dark article code{background:#26231c}
+html.dark article blockquote{background:rgba(224,85,69,.06)}
+html.dark article a{text-decoration-color:rgba(224,85,69,.5)}
+html.dark .col-intro{color:#b5b0a6}
+html.dark .art-guide{color:#9a958c}
+#theme-toggle{background:none;border:1px solid var(--line);border-radius:50%;cursor:pointer;
+  color:var(--muted);padding:6px;display:flex;align-items:center;justify-content:center;
+  transition:color .18s,border-color .18s}
+#theme-toggle:hover{color:var(--red);border-color:var(--red)}
+#theme-toggle svg{width:15px;height:15px;display:block}
+#theme-toggle .icon-sun{display:none}
+html.dark #theme-toggle .icon-moon{display:none}
+html.dark #theme-toggle .icon-sun{display:block}
+/* ===== 滚动坍缩红线（业界标准：下滑收成顶部一条红线，点击展开）===== */
+body[data-scrolled] .site-head{position:fixed;top:0;left:0;right:0;width:auto;height:5px;padding:0;border:none;background:var(--red);z-index:999;cursor:pointer;backdrop-filter:none;box-shadow:none;transition:height .25s,background .25s}
+body[data-scrolled] .site-head .wrap{display:none}
+@media(hover:hover){
+body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+body[data-scrolled] .site-head:hover .wrap{display:flex}
+html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
+</style>
+</head><body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+</div></header>
+<main><div class="wrap">
+<article class="rise">
+<p class="kicker">评测与自省</p>
+<h1>222 三层评测：为 agent 流水线建立"每次改动有判决"的机制</h1>
+<p class="meta-line">2026-08-09<span class="sep">·</span>obp</p>
+<blockquote>
+<p data-md-line="3">日期：2026-08-09</p>
+<p data-md-line="4">说明：文中公司名为脱敏代称（希腊神话人物名），业务场景已泛化，数字为约数。</p>
+</blockquote>
+<h2 id="一-背景与需求" data-md-line="6">一、背景与需求</h2>
+<h3 id="问题-补丁循环" data-md-line="8">问题：补丁循环</h3>
+<p data-md-line="10">CRSS 的评级 rubric 迭代到 v5.1 时，已经连续打了四轮补丁：v3 → v4 → v5 → v5.1，每一轮都是"发现偏差 → 打补丁 → 全量重跑"（全量一次数小时）。每一轮改完都只有"看起来改好了"这一个证据。</p>
+<p data-md-line="12">停跑前最后一次审计给出了决定性证据：</p>
+<ul>
+<li data-md-line="14">v5 判为误判的 5 家公司在 v5.1 <strong>全部未降级</strong>——prompt 里的文字防御规则（"年报正面数据/资料页不是较高依据"）模型基本不执行，5/5 落空</li>
+<li data-md-line="15">新抽查 6 家"较高"，3 家由低质资料页条目撑起</li>
+</ul>
+<p data-md-line="17">结论：补丁路线结构性失败。根因不是哪条规则写得不好，是<strong>没有闸口</strong>——任何改动都没有可量化的结论，改坏了没有自动拦截。搜索引擎团队的标准做法是 golden 回归（事故样本转回归用例，改动必跑），这套方法论需要迁移到 agent/LLM 流水线上。</p>
+<h3 id="需求定义" data-md-line="19">需求定义</h3>
+<ul>
+<li data-md-line="21">每次改查询模板 / 过滤阈值 / 实体规则 / 评级 rubric，都有可量化的结论（指标回退即拦下）</li>
+<li data-md-line="22">评测必须"跑得起"：规则层 0 API、全量、秒级——跑得起才是机制，跑不起只是文档</li>
+<li data-md-line="23">覆盖两条链路：merge 过滤链路（确定性规则）+ agent 研究链路（开放式语义，LLM 判断）</li>
+</ul>
+<h2 id="二-总体架构-三层互补" data-md-line="25">二、总体架构：三层互补</h2>
+<table class="insight-table"><thead><tr><th>层</th><th>判什么</th><th>成本</th><th>速度</th><th>可信度</th></tr></thead><tbody><tr><td>规则层</td><td>过滤/保留判定、schema 合法</td><td>0（离线）</td><td>秒级</td><td>确定性 100%</td></tr><tr><td>judge 层</td><td>摘要 vs 原文事实一致性、评级合理性</td><td>1~2 次 API/条</td><td>分钟级</td><td>高，有偏差需缓解</td></tr><tr><td>人工层</td><td>报告端到端是否"可交付"</td><td>每周 10 条</td><td>慢</td><td>最高（锚点）</td></tr></tbody></table>
+<p data-md-line="33">设计依据：规则层覆盖不了开放式语义对错；judge 层补上语义判断但自带偏差（位置偏差/自我偏好/冗长偏好——业界已实证，JudgeFlip 翻转率 57-100%）；人工最可信但贵。<strong>三层互补，不是用一层打天下。</strong> 三层缺一层，结论都不可信：没有规则层，每次改动成本高企；没有 judge 层，语义对错无闸口；没有人上层，新失败模式无人兜底。</p>
+<p data-md-line="35">工作流：</p>
+<pre data-md-line="37"><code>
+代码/配置改动 → unittest 全绿？→ 否 → 拦下
+                  └ 是 → run_eval 规则层（秒级、0 API）
+                          ├ 指标回退？→ 拦下 + 附 bad case
+                          ├ judge 层 nightly（评级对齐，~15 次调用）
+                          └ 月度人工抽样 → bad case 回灌 golden
+</code></pre>
+<p data-md-line="45">成本实测：规则层 0；judge 层评级对齐每轮 15 次调用（分钟级）；人工每周 10 条 × 10 分钟。三层全开月度成本约一杯咖啡。</p>
+<h2 id="三-数据模型-golden-set" data-md-line="47">三、数据模型：golden set</h2>
+<p data-md-line="49">golden 是评测的基准，也是治理资产——事故样本转回归用例，与开发样本分离，防过拟合到评测集。</p>
+<h3 id="item_labels-条目级标注" data-md-line="51">item_labels（条目级标注）</h3>
+<pre data-md-line="53"><code class="language-json">
+{
+  "company": "Athena S.A.",
+  "category": "legal",
+  "title": "...",
+  "url": "https://...",
+  "content": "...",
+  "label": "irrelevant",      // relevant | irrelevant | border
+  "note": "标注理由",
+  "source": "archive"          // archive 真实事故 / auto 机器标注 / constructed 构造
+}
+</code></pre>
+<p data-md-line="66">三值标签语义：</p>
+<ul>
+<li data-md-line="68"><strong>relevant</strong>：真实风险事件，必须保留</li>
+<li data-md-line="69"><strong>irrelevant</strong>：资料页/注册信息/同名噪声/行情页，必须滤掉</li>
+<li data-md-line="70"><strong>border</strong>：妥协条目（资料域名但命中风险词），按 relevant 对待但单独统计，不算相关正样本</li>
+</ul>
+<p data-md-line="72">规模 139 条：irrelevant 72（E 清理审计快照 68 + Athena 事故 4）/ relevant 52（六类别正样本每类 4 条 + 记录站豁免抽样 25 + 必收录回归 3）/ border 15（妥协条目）。</p>
+<p data-md-line="74"><strong>构建纪律</strong>：</p>
+<ul>
+<li data-md-line="76"><strong>MUST_INCLUDE 必收录机制</strong>：历史上误杀过的真实事件（如某零售巨头资料页上的集体诉讼）锁进 golden，不参与抽样——抽样再公平也不能漏掉误杀历史实证</li>
+<li data-md-line="77"><strong>抽样控制</strong>：妥协条目 15 条封顶；记录站豁免每 host 8 条、总量 25 条（防 goodjobsfirst 一家独大）</li>
+</ul>
+<h3 id="rating_labels-公司级评级期望" data-md-line="79">rating_labels（公司级评级期望）</h3>
+<pre data-md-line="81"><code class="language-json">
+{
+  "company": "Hera AG",
+  "expected_risk": "中",       // 5 级制
+  "expected_trend": "平稳",
+  "evidence_note": "标注依据（证据链/裁决记录）",
+  "source": "audit+user_decision"
+}
+</code></pre>
+<p data-md-line="91">15 家构成：audit 锚点 4 + 误判样本 4 + 重评实证 6 + border 混同 1（VOLTANEO，实体拆分后定稿）。source 白名单（audit/rerate/border/auto/audit+user_decision）保证标注来源可审计——这条白名单本身被测试强制校验，防止来源字段乱写。</p>
+<h2 id="四-规则层-确定性回归-0-api-秒级" data-md-line="93">四、规则层：确定性回归（0 API、秒级）</h2>
+<h3 id="机制" data-md-line="95">机制</h3>
+<p data-md-line="97">对 golden 每条执行确定性过滤链（低质判定 + 实体过滤），判定该条目是否应被保留，与标注比对：</p>
+<ul>
+<li data-md-line="99">precision = 保留且 relevant / 保留数（宁可漏场景的护航）</li>
+<li data-md-line="100">recall = 保留且 relevant / gold relevant 总数（别把真风险筛掉）</li>
+<li data-md-line="101">误杀逐条看（gold relevant 中被丢弃的）</li>
+<li data-md-line="102">结果写 history.json（时间/版本/git commit/指标），趋势对比，"没变差"才能合入</li>
+</ul>
+<h3 id="数据" data-md-line="104">数据</h3>
+<p data-md-line="106">基线：<strong>TP/TN/FP/FN = 67/71/1/0，precision 0.985 / recall 1.000 / F1=0.993</strong>，噪声率 0.014，RISK_KW 救回 15 条 border 条目全保留。<strong>FN=0：相关/border 零误杀（硬约束）</strong>。</p>
+<p data-md-line="108">唯一 FP：Athena 行情标题（"Athena SA Stock Price Today"）——<strong>设计边界</strong>：股价文章属评级规则层职责（"股价分析不是较高/中依据"），不是输入清理对象，由 judge 层兜底。</p>
+<h3 id="决策记录" data-md-line="110">决策记录</h3>
+<ul>
+<li data-md-line="112"><strong>FN=0 是硬约束</strong>：宁可噪声率上去，不可把真实风险滤掉——保险场景损失不对称（漏掉一条真实破产信号 > 多一条噪声）</li>
+<li data-md-line="113"><strong>RISK_KW 一票保留</strong>：命中风险关键词（诉讼/违约/泄露/召回等）的条目一律保留，哪怕它在资料页域名上。实证：某零售巨头 yellowpages 条目是 数千万条数据泄露集体诉讼，一刀切会误杀</li>
+<li data-md-line="114"><strong>测试抓到生产 bug</strong>：PROFILE_URL_PATTERNS 双斜杠（<code>f"/{path}"</code> 产生 <code>//profile</code> 永不命中）——路径模式防御形同虚设，单测回归后修复。规则层评测的正确性依赖底层规则本身的正确性，单测与评测是互补关系</li>
+</ul>
+<h2 id="五-judge-层-评级对齐" data-md-line="116">五、judge 层：评级对齐</h2>
+<h3 id="机制" data-md-line="118">机制</h3>
+<p data-md-line="120">对 rating_labels 每家：读该公司 items 证据集 → build_report_prompt 评级（与生产同款 prompt 与流程）→ 输出等级 vs golden 期望 → 判定：</p>
+<ul>
+<li data-md-line="122"><strong>精确一致</strong>：输出 = 期望</li>
+<li data-md-line="123"><strong>相邻一致</strong>：5 级尺度（低/较低/中/较高/高）相差 1 档</li>
+<li data-md-line="124"><strong>不一致</strong>：相差 ≥2 档</li>
+<li data-md-line="125">border（期望为"?"）不算分</li>
+</ul>
+<h3 id="数据-基线演进" data-md-line="127">数据：基线演进</h3>
+<table class="insight-table"><thead><tr><th>版本</th><th>精确一致</th><th>相邻一致</th><th>说明</th></tr></thead><tbody><tr><td>v5.1（基线）</td><td>0.50（7/14）</td><td>0.86（12/14）</td><td>rubric 未动，fresh API 调用</td></tr><tr><td>v6.0（锚点首轮）</td><td>0.667（10/15）</td><td>0.867（13/15）</td><td>VOLTANEO 拆分定稿后 15 家</td></tr><tr><td>v6.0 + Hestia 修正</td><td>0.667</td><td>0.933</td><td>标注修正收益 +0.07</td></tr><tr><td>v6.1（实质程度限定）</td><td>0.667</td><td>0.933</td><td>仅 Hera 一个硬不一致</td></tr><tr><td>v6.2（锚点冲突修复）</td><td>0.667</td><td>0.933</td><td>复测实证口径</td></tr></tbody></table>
+<h3 id="评测反噬标注-标注质量是评测上界" data-md-line="137">评测反噬标注：标注质量是评测上界</h3>
+<p data-md-line="139">两轮评级对齐中，模型对真实证据的评级持续高于 golden 期望——初看是模型错了，打印推理链逐条核对后，<strong>模型有据，标注标错了</strong>：</p>
+<ul>
+<li data-md-line="141"><strong>Hestia</strong>：期望"较低"，模型评"较高"。证据：流动比率约 0.8、净债务/EBITDA 5 倍+、Z-Score 约 2.5 灰区。期望来自更早一轮人工审计的叙事（当时只有正面新闻），真实财务信号是评测跑起来后暴露的。用户裁决期望改"中"，<strong>修正一条标注，相邻一致 +0.07</strong>。</li>
+<li data-md-line="142"><strong>Hera</strong>：期望"较低"，模型评"较高"。诊断推理链：投机级（B 档）、Debt/EBITDA 数倍、EBIT/利息覆盖接近零，但无违约/无破产/无流动性危机（现金约 €1.7 亿 + 自由现金流约 €4 亿 + RCF 额度），重大诉讼已结案（约 €2000 万已付 + 2016 最高院基本胜诉）——模型是权衡后判"中"，不是误判。期望改"中"，修正生效。</li>
+</ul>
+<p data-md-line="144">规律：<strong>评测对的是标注。模型被实证正确时，修正的是标注而不是系统。</strong> 评测不只验证系统，也验证自己的答案——标注质量是评测上界，反噬标注是模式不是偶发。</p>
+<h3 id="决策记录" data-md-line="146">决策记录</h3>
+<ul>
+<li data-md-line="148"><strong>复测取稳</strong>：judge 单次输出有方差（Apollo 复测较低/中波动；Hera 4 次运行 3 较高 1 中），关键变更公司必须复测取稳，单次数字不作数</li>
+<li data-md-line="149"><strong>评测结论必须重跑实证</strong>：曾基于一次批量口径推断"相邻满贯"，期望修正后重跑即被证伪（另一家公司的方差顶替了唯一不一致位）——数字要重跑，推断不作数</li>
+<li data-md-line="150"><strong>meta 提取失败是已知失败模式</strong>：Apollo/Demeter/Zeus 多次出现评级 meta 提取返回 None/"?"，单独重试成功——管线错误（提取失败）与模型输出（评级）要分开归因，不能把提取失败当评级结果</li>
+</ul>
+<h2 id="六-锚点迭代-rubric-升级与两类新缺陷" data-md-line="152">六、锚点迭代：rubric 升级与两类新缺陷</h2>
+<h3 id="v6-0-锚点示例替代抽象规则" data-md-line="154">v6.0：锚点示例替代抽象规则</h3>
+<p data-md-line="156">v5.1 审计实证抽象防御规则模型不执行（5/5 落空），rubric 改为"事件形态→评级"具象先例，内置 7 条锚点（泄露+集体诉讼→较低、拆售→较低、破产公开+净资产恶化+未决索赔→高、公司解散→高、资料页→低或较低、纯正面→低、速动 0.3+流动负债大→较高）。</p>
+<p data-md-line="158">结果：Apollo 较高→较低（拆售锚点修复）、Hercules 较高→中（2 档差缩到 1 档）、Ares/Demeter 转精确一致，对齐 0.50→0.667 / 0.86→0.867。</p>
+<h3 id="评测抓出锚点误套-v6-1-修复" data-md-line="160">评测抓出锚点误套（v6.1 修复）</h3>
+<p data-md-line="162">副作用：Hera 被"流动性恶化"锚点推高（两次复测稳定），实际依据只是轻微运营指标（质量投诉率上升）。<strong>改进引入了回归，评测体系当场抓住</strong>——没有基线数字，这类回归要等下一轮审计才暴露。</p>
+<p data-md-line="164">修复：流动性锚点加"证据须达实质程度"限定——流动性恶化必须落在具体财务指标（流动比率持续 <1、速动 <0.5、净债务/EBITDA >4、利息保障 <3、Z-Score 灰区及以下）且无缓解迹象；单年波动或轻微运营指标（质量投诉率/产品偏差率上升、单年 EBIT 下降、成本上升、供应链调整、常规专利诉讼）不是较高/中的依据，此类仅评较低，除非同时伴随债务违约或流动性危机的实质证据。</p>
+<h3 id="锚点冲突-v6-2-修复" data-md-line="166">锚点冲突（v6.2 修复）</h3>
+<p data-md-line="168">Zeus 复测 3 次低/较低/高——同输入 3 档差。诊断：verif.com 信用评估报告（含"公开破产程序+未决索赔"实质内容）<strong>同时命中两个锚点</strong>——"资料页→低"（域名是资料页）与"破产程序→高"（内容含实质风险信号），模型随机选边。根因是<strong>两层脱节</strong>：输入层 RISK_KW 一票保留保护了这条，评级层资料页锚点却贬低它。</p>
+<p data-md-line="170">修复：资料页锚点加限定——"资料页/注册信息域名上的条目若内容含实质风险信号（破产/违约/诉讼/制裁/监管处罚等），按实质信号评级，不适用本条"，与输入层 RISK_KW 对齐。复测验证：修复后有效运行均评高。</p>
+<h3 id="异常结果四分法-诊断方法论" data-md-line="172">异常结果四分法（诊断方法论）</h3>
+<p data-md-line="174">边界/异常结果不要只看分数，打印模型推理链，分四类：</p>
+<table class="insight-table"><thead><tr><th>现象</th><th>判定</th><th>处理</th></tr></thead><tbody><tr><td>复测跳档（同输入高/中波动）</td><td>judge 方差</td><td>复测取稳，别改规则</td></tr><tr><td>复测稳定地错</td><td>rubric 缺陷</td><td>修 rubric</td></tr><tr><td>同输入命中两条互斥锚点</td><td>锚点冲突</td><td>检查锚点互斥，加限定</td></tr><tr><td>模型有据、期望不符</td><td>标注错</td><td>修 golden，不是修系统</td></tr></tbody></table>
+<p data-md-line="183">四类处理动作完全不同，分错类就是拿对类的方法改错类的问题——把方差当回归修，越修越坏。</p>
+<h2 id="七-人工层-月度抽样锚点" data-md-line="185">七、人工层：月度抽样锚点</h2>
+<ul>
+<li data-md-line="187">每周抽 10 条端到端（真实公司跑全链路）：① 该保留的保留了？② 该过滤的过滤了？③ 摘要事实可核？④ 报告可交付？</li>
+<li data-md-line="188">抽样选法：分层 + 主动学习（被 judge 判不定、被规则卡在边界、新公司先抽）</li>
+<li data-md-line="189">结果回灌：新增 golden case / 修正 judge rubric / 修正边界阈值</li>
+</ul>
+<p data-md-line="191">人工层回答的是另外三层答不了的问题：golden 之外的新失败模式。评测的"判决"有上界——规则与 judge 只能判"见过的错"，新失败模式只能靠人工兜底，所以人工层不可省。</p>
+<h2 id="八-验证与现状" data-md-line="193">八、验证与现状</h2>
+<ul>
+<li data-md-line="195">130 个自动化测试全绿（含 test_eval 8 例、test_source_quality 17 例——后者抓到 //profile 生产 bug）</li>
+<li data-md-line="196">规则层 F1=0.993、FN=0（0 API 成本，改动必跑）</li>
+<li data-md-line="197">评级对齐精确 0.667 / 相邻 0.933（15 家基准，复测实证口径）</li>
+<li data-md-line="198">评测执行成本：规则层 0；评级对齐每轮 15 次调用（分钟级）</li>
+<li data-md-line="199">公开版（crss-public）：golden 为合成数据（34 条条目标注 / 5 家虚构公司 + 1 家纯评级期望），评测逻辑与私有版一致</li>
+</ul>
+<h2 id="九-已知局限" data-md-line="201">九、已知局限</h2>
+<ul>
+<li data-md-line="203">golden 只含已有 URL，<strong>不衡量"检索到没搜到"</strong>（召回上界未知）——评测不覆盖检索召回质量</li>
+<li data-md-line="204">judge 单次输出有方差：单次对齐度数字本身会波动，结论必须多次运行/复测取稳</li>
+<li data-md-line="205">meta 提取存在已知失败模式（None/"?"），重试处理，需与模型输出分开归因</li>
+<li data-md-line="206">精确一致 0.667 受 4-5 家 1 档差限制（Apollo 方差、Hercules、Prometheus、Zeus 冲突余波等），提升需路径 C/D（维度化评分 / 独立裁判）</li>
+</ul>
+<h2 id="十-决策索引" data-md-line="208">十、决策索引</h2>
+<table class="insight-table"><thead><tr><th>#</th><th>决策点</th><th>选择</th><th>理由</th><th>结果验证</th></tr></thead><tbody><tr><td>1</td><td>评测时机</td><td>评测先行（改代码前建 golden）</td><td>无基线的改进不可量化</td><td>对齐基线 0.50/0.86 → 0.667/0.933</td></tr><tr><td>2</td><td>规则层约束</td><td>FN=0 硬约束</td><td>漏真风险代价 > 多噪声</td><td>F1=0.993、零误杀</td></tr><tr><td>3</td><td>防误杀</td><td>RISK_KW 一票保留 + MUST_INCLUDE</td><td>一刀切会删真实事件</td><td>集体诉讼条目保住了</td></tr><tr><td>4</td><td>标注来源</td><td>source 白名单 + 测试强制</td><td>标注可审计</td><td>审计+用户裁决记录在案</td></tr><tr><td>5</td><td>judge 判定</td><td>精确/相邻两级 + border 不算分</td><td>5 级尺度 1 档差是合理容差</td><td>0.86→0.933 演进可度量</td></tr><tr><td>6</td><td>标注 vs 系统</td><td>模型被实证正确时改标注</td><td>标注质量是评测上界</td><td>两轮反噬标注，+0.07/修正生效</td></tr><tr><td>7</td><td>rubric 形式</td><td>锚点示例替代抽象防御规则</td><td>抽象规则 5/5 落空实证</td><td>v6.0 对齐提升</td></tr><tr><td>8</td><td>锚点迭代</td><td>实质程度限定 + 冲突修复（v6.1/v6.2）</td><td>评测抓出误套与冲突</td><td>两类缺陷闭环修复</td></tr><tr><td>9</td><td>诊断方法</td><td>四分法（方差/回归/冲突/标注错）</td><td>处理动作不同，分错类越修越坏</td><td>Zeus 冲突定位</td></tr><tr><td>10</td><td>结论采信</td><td>必须重跑实证</td><td>推断不可靠</td><td>"相邻满贯"被证伪</td></tr></tbody></table>
+<h2 id="总结" data-md-line="223">总结</h2>
+<p data-md-line="225">三层评测把"改坏了没"从感觉变成数字：规则层 0 API 秒级兜住确定性回归，judge 层 15 次调用给出对齐基线，人工层每周 10 条兜住新失败模式，bad case 全回灌 golden。运行中最重要的发现不是指标变好了，而是评测开始修正评测自身——两轮反噬标注证明标注质量是评测上界，四类失败模式的分法让每个异常都有正确的处理动作。这套体系迁移自搜索引擎的 golden 回归方法论，实测成本约一杯咖啡/月。</p>
+<h2 id="关联" data-md-line="227">关联</h2>
+<p data-md-line="229">#223 CRSS 系统 · #98 仪器化必须分离假设 · #97 标准循环 · #106 lfc-studio</p>
+<div class="back-link"><a href="../col/evaluation.html">← 返回「评测与自省」</a></div>
+</article>
+</div></main>
+<footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
+<script src="../../assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
+b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
+try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});var head=document.querySelector('.site-head');if(head){head.addEventListener('click',function(e){if(document.body.hasAttribute('data-scrolled')){e.preventDefault();document.body.removeAttribute('data-scrolled');lastY=window.scrollY}})};s(true)})();</script>
+</body></html>
