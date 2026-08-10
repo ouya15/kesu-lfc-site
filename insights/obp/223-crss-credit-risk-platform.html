@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>223 CRSS 系统：一个一百七十多家企业的信用风险监控平台 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
+<script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+@import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root{
+  --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --serif:'Noto Serif SC','Songti SC',serif;
+  --sans:'Noto Sans SC','PingFang SC',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.7;
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(194,55,43,.07), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(194,55,43,.045), transparent 55%),
+    var(--paper);
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(28,26,23,.05) 1px, transparent 1px);
+  background-size:24px 24px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+a{color:inherit}
+/* header */
+.site-head{border-bottom:1px solid var(--line);background:rgba(245,244,240,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.15rem;text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+.brand-dot{width:11px;height:11px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 3px rgba(194,55,43,.15)}
+.site-head nav{display:flex;gap:22px}
+.site-head nav a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:500;transition:color .18s}
+.site-head nav a:hover{color:var(--red)}
+/* footer */
+.site-foot{border-top:1px solid var(--line);margin-top:72px;padding:30px 0 40px}
+.site-foot p{font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+/* badges (review) */
+.badge-bar{margin:0 0 26px}
+.badge{display:inline-block;color:#fff;padding:2px 10px;border-radius:12px;font-size:.72rem;margin:0 6px 6px 0;font-family:var(--mono)}
+/* article body */
+article{padding:46px 0 20px}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:600}
+article h1{font-family:var(--serif);font-weight:900;font-size:2.15rem;line-height:1.35;margin-bottom:12px;letter-spacing:.01em}
+.meta-line{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.meta-line .sep{margin:0 8px;color:var(--line)}
+article h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:40px 0 14px}
+article h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:28px 0 10px}
+article h4{font-size:1rem;font-weight:700;margin:22px 0 8px}
+article p{margin-bottom:16px;color:var(--body)}
+article blockquote{border-left:3px solid var(--red);margin:18px 0;padding:6px 18px;color:var(--muted);background:rgba(194,55,43,.035)}
+article blockquote p{margin-bottom:8px;color:var(--muted)}
+article code{background:#eceae4;padding:2px 6px;border-radius:3px;font-size:.86em;font-family:var(--mono)}
+article pre{background:#23211e;color:#e8e5df;padding:18px;border-radius:6px;overflow-x:auto;margin:18px 0}
+article pre code{background:none;padding:0;color:inherit;font-size:.8rem;line-height:1.6}
+article pre code.hljs{background:transparent;padding:0}
+article hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+article ul,article ol{margin:0 0 16px;padding-left:1.5em}
+article li{margin-bottom:7px;color:var(--body)}
+article a{color:var(--red-deep);text-decoration:underline;text-decoration-color:rgba(194,55,43,.4);text-underline-offset:3px;transition:text-decoration-color .18s}
+article a:hover{text-decoration-color:var(--red)}
+.insight-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
+.insight-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:700;font-family:var(--serif)}
+.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
+.back-link{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.back-link a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);transition:color .18s}
+.back-link a:hover{color:var(--red)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .55s ease both}
+/* ===== 夜间模式（纯叠加，html.dark 覆盖，不改动上方任何浅色规则）===== */
+html.dark{
+  --paper:#191714; --ink:#e8e5df; --red:#e05545; --red-deep:#e86a5a;
+  --muted:#9a958c; --line:#3a3630; --card:#26231c; --body:#c9c5bd;
+}
+html.dark body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(224,85,69,.06), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(224,85,69,.04), transparent 55%),
+    var(--paper);
+}
+html.dark body::before{background-image:radial-gradient(rgba(232,229,223,.04) 1px, transparent 1px)}
+html.dark .site-head{background:rgba(25,23,20,.85)}
+html.dark .brand-dot{box-shadow:0 0 0 3px rgba(224,85,69,.2)}
+html.dark article code{background:#26231c}
+html.dark article blockquote{background:rgba(224,85,69,.06)}
+html.dark article a{text-decoration-color:rgba(224,85,69,.5)}
+html.dark .col-intro{color:#b5b0a6}
+html.dark .art-guide{color:#9a958c}
+#theme-toggle{background:none;border:1px solid var(--line);border-radius:50%;cursor:pointer;
+  color:var(--muted);padding:6px;display:flex;align-items:center;justify-content:center;
+  transition:color .18s,border-color .18s}
+#theme-toggle:hover{color:var(--red);border-color:var(--red)}
+#theme-toggle svg{width:15px;height:15px;display:block}
+#theme-toggle .icon-sun{display:none}
+html.dark #theme-toggle .icon-moon{display:none}
+html.dark #theme-toggle .icon-sun{display:block}
+/* ===== 滚动坍缩红线（业界标准：下滑收成顶部一条红线，点击展开）===== */
+body[data-scrolled] .site-head{position:fixed;top:0;left:0;right:0;width:auto;height:5px;padding:0;border:none;background:var(--red);z-index:999;cursor:pointer;backdrop-filter:none;box-shadow:none;transition:height .25s,background .25s}
+body[data-scrolled] .site-head .wrap{display:none}
+@media(hover:hover){
+body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+body[data-scrolled] .site-head:hover .wrap{display:flex}
+html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
+</style>
+</head><body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+</div></header>
+<main><div class="wrap">
+<article class="rise">
+<p class="kicker">AI 协作与认知</p>
+<h1>223 CRSS 系统：一个一百七十多家企业的信用风险监控平台</h1>
+<p class="meta-line"><span class="sep">·</span>obp</p>
+<blockquote>
+<p data-md-line="3">说明：文中公司名为脱敏代称（希腊神话人物名），业务场景已泛化，数字为约数。</p>
+</blockquote>
+<h2 id="〇-系统定位" data-md-line="5">〇、系统定位</h2>
+<p data-md-line="7">本文系统是个人使用的分析 demo，场景设定为保险行业的买方信用风险监控。非公司内部生产系统，数据为个人整理，公司名与业务场景均已代称化。</p>
+<h2 id="一-背景-保险承保决策依赖什么" data-md-line="9">一、背景：保险承保决策依赖什么</h2>
+<p data-md-line="11">保险的业务形态：企业把货卖给买方，如果买方拒付或破产，保险公司按约定赔付。因此承保部门的核心工作，是判断买方企业的信用风险——这家公司未来一年会不会破产、会不会拖欠、会不会因为制裁或供应链中断而无法履约。</p>
+<p data-md-line="13">业务侧维护一份 一百七十多家买方企业的名单，分布在多个国家，涵盖零售、制造、化工、汽车等行业。风险监控要覆盖六个维度：法律（诉讼/判决）、监管（处罚/资质）、财务（违约/流动性/杠杆）、网络安全（泄露/攻击）、经营（供应链/停摆/重组）、ESG（环境/劳工/治理）。</p>
+<p data-md-line="15">这个场景有三个特性决定了系统设计：</p>
+<ul>
+<li data-md-line="17"><strong>持续性</strong>：不是一次性尽调，是持续监控——风险事件是增量发生的，新诉讼、新破产程序、新制裁每天都在出现</li>
+<li data-md-line="18"><strong>可追责</strong>：承保决策要记录依据，报告里的每条证据必须能点回原始来源</li>
+<li data-md-line="19"><strong>成本敏感</strong>：一百七十多家 × 6 维度的人工盯法是几个人力，系统化的目标是单人可维护</li>
+</ul>
+<hr>
+<h2 id="二-总体架构" data-md-line="23">二、总体架构</h2>
+<pre data-md-line="25"><code>
+companies.csv（一百七十多家名单）
+    │
+    ▼
+研究引擎（DeepSeek 原生 web_search，6 类别多轮自搜）
+    │   输出 items/{company}.json —— 唯一真相源，git 管理
+    ▼
+治理层（三道闸）
+    URL 溯源校验 → 实体消歧 → 低质条目过滤
+    │
+    ├──► 报告层：评级（5 级×3 趋势）+ 六类别研判，rating_history 追加式
+    ├──► 知识库：SQLite 派生查询层（FTS5 中文检索，幂等重建）
+    ├──► 展示层：静态报告站点（搜索/筛选/评级轨迹/下载）
+    └──► 评测层：golden 回归 + 评级对齐（离线，0 API 成本）
+</code></pre>
+<p data-md-line="41">技术栈刻意保持最小：Python 标准库 + requests + openpyxl，零外部服务依赖。一个人维护的系统，依赖越少越容易活。</p>
+<p data-md-line="43">四个关键设计决策：</p>
+<p data-md-line="45"><strong>① JSON 是唯一真相源，SQLite 是派生查询层。</strong> 所有业务数据以 JSON 文件存储（git 管理、可 diff、可回滚），SQLite 数据库文件 gitignore，随时可从 JSON 幂等全量重建。这个选型经过一次设计辩论：最初用户质疑"只有一百七十多家公司，文本存储够了，数据库的价值在哪？"——结论是查询层价值 ≠ 数据量：单文件 SQLite 让"跨公司聚合、中文全文检索、按风险筛选"从写脚本变成一条 SQL，而且存储方案没有被锁定（查询层不变，只换 sync 目标）。</p>
+<p data-md-line="47"><strong>② items-as-state。</strong> 每家公司一个 JSON 文件，条目以 URL 为唯一键。增量 = 新 URL − 已有 URL，旧条目永不覆盖。这个模型让中断恢复、增量更新、审计追溯全部变得简单——没有数据库状态需要同步，文件本身就是状态。</p>
+<p data-md-line="49"><strong>③ 证据可溯源是硬性约束。</strong> 报告中的每条证据必须能落到 items 中某条具体条目的 URL 上，评级越高，这个约束越强（"点不出证据就不给高"）。</p>
+<p data-md-line="51"><strong>④ 评测闭环是改动闸口。</strong> 任何规则/阈值改动先跑离线评测（规则层 0 API、秒级），指标回退即拦下——没有"看起来还行"这个说法。</p>
+<hr>
+<h2 id="三-数据模型" data-md-line="55">三、数据模型</h2>
+<h3 id="items-文件-每家公司一个" data-md-line="57">items 文件（每家公司一个）</h3>
+<pre data-md-line="59"><code>
+data/research/items/{company_slug}.json
+</code></pre>
+<p data-md-line="63">顶层字段：<code>company</code>、<code>rounds</code>（研究轮次记录）、<code>raw_results</code>（模型自搜的原始搜索结果，溯源比对的依据）、<code>hallucinated_dropped</code>（溯源丢弃统计）、<code>entity_filtered</code>（实体过滤统计）、<code>coverage</code>（六类别覆盖度）、<code>elapsed_s</code>、<code>items</code>（条目数组）、<code>report_meta</code>（评级 meta）、<code>report_md</code>（完整报告）、<code>rating_history</code>（评级轨迹）、<code>last_updated</code>。</p>
+<p data-md-line="65">条目字段只有五个：<code>category</code>（legal/regulatory/financial/cyber/business/esg）、<code>title</code>、<code>url</code>、<code>summary</code>（中文摘要）、<code>date</code>（发布时间，部分缺失）。</p>
+<p data-md-line="67">字段刻意少——真相源只存"搜索证据 + 摘要"，一切派生内容（评级、报告、翻译）都从这五个字段生成，保证单一事实来源。</p>
+<h3 id="rating_history-评级轨迹" data-md-line="69">rating_history（评级轨迹）</h3>
+<pre data-md-line="71"><code>
+rating_history: [{overall_risk, trend, date, reason}, ...]
+</code></pre>
+<p data-md-line="75">追加式记录：每次评级 + 理由 + 日期，永不覆盖。评级变动可审计、可回溯——"这家公司为什么从较高变成中"，翻历史就有答案。</p>
+<h3 id="审计快照" data-md-line="77">审计快照</h3>
+<p data-md-line="79">数据操作（清理/拆分）先写快照再执行：<code>data/audit/low_quality_removed.json</code>（每条被删条目的公司/标题/URL/理由）、<code>entity_mixup_removed.json</code>。任何删减可回滚、可追溯。</p>
+<hr>
+<h2 id="四-研究引擎" data-md-line="83">四、研究引擎</h2>
+<h3 id="切换决策-tavily-deepseek" data-md-line="85">切换决策：Tavily → DeepSeek</h3>
+<p data-md-line="87">第一版使用 Tavily 搜索 + 8 个并行研究代理，每家 4 类查询，跑通后两天免费额度耗尽。当时设计文档里保留了一条备选："DeepSeek 原生 web_search，暂不实现，保留可能性"——Anthropic 兼容端点，搜索在模型服务端执行，本地只收发 prompt 与搜索结果（查询词 + 原始 URL 列表）。</p>
+<p data-md-line="89">切换成本是一行 <code>base_url</code>，24 小时内完成，成本降一个数量级。<strong>决策记录</strong>：查询模板与搜索后端解耦的设计，让供应商切换成为配置级变更——如果当初把 Tavily 写死在代码里，额度耗尽那天至少要修两天。</p>
+<h3 id="多轮自搜机制" data-md-line="91">多轮自搜机制</h3>
+<p data-md-line="93">研究阶段每家公司一个 prompt：列出六类别、要求模型先核实基本面（财务概况、信用评级、债务流动性），再按类别搜索。搜索由模型在服务端自主执行：<strong>查询词由模型自选</strong>，每家公司 3~5 轮搜索，客户端拿回全部查询词与原始 URL 列表。</p>
+<p data-md-line="95">这个架构有一个重要推论：本地无法约束服务端的搜索过程（模型选什么查询词、搜几次都不可控），只能在结果端防御——URL 校验、实体过滤、低质过滤三道闸全部落在结果处理上。这是后来 VOLTANEO 混同事故的根源分析（见第六节）。</p>
+<h3 id="批次协议与容错" data-md-line="97">批次协议与容错</h3>
+<ul>
+<li data-md-line="99"><strong>20 家/批、5 并发、--resume 幂等断点续跑</strong>：中断任意恢复，不重跑已完成公司（以 items 文件存在为完成标记）</li>
+<li data-md-line="100"><strong>空结果三态信封</strong>：空/重试/放弃分开处理，不再静默吞掉</li>
+<li data-md-line="101"><strong>补救轮固化</strong>：失败单家自动收集 → 批量补救 → 直到全量 0 错误</li>
+</ul>
+<p data-md-line="103">全量一百七十多家约半小时，11 批 + 7 轮补救完成，2500+ 条条目，0 错误。<strong>先把"跑不完"解决，才有资格谈质量。</strong></p>
+<hr>
+<h2 id="五-幻觉治理-url-溯源硬校验" data-md-line="107">五、幻觉治理：URL 溯源硬校验</h2>
+<h3 id="问题" data-md-line="109">问题</h3>
+<p data-md-line="111">LLM 搜索返回的条目存在系统性幻觉：模型会编造 URL。摘要可能是真实搜索结果（模型确实搜到了相关信息），URL 是模型生成的。首轮实测部分公司溯源丢弃率超过 30%——意味着报告中三成证据点不回原始来源。</p>
+<h3 id="机制" data-md-line="113">机制</h3>
+<ul>
+<li data-md-line="115"><strong>逐字比对</strong>：条目 URL 必须与模型自搜的原始搜索结果（<code>raw_results</code>）逐字比对，通过才入库</li>
+<li data-md-line="116"><strong>丢弃统计</strong>：未通过进 <code>hallucinated_dropped</code>，丢弃率 >30% 的公司触发补搜</li>
+<li data-md-line="117"><strong>报告轮强制</strong>：prompt 硬性条款——"证据必须能落到 items 中某条具体条目的 URL 上，点不出证据就不给高"</li>
+</ul>
+<h3 id="代价" data-md-line="119">代价</h3>
+<p data-md-line="121">约 3% 真实但检索不到的旧闻被误丢。接受——宁可真新闻被丢，不能让假证据进承保报告。</p>
+<h3 id="决策记录" data-md-line="123">决策记录</h3>
+<p data-md-line="125">为什么用校验而不是提示词？当时还没有证据，后来的实证给出了答案：v5.1 的 prompt 文字防御规则（"年报正面数据/资料页不是较高依据"）在审计中 5/5 落空——模型基本不执行 prompt 里的防御性文字。<strong>对不可靠输出的防御，校验永远比祈祷可靠。提示词是愿望，校验是机制。</strong></p>
+<hr>
+<h2 id="六-实体消歧-score-实体" data-md-line="129">六、实体消歧：score ≠ 实体</h2>
+<h3 id="athena-事故" data-md-line="131">Athena 事故</h3>
+<p data-md-line="133">名单里有家波兰公司 Athena。搜索结果里大量"Athena"指向一家同名律所。模型把时装公司的行情页写进律所的风险报告——score 相关度全对（文本确实相关），实体错了（是另一个 Athena）。</p>
+<h3 id="机制" data-md-line="135">机制</h3>
+<p data-md-line="137">召回层的实体身份校验：</p>
+<ul>
+<li data-md-line="139">公司别名清单 + 内容信号过滤（命中风险关键词：诉讼/破产/召回/制裁/违约等才放行）</li>
+<li data-md-line="140">拿不准的 <strong>fail-open 白名单</strong>：宁可保留疑似条目，不误杀真实事件</li>
+</ul>
+<p data-md-line="142">核心认识：<strong>搜索的 score 衡量的是文本相关度，不是实体一致性</strong>——这两个维度必须分开防御。</p>
+<h3 id="voltaneo-变体" data-md-line="144">VOLTANEO 变体</h3>
+<p data-md-line="146">URL 校验通过、实体过滤通过，但内容实际属于另一家公司（Hermes Energy）：搜索按别名召回，模型在服务端未复核实体身份。这是 Athena 事故的变体、新失败模式——根因在服务端搜索过程不可控，本地只能在结果端叠加防御（URL 校验 + 实体过滤 + 低质过滤三道闸），最终靠人工拆分 + 补搜定稿。</p>
+<hr>
+<h2 id="七-数据治理" data-md-line="150">七、数据治理</h2>
+<h3 id="约两成-数据战役" data-md-line="152">约两成 数据战役</h3>
+<p data-md-line="154">一次全量重研究后，条目数 2500+ → 2000+，约两成。第一反应是重跑。改为先做 <strong>URL 级差异分析</strong>：1900+ 条旧 URL 未复现。关键词宽筛（破产/违约/制裁/诉讼等）筛出 800+ 条有实质信号嫌疑的，按低质域名黑名单过滤后回灌 800+ 条（打 recovered 标记），合并重评，证据池回到 2800+ 条。</p>
+<p data-md-line="156"><strong>决策记录</strong>："重跑前先读中间产物"——差 18% 不一定是随机波动，先搞清楚系统性差异再动手。这条后来第二次救命：3 层改 5 层评级前，半程 148 家中间结果差点被当作过期数据扔掉，被保留后成为 5 层设计的实证样本。</p>
+<h3 id="条目层治理-路径-e" data-md-line="158">条目层治理（路径 E）</h3>
+<p data-md-line="160">审计发现低质域名条目（资料页/注册信息，标题即公司名、内容为工商档案、无日期）仍支撑"误判较高"评级。三通道识别：</p>
+<ul>
+<li data-md-line="162"><strong>exact 域名黑名单</strong>：约 50 个 hostname（verif/pitchbook/tracxn/zoominfo/crunchbase/dnb/kompass 等），hostname 精确匹配弃子串</li>
+<li data-md-line="163"><strong>URL 路径模式</strong>：资料页特征路径</li>
+<li data-md-line="164"><strong>内容形状兜底</strong>：summary 无实质内容时按标题判定</li>
+</ul>
+<h3 id="防误杀设计-一票保留-豁免" data-md-line="166">防误杀设计（一票保留 + 豁免）</h3>
+<p data-md-line="168">一刀切会删掉真实事件。三条防线：</p>
+<ul>
+<li data-md-line="170"><strong>RISK_KW 一票保留</strong>：命中风险关键词（诉讼/违约/泄露/召回等）的条目一律保留，即使它在资料页域名上。实证：某零售巨头的 yellowpages 条目实际是 数千万条数据泄露集体诉讼，一刀切会删掉真实事件</li>
+<li data-md-line="171"><strong>记录站豁免</strong>：goodjobsfirst/osha/szse/canadiantire——标题=公司名但内容是实质记录（集体诉讼案卷/行政处罚），必须保留</li>
+<li data-md-line="172"><strong>border 妥协条目单独统计</strong>：资料域名+风险词的条目标 border，不算相关正样本，但不删除</li>
+</ul>
+<p data-md-line="174">结果：清理 60+ 条低质条目（约 50 家公司），审计快照可回滚；定向重评证据悬空的 30+ 家 → 十几家评级变化。实证：Artemis 较高→低（资料页撑评级的误判被修复）、Hades 较低→高（公司已解散，交易主体消亡）、Zeus 中→高（公开破产 + 自有资本近 0.4 跌至不足 0.1）。</p>
+<hr>
+<h2 id="八-评级体系-5-层-3-趋势" data-md-line="178">八、评级体系：5 层 × 3 趋势</h2>
+<h3 id="演进过程" data-md-line="180">演进过程</h3>
+<table class="insight-table"><thead><tr><th>版本</th><th>问题</th><th>手段</th></tr></thead><tbody><tr><td>初始</td><td>一百七十多家中约百家评"高"（近六成），无区分度</td><td>基线实测存档（PROPOSALS）</td></tr><tr><td>v3</td><td>校准中</td><td>信用威胁导向 rubric + 基本面核实搜索 + 事件结局核查</td></tr><tr><td>v4</td><td>"中"变垃圾桶（七成多）</td><td>召回/泄露/诉讼/罚款默认评低</td></tr><tr><td>v5（3→5 层）</td><td>3 层结构性缺陷</td><td>半程 148 家样本实证改 5 层</td></tr><tr><td>v5.1（防御规则）</td><td>审计 5/12 家较高评级依据存疑</td><td>较高必须能指出证据条目</td></tr></tbody></table>
+<h3 id="5-层定义-rubric-现行条款" data-md-line="190">5 层定义（rubric 现行条款）</h3>
+<p data-md-line="192">评级由<strong>最严重 1-2 条事件的绝对严重程度</strong>决定——条目数量绝不是加高依据（30 条轻微报道仍评较低，1 条实质事件也可能评高）；已结案事件按结局后的实际影响判断。</p>
+<ul>
+<li data-md-line="194"><strong>高</strong>（证据必须落到 items 具体 URL）：债务违约 / 破产程序 / 流动性危机 / 重大制裁或出口管制实质阻断交易 / 核心生产长期停摆</li>
+<li data-md-line="195"><strong>较高</strong>（实质性威胁的前兆已出现，未触发高的条件，必须能指出证据条目）：大规模召回致核心产品停摆、巨额罚款动摇流动性、多起重大诉讼叠加、重大数据泄露引发大额索赔、连续亏损且债务高企、关键供应链长期中断、重大监管调查进行中</li>
+<li data-md-line="196"><strong>中</strong>（存在可关注信号，必须能指出具体信号）：中等规模罚款、单起重大诉讼/仲裁、部分产品召回、一般性合规违规、轻度财务恶化迹象、供应链一般扰动</li>
+<li data-md-line="197"><strong>较低</strong>（轻微/孤立，不影响偿付与履约）：小额罚单、单条负面报道、常规运营事件带轻微负面色彩、历史遗留小问题、已解决事件的余波</li>
+<li data-md-line="198"><strong>低</strong>：无实质负面证据，正常经营。"低风险是正常状态而非负面评价，没有实质负面证据就评低，请敢于给低"</li>
+</ul>
+<h3 id="锚点示例-v6-0-起" data-md-line="200">锚点示例（v6.0 起）</h3>
+<p data-md-line="202">抽象防御规则被审计证伪后（v5.1 防御规则 5/5 落空），改为"事件形态→评级"具象先例，rubric 内置 7 条：</p>
+<ul>
+<li data-md-line="204">数千万条数据泄露集体诉讼 + 网安事件公告 → <strong>较低</strong>（泄露已修复/赔付在途，现金流未受实质冲击；叠加监管吊销执照/银行抽贷/大额判赔才升较高）</li>
+<li data-md-line="205">大股东拟出售/业务板块拆售 → <strong>较低</strong>（拆售是股东战略选择；进入清算/停业/资不抵债分配才升级）</li>
+<li data-md-line="206">破产程序公开 + 自有资本连续大幅恶化（0.38→0.09）+ 未决索赔 → <strong>高</strong></li>
+<li data-md-line="207">公司已解散（strike-off 注销）→ <strong>高</strong>（交易主体消亡）</li>
+<li data-md-line="208">证据仅是第三方资料页/注册信息 → <strong>低或较低</strong>（限定：资料页域名条目内容含实质风险信号时按实质信号评级——v6.2，Zeus 实证）</li>
+<li data-md-line="209">全部为正面新闻/业绩发布/股价分析 → <strong>较低或低</strong>（"敢评低是正常状态"）</li>
+<li data-md-line="210">速动比率 0.3、现金远小于流动负债 → <strong>较高</strong>（限定：流动性恶化必须落在具体财务指标——流动比率持续 <1、速动 <0.5、净债务/EBITDA >4、利息保障 <3、Z-Score 灰区及以下，且无缓解迹象；单年波动或轻微运营指标不是较高/中的依据，此类仅评较低——v6.1）</li>
+</ul>
+<h3 id="方法论决策" data-md-line="212">方法论决策</h3>
+<p data-md-line="214"><strong>分布是指示器，抽查审计才是判定。</strong> 用户质疑"用分布拟合校准是否本身有偏颇"——如果这一百七十多家公司客观上就是高风险的，拉平分布会扭曲真实信号。定案：分布预期只作 prompt 内的异常指示灯（高 5-12%、较高 15-25%、中 30-40%），代码无任何硬性拉平；真正手段是证据抽查审计（抽 12 家较高公司逐条核对 top3 信号）。</p>
+<hr>
+<h2 id="九-评测体系-补丁循环的终结" data-md-line="218">九、评测体系：补丁循环的终结</h2>
+<h3 id="停跑审计" data-md-line="220">停跑审计</h3>
+<p data-md-line="222">rubric 连打四轮补丁（v3/v4/v5/v5.1）后，用户喊停："去业界搜索参考、扩展思路，而不是一直给 prompt 打加强补丁。"停跑前最后审计：</p>
+<ul>
+<li data-md-line="224">v5 判误判的 5 家较高在 v5.1 <strong>全部未降级</strong>——prompt 文字防御规则模型基本不执行</li>
+<li data-md-line="225">新抽查 6 家较高，3 家由低质资料页撑起</li>
+</ul>
+<p data-md-line="227">结论：补丁路线结构性失败。双通道调研（tavily + DeepSeek 原生搜索交叉验证：Buyer Grade 1-10、校准停止条件、judge self-preference bias 实证）产出五条升级路径：E 条目清理 / A 评测先行 / B 锚点示例 / C 维度化 / D 独立裁判。</p>
+<h3 id="golden-set" data-md-line="229">golden set</h3>
+<p data-md-line="231">139 条条目级标注（三值：relevant 52 / irrelevant 72 / border 15）+ 15 家公司级评级期望。标注来源：审计快照 + 现有证据池抽样 + 历史事故样本（Athena 等）。抽样有纪律：妥协条目 15 条封顶、记录站豁免每 host 8 条/总量 25 条；<strong>必收录回归案例不参与抽样</strong>——历史上误杀过的真实事件（某零售巨头资料页上的集体诉讼）锁进 MUST_INCLUDE，防止公平抽样埋掉教训。</p>
+<h3 id="规则层-0-api-秒级" data-md-line="233">规则层（0 API、秒级）</h3>
+<p data-md-line="235">对每条 golden 跑确定性过滤链（低质判定 + 实体过滤），指标：precision/recall/F1 + 误杀逐条看。基线：<strong>F1=0.993、FN=0</strong>（相关/border 零误杀，硬约束），唯一 FP 是 Athena 行情标题（设计边界：股价文章属评级规则层职责，不是输入清理对象）。</p>
+<h3 id="评级对齐层-judge" data-md-line="237">评级对齐层（judge）</h3>
+<p data-md-line="239">对 15 家 rating_labels 跑真实评级，判定精确一致/相邻一致（5 级尺度差 1 档）/不一致。基线演进：</p>
+<table class="insight-table"><thead><tr><th>版本</th><th>精确一致</th><th>相邻一致</th></tr></thead><tbody><tr><td>v5.1</td><td>0.50（7/14）</td><td>0.86（12/14）</td></tr><tr><td>v6.0（锚点首轮）</td><td>0.667（10/15）</td><td>0.867（13/15）</td></tr><tr><td>v6.1（实质程度限定）</td><td>0.667</td><td>0.933</td></tr><tr><td>v6.2（锚点冲突修复）</td><td>0.667</td><td>0.933</td></tr></tbody></table>
+<h3 id="评测反噬标注-两轮实证" data-md-line="248">评测反噬标注（两轮实证）</h3>
+<p data-md-line="250">第一次：一家公司模型评"较高"，golden 期望"较低"。初看模型错了，打印推理链后查证据——流动比率约 0.8、净债务/EBITDA 5 倍+、Z-Score 约 2.5 灰区。<strong>模型有据，标注标错了</strong>（期望来自更早审计叙事，当时只有正面新闻）。用户裁决期望改"中"，修正一条标注，相邻一致 +0.07。</p>
+<p data-md-line="252">第二次：同剧本的另一家。诊断推理链：投机级评级、数倍杠杆、利息覆盖≈0，但无违约/无破产/无流动性危机，重大诉讼已结案——模型是权衡后判"中"，不是误判。期望改"中"，修正生效。</p>
+<p data-md-line="254">规律：<strong>评测对的是标注。模型被实证正确时，修正的是标注而不是系统——标注质量是评测上界。</strong> 评测不只验证系统，也验证自己的答案。</p>
+<h3 id="锚点迭代抓出两类新缺陷" data-md-line="256">锚点迭代抓出两类新缺陷</h3>
+<ul>
+<li data-md-line="258"><strong>锚点误套（v6.0 副作用）</strong>：Hera 被"流动性恶化"锚点推高，实际依据只是轻微运营指标 → v6.1 加"证据须达实质程度"限定</li>
+<li data-md-line="259"><strong>锚点冲突（v6.2）</strong>：Zeus 的 verif.com 条目同时命中"资料页→低"与"破产程序→高"两个锚点，模型随机选边，同输入评分差 3 档 → 资料页锚点加"内容含实质风险信号按实质信号评级"限定，与输入层 RISK_KW 对齐</li>
+</ul>
+<p data-md-line="261"><strong>异常结果四分法</strong>（诊断方法论）：方差（复测取稳，别改规则）/ 稳定回归（修 rubric）/ 锚点冲突（查锚点互斥）/ 标注错（修 golden）——四类处理动作完全不同，分错类就是拿对类的方法改错类的问题。<strong>评测结论必须重跑实证</strong>：基于单次批量口径推断"相邻满贯"，重跑即被证伪——数字要重跑，推断不作数。</p>
+<hr>
+<h2 id="十-增量更新-items-as-state" data-md-line="265">十、增量更新：items-as-state</h2>
+<p data-md-line="267">周增量轮（设计 D1-D5 用户评审后落地）：</p>
+<ul>
+<li data-md-line="269">增量 = 新 URL − 已有 URL，URL 去重保留旧条目</li>
+<li data-md-line="270"><strong>无新增公司的批次完全零改动</strong>（连时间戳都不变）——幂等性验证</li>
+<li data-md-line="271">有新增 → 报告轮带【上次研判】锚点（截断 4000 字符）+ 反锚定规则（"按当前证据修正并说明理由"）→ rating_history 追加 → diff Excel（变化汇总/新增明细两 sheet）→ 站点重建</li>
+<li data-md-line="272">单家失败只记录不阻断</li>
+</ul>
+<p data-md-line="274">效果：周增量轮从全量数小时降到约 30 分钟。<strong>不重跑，是最大的性能优化。</strong></p>
+<hr>
+<h2 id="十一-展示层与知识库" data-md-line="278">十一、展示层与知识库</h2>
+<ul>
+<li data-md-line="280"><strong>静态报告站点</strong>：纯静态 HTML，零运行时依赖——搜索、风险筛选、类别 AND 筛选、排序、评级轨迹卡片（history 末 8 条）、本周更新速览、单家详情页（六类别条目全量）、下载区（全量 Excel 三表 + 单体 HTML）</li>
+<li data-md-line="281"><strong>知识库</strong>：SQLite + FTS5 trigram 中文全文检索（trigram 是中文分词的正解，默认 tokenizer 不支持中文）、按风险/类别聚合查询、CSV 导出；db 文件 gitignore，随时从 JSON 重建</li>
+</ul>
+<hr>
+<h2 id="十二-验证与现状" data-md-line="285">十二、验证与现状</h2>
+<ul>
+<li data-md-line="287">一百七十多家 / 2800+ 条已核实风险条目（E 清理后口径），六类别</li>
+<li data-md-line="288">130 个自动化测试全绿（逻辑层/增量轮/知识库/解析器/评测/条目治理），测试抓到过生产 bug（URL 路径模式双斜杠永不命中）</li>
+<li data-md-line="289">规则层 F1=0.993、FN=0；评级对齐精确 0.667 / 相邻 0.933（15 家基准）</li>
+<li data-md-line="290">全链路可回滚：git 每步 commit + 审计快照</li>
+<li data-md-line="291">公开版 crss-public：数据脱敏为合成数据（虚构公司），评测逻辑与私有版一致</li>
+</ul>
+<h2 id="十三-已知局限与后续方向" data-md-line="293">十三、已知局限与后续方向</h2>
+<ul>
+<li data-md-line="295">golden 只含已有 URL，<strong>不衡量"检索到没搜到"</strong>（召回上界未知）</li>
+<li data-md-line="296">judge 单次输出有方差，关键结论需复测取稳；meta 提取存在已知失败模式（约个别公司/轮）</li>
+<li data-md-line="297">财务信号依赖模型搜索提取（非结构化）——后续方向：接入免费结构化财务数据（SEC EDGAR XBRL / akshare）交叉验证锚点指标（流动比率/净债务 EBITDA/利息保障/Z-Score 都是现成的锚点条件）</li>
+<li data-md-line="298">评级精确对齐 0.667 受 1 档差限制（Apollo 方差、Hercules、Prometheus 等），提升需路径 C/D（维度化评分 / 独立裁判）</li>
+</ul>
+<h2 id="十四-决策索引" data-md-line="300">十四、决策索引</h2>
+<table class="insight-table"><thead><tr><th>#</th><th>决策点</th><th>选择</th><th>理由</th><th>结果验证</th></tr></thead><tbody><tr><td>1</td><td>搜索后端</td><td>Tavily → DeepSeek</td><td>解耦设计使切换只改一行；成本降一个数量级</td><td>24h 完成，全量 0 错误</td></tr><tr><td>2</td><td>存储</td><td>JSON 真相源 + SQLite 派生层</td><td>可 git/回滚；查询能力独立于数据量</td><td>选型辩论后定案</td></tr><tr><td>3</td><td>幻觉治理</td><td>URL 逐字比对校验</td><td>校验优于提示词（防御规则 5/5 落空实证）</td><td>丢弃率 >30% 触发补搜</td></tr><tr><td>4</td><td>实体消歧</td><td>别名+内容信号+fail-open</td><td>score≠实体；宁可保留疑似不误杀</td><td>Athena/VOLTANEO 两起事故</td></tr><tr><td>5</td><td>数据资产</td><td>差异分析+回灌 800+ 条</td><td>重跑前先读中间产物</td><td>证据池 2892 条</td></tr><tr><td>6</td><td>条目治理</td><td>三通道+一票保留+豁免</td><td>一刀切会误杀真实事件</td><td>清理 68 条、FN=0</td></tr><tr><td>7</td><td>校准方法</td><td>分布是指示器、审计是判定</td><td>拉平分布会扭曲真实信号（用户质疑）</td><td>12 家审计 → 5 层定稿</td></tr><tr><td>8</td><td>迭代节奏</td><td>补丁循环 → 评测先行</td><td>无闸口的"看起来改好了"不可信</td><td>F1=0.993、FN=0</td></tr><tr><td>9</td><td>标注 vs 系统</td><td>模型被实证正确时改标注</td><td>标注质量是评测上界</td><td>两轮反噬标注修正</td></tr><tr><td>10</td><td>增量</td><td>items-as-state，旧条目永不覆盖</td><td>证据不可变；无新增零改动</td><td>周增量 30 分钟</td></tr></tbody></table>
+<hr>
+<h2 id="总结" data-md-line="317">总结</h2>
+<p data-md-line="319">CRSS 把"LLM 输出的不可靠性"当作默认假设来设计：每一层都假设对方会犯错——模型会编 URL、搜索会混实体、评级会虚高、规则会误杀、标注会标错——然后每一层都留校验、留回滚、留证据。系统规模不大，但每个环节都有可验证的工程决策和真实事故支撑，评测体系（golden 回归 + 评级对齐）为"每次改动有判决"提供了机制保证。</p>
+<h2 id="关联" data-md-line="321">关联</h2>
+<p data-md-line="323">#222 三层评测 · #98 仪器化必须分离假设 · #97 标准循环 · #106 lfc-studio</p>
+<div class="back-link"><a href="../col/ai-cognition.html">← 返回「AI 协作与认知」</a></div>
+</article>
+</div></main>
+<footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
+<script src="../../assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
+b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
+try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});var head=document.querySelector('.site-head');if(head){head.addEventListener('click',function(e){if(document.body.hasAttribute('data-scrolled')){e.preventDefault();document.body.removeAttribute('data-scrolled');lastY=window.scrollY}})};s(true)})();</script>
+</body></html>
