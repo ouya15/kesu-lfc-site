@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>关于 | 阿克苏红苹果</title>
-<meta name="description" content="关于——阿克苏红苹果：和 AI 协作时记下的判断与取舍。">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="阿克苏红苹果">
-<meta property="og:title" content="关于">
-<meta property="og:description" content="关于——阿克苏红苹果：和 AI 协作时记下的判断与取舍。">
-<meta property="og:url" content="https://ouya15.cn/about.html">
-<meta property="og:locale" content="zh_CN">
-<link rel="canonical" href="https://ouya15.cn/about.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" href="assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -19,7 +9,7 @@
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
   --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
-  --muted:#746f66; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
   --serif:'Noto Serif SC','Songti SC',serif;
   --sans:'Noto Sans SC','PingFang SC',sans-serif;
   --mono:'JetBrains Mono','SF Mono',monospace;
@@ -123,49 +113,11 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 .about-contact .lbl{color:var(--muted);min-width:58px;font-family:var(--mono);font-size:.78rem;letter-spacing:.06em}
 .about-contact a{color:var(--ink);text-decoration:underline;text-decoration-color:#ddd;text-underline-offset:4px;transition:color .18s,text-decoration-color .18s}
 .about-contact a:hover{color:var(--red);text-decoration-color:var(--red)}
-
-.col-head{padding:52px 0 8px}
-.col-head .kicker{margin-bottom:12px}
-.col-head h1{font-family:var(--serif);font-weight:900;font-size:2rem;line-height:1.3;margin-bottom:12px}
-.col-sub{font-family:var(--mono);font-size:.8rem;color:var(--red);letter-spacing:.08em;margin:-6px 0 14px}
-.col-desc{color:var(--muted);font-size:.95rem;line-height:1.75;max-width:620px;margin-bottom:16px}
-.col-intro{font-size:.95rem;color:#555;line-height:1.85;max-width:620px;margin-bottom:18px}
-.col-stat{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:34px}
-.art-guide{font-size:.85rem;color:#777;line-height:1.7;margin-top:7px;max-width:640px}
-.col-stat b{color:var(--red);font-weight:700}
-.art-list{list-style:none}
-.art-item{display:flex;gap:20px;align-items:baseline;padding:17px 14px;border-bottom:1px solid var(--line);transition:background .18s,transform .18s;border-radius:4px}
-.art-item:hover{background:var(--card);transform:translateX(4px)}
-.art-idx{font-family:var(--mono);font-size:.78rem;color:var(--muted);min-width:30px;transition:color .18s}
-.art-item:hover .art-idx{color:var(--red)}
-.art-main{flex:1}
-.art-title{font-size:1rem;font-weight:500;line-height:1.5}
-.art-title a{color:var(--ink);text-decoration:none;transition:color .18s}
-.art-item:hover .art-title a{color:var(--red-deep)}
-.art-item.art-local .art-title a{color:#b3aea4}
-.art-item.art-local .art-idx,.art-item.art-local .art-date{color:#b3aea4}
-.art-date{font-family:var(--mono);font-size:.74rem;color:var(--muted);white-space:nowrap}
-.art-item .badge-bar{margin:6px 0 0}
-.art-sep{list-style:none;display:flex;align-items:center;gap:10px;margin:14px 14px 10px;color:var(--muted);font-size:.72rem;letter-spacing:.1em;padding:0}
-.art-sep::before,.art-sep::after{content:"";flex:1;height:1px;background:var(--line)}
-.art-sep-plain::before,.art-sep-plain::after{content:none}
-.art-sep-plain{height:1px;background:var(--line);margin:10px 14px}
-
-/* ===== 手机补丁（2026-09-16 调优）===== */
-@media(max-width:640px){
-  article h1{font-size:1.7rem}
-  article h2{font-size:1.22rem;margin-top:32px}
-  .insight-table{display:block;width:max-content;max-width:100%;overflow-x:auto}
-  .wrap{padding:0 18px}
-}
-@media(prefers-reduced-motion:reduce){
-  .rise{animation:none}html{scroll-behavior:auto}
-}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
 <a class="brand" href="index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="index.html">专栏</a><a href="insights/series/">连载</a><a href="blog/">文章</a><a href="about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+<nav><a href="index.html">专栏</a><a href="blog/">文章</a><a href="about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
 </div></header>
 <main><div class="wrap">
 <div class="col-head rise">

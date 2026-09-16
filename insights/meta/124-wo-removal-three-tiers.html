@@ -1,17 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>124 去"我"的三层判断——在约束中保留人味 | 阿克苏红苹果</title>
-<meta name="description" content="但这条规则很快遇到了例外。我说话习惯带大量&quot;我&quot;——&quot;我之前读过一遍&quot;、&quot;我有个疑问&quot;——读起来啰嗦，以自我为中心。于是我要求 AI 在整理 Q 时删掉多余的&quot;我&quot;。">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="阿克苏红苹果">
-<meta property="og:title" content="124 去&quot;我&quot;的三层判断——在约束中保留人味">
-<meta property="og:description" content="但这条规则很快遇到了例外。我说话习惯带大量&quot;我&quot;——&quot;我之前读过一遍&quot;、&quot;我有个疑问&quot;——读起来啰嗦，以自我为中心。于是我要求 AI 在整理 Q 时删掉多余的&quot;我&quot;。">
-<meta property="og:url" content="https://ouya15.cn/insights/meta/124-wo-removal-three-tiers.html">
-<meta property="og:locale" content="zh_CN">
-<link rel="canonical" href="https://ouya15.cn/insights/meta/124-wo-removal-three-tiers.html">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -19,7 +9,7 @@
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
   --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
-  --muted:#746f66; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
   --serif:'Noto Serif SC','Songti SC',serif;
   --sans:'Noto Sans SC','PingFang SC',sans-serif;
   --mono:'JetBrains Mono','SF Mono',monospace;
@@ -117,22 +107,11 @@ body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95
 body[data-scrolled] .site-head:hover .wrap{display:flex}
 html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 }
-
-/* ===== 手机补丁（2026-09-16 调优）===== */
-@media(max-width:640px){
-  article h1{font-size:1.7rem}
-  article h2{font-size:1.22rem;margin-top:32px}
-  .insight-table{display:block;width:max-content;max-width:100%;overflow-x:auto}
-  .wrap{padding:0 18px}
-}
-@media(prefers-reduced-motion:reduce){
-  .rise{animation:none}html{scroll-behavior:auto}
-}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
 <a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
-<nav><a href="../../index.html">专栏</a><a href="../series/">连载</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+<nav><a href="../../index.html">专栏</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
 </div></header>
 <main><div class="wrap">
 <article class="rise">
