@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>220 索引防腐与原子取号 | 阿克苏红苹果</title>
+<meta name="description" content="全局索引是手维护的，取号是先查再用。索引的对照源 catalog.json 每次巡检自动重扫，索引本身却要每个 session 记得手动更新，手改的那个掉队；取号是 check-then-act，竞态窗口就在查和做之间；号段规则是静态文字，仓库目录是动态的，两者不同步。于是腐化是必然：孤儿文章没人登">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="阿克苏红苹果">
+<meta property="og:title" content="220 索引防腐与原子取号">
+<meta property="og:description" content="全局索引是手维护的，取号是先查再用。索引的对照源 catalog.json 每次巡检自动重扫，索引本身却要每个 session 记得手动更新，手改的那个掉队；取号是 check-then-act，竞态窗口就在查和做之间；号段规则是静态文字，仓库目录是动态的，两者不同步。于是腐化是必然：孤儿文章没人登">
+<meta property="og:url" content="https://ouya15.cn/insights/obp/220-index-anti-rot-and-atomic-numbering.html">
+<meta property="og:locale" content="zh_CN">
+<link rel="canonical" href="https://ouya15.cn/insights/obp/220-index-anti-rot-and-atomic-numbering.html">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -9,7 +19,7 @@
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
   --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
-  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --muted:#746f66; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
   --serif:'Noto Serif SC','Songti SC',serif;
   --sans:'Noto Sans SC','PingFang SC',sans-serif;
   --mono:'JetBrains Mono','SF Mono',monospace;
@@ -106,6 +116,17 @@ body[data-scrolled] .site-head .wrap{display:none}
 body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
 body[data-scrolled] .site-head:hover .wrap{display:flex}
 html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
+
+/* ===== 手机补丁（2026-09-16 调优）===== */
+@media(max-width:640px){
+  article h1{font-size:1.7rem}
+  article h2{font-size:1.22rem;margin-top:32px}
+  .insight-table{display:block;width:max-content;max-width:100%;overflow-x:auto}
+  .wrap{padding:0 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .rise{animation:none}html{scroll-behavior:auto}
 }
 </style>
 </head><body>

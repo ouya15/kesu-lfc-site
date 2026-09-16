@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ouya15.cn/sitemap.xml

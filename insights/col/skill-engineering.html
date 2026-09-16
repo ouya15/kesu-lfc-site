@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>Skill 工程化 | 阿克苏红苹果</title>
+<meta name="description" content="把 AI Skill 当工程做：双仓、SSOT、配置驱动分发、元 Skill。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="阿克苏红苹果">
+<meta property="og:title" content="Skill 工程化">
+<meta property="og:description" content="把 AI Skill 当工程做：双仓、SSOT、配置驱动分发、元 Skill。">
+<meta property="og:url" content="https://ouya15.cn/insights/col/skill-engineering.html">
+<meta property="og:locale" content="zh_CN">
+<link rel="canonical" href="https://ouya15.cn/insights/col/skill-engineering.html">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -9,7 +19,7 @@
 @import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 :root{
   --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
-  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --muted:#746f66; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
   --serif:'Noto Serif SC','Songti SC',serif;
   --sans:'Noto Sans SC','PingFang SC',sans-serif;
   --mono:'JetBrains Mono','SF Mono',monospace;
@@ -134,6 +144,17 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 .art-sep::before,.art-sep::after{content:"";flex:1;height:1px;background:var(--line)}
 .art-sep-plain::before,.art-sep-plain::after{content:none}
 .art-sep-plain{height:1px;background:var(--line);margin:10px 14px}
+
+/* ===== 手机补丁（2026-09-16 调优）===== */
+@media(max-width:640px){
+  article h1{font-size:1.7rem}
+  article h2{font-size:1.22rem;margin-top:32px}
+  .insight-table{display:block;width:max-content;max-width:100%;overflow-x:auto}
+  .wrap{padding:0 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .rise{animation:none}html{scroll-behavior:auto}
+}
 </style>
 </head><body>
 <header class="site-head"><div class="wrap">
