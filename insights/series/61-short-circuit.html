@@ -4,11 +4,11 @@
 <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>61 短路的账：缓存省掉的一次计算，与九十九小时的空缺 | 阿克苏红苹果</title>
-<meta name="description" content="2288 件视频、四路信号、过夜跑完，晨间复审。第一件事是算总账——把逐条结果的时长加一遍：">
+<meta name="description" content="短路和缓存省掉的是计算，不是契约——被跳过的路径上欠下的数据不会报错，只会让数字悄悄变小；抓它靠的不是测试，是总量对账；而对账的最后一步，是把尺子也拆开验一遍。">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="阿克苏红苹果">
 <meta property="og:title" content="61 短路的账：缓存省掉的一次计算，与九十九小时的空缺">
-<meta property="og:description" content="2288 件视频、四路信号、过夜跑完，晨间复审。第一件事是算总账——把逐条结果的时长加一遍：">
+<meta property="og:description" content="短路和缓存省掉的是计算，不是契约——被跳过的路径上欠下的数据不会报错，只会让数字悄悄变小；抓它靠的不是测试，是总量对账；而对账的最后一步，是把尺子也拆开验一遍。">
 <meta property="og:url" content="https://ouya15.cn/insights/series/61-short-circuit.html">
 <meta property="og:locale" content="zh_CN">
 <link rel="canonical" href="https://ouya15.cn/insights/series/61-short-circuit.html">
@@ -139,6 +139,10 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <p class="kicker">一个人的 Agent 基建 · 连载 61</p>
 <h1>61 短路的账：缓存省掉的一次计算，与九十九小时的空缺</h1>
 <p class="meta-line">2026-09-14<span class="sep">·</span>连载</p>
+<blockquote>
+<p data-md-line="4">前情：59《白名单之外》是这轮全量采集的首夜（格式层的缺席）；这一篇写收官之后的对账——2288 件视频、855.5 小时的总时长账，在一个上午里对出了两笔差额：一笔是数据在劣化，一笔是尺子坏了。</p>
+<p data-md-line="5">一句话：<strong>短路和缓存省掉的是计算，不是契约</strong>——被跳过的路径上欠下的数据不会报错，只会让数字悄悄变小；抓它靠的不是测试，是总量对账；而对账的最后一步，是把尺子也拆开验一遍。</p>
+</blockquote>
 <h2 id="0.-现场：一个上午，两本对不上的账" data-md-line="8">0. 现场：一个上午，两本对不上的账</h2>
 <p data-md-line="10">2288 件视频、四路信号、过夜跑完，晨间复审。第一件事是算总账——把逐条结果的时长加一遍：</p>
 <p data-md-line="12"><strong>756.3 小时。</strong> 而首跑逐件加总是 <strong>855.5 小时</strong>。同样的 2288 件，账上少了 <strong>99.1 小时</strong>。</p>
@@ -201,7 +205,7 @@ awk -F'\t' 'NR&gt;1 {s+=$4; n+=$3} END {printf "总时长=%.1fh 件数=%d", s, n
 </ul>
 <p data-md-line="96">（同一个上午还有另外两笔账：一本作业账本吞掉了两张工单（62），和一次在 Windows 上翻车的原子写（63）。）</p>
 <!-- seriesnav -->
-<div class="back-link" style="display:flex;gap:22px;justify-content:space-between"><span style="color:#b3aea4">已是第一篇</span><a href="agent-infra.html">系列首页</a><a href="62-ghost-jobs.html">下一篇 · 62 →</a></div>
+<div class="back-link" style="display:flex;gap:22px;justify-content:space-between"><a href="37-overreach-audit.html">← 上一篇 · 37</a><a href="agent-infra.html">系列首页</a><a href="62-ghost-jobs.html">下一篇 · 62 →</a></div>
 <!-- /seriesnav -->
 </article>
 </div></main>

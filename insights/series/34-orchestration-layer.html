@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>34 编排层：能力齐了之后 | 阿克苏红苹果</title>
+<meta name="description" content="能力层回答&quot;单件事会不会做&quot;，编排层回答&quot;一串事怎么自己做完&quot;；而编排器该不该存在，不由&quot;想到了&quot;决定，由&quot;第几次使用&quot;决定。">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="阿克苏红苹果">
+<meta property="og:title" content="34 编排层：能力齐了之后">
+<meta property="og:description" content="能力层回答&quot;单件事会不会做&quot;，编排层回答&quot;一串事怎么自己做完&quot;；而编排器该不该存在，不由&quot;想到了&quot;决定，由&quot;第几次使用&quot;决定。">
+<meta property="og:url" content="https://ouya15.cn/insights/series/34-orchestration-layer.html">
+<meta property="og:locale" content="zh_CN">
+<link rel="canonical" href="https://ouya15.cn/insights/series/34-orchestration-layer.html">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
+<script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+@import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root{
+  --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
+  --muted:#746f66; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --serif:'Noto Serif SC','Songti SC',serif;
+  --sans:'Noto Sans SC','PingFang SC',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.7;
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(194,55,43,.07), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(194,55,43,.045), transparent 55%),
+    var(--paper);
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(28,26,23,.05) 1px, transparent 1px);
+  background-size:24px 24px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+a{color:inherit}
+/* header */
+.site-head{border-bottom:1px solid var(--line);background:rgba(245,244,240,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.15rem;text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+.brand-dot{width:11px;height:11px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 3px rgba(194,55,43,.15)}
+.site-head nav{display:flex;gap:22px}
+.site-head nav a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:500;transition:color .18s}
+.site-head nav a:hover{color:var(--red)}
+/* footer */
+.site-foot{border-top:1px solid var(--line);margin-top:72px;padding:30px 0 40px}
+.site-foot p{font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+/* badges (review) */
+.badge-bar{margin:0 0 26px}
+.badge{display:inline-block;color:#fff;padding:2px 10px;border-radius:12px;font-size:.72rem;margin:0 6px 6px 0;font-family:var(--mono)}
+/* article body */
+article{padding:46px 0 20px}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:600}
+article h1{font-family:var(--serif);font-weight:900;font-size:2.15rem;line-height:1.35;margin-bottom:12px;letter-spacing:.01em}
+.meta-line{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.meta-line .sep{margin:0 8px;color:var(--line)}
+article h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:40px 0 14px}
+article h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:28px 0 10px}
+article h4{font-size:1rem;font-weight:700;margin:22px 0 8px}
+article p{margin-bottom:16px;color:var(--body)}
+article blockquote{border-left:3px solid var(--red);margin:18px 0;padding:6px 18px;color:var(--muted);background:rgba(194,55,43,.035)}
+article blockquote p{margin-bottom:8px;color:var(--muted)}
+article code{background:#eceae4;padding:2px 6px;border-radius:3px;font-size:.86em;font-family:var(--mono)}
+article pre{background:#23211e;color:#e8e5df;padding:18px;border-radius:6px;overflow-x:auto;margin:18px 0}
+article pre code{background:none;padding:0;color:inherit;font-size:.8rem;line-height:1.6}
+article pre code.hljs{background:transparent;padding:0}
+article hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+article ul,article ol{margin:0 0 16px;padding-left:1.5em}
+article li{margin-bottom:7px;color:var(--body)}
+article a{color:var(--red-deep);text-decoration:underline;text-decoration-color:rgba(194,55,43,.4);text-underline-offset:3px;transition:text-decoration-color .18s}
+article a:hover{text-decoration-color:var(--red)}
+.insight-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
+.insight-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:700;font-family:var(--serif)}
+.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
+.back-link{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.back-link a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);transition:color .18s}
+.back-link a:hover{color:var(--red)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .55s ease both}
+/* ===== 夜间模式（纯叠加，html.dark 覆盖，不改动上方任何浅色规则）===== */
+html.dark{
+  --paper:#191714; --ink:#e8e5df; --red:#e05545; --red-deep:#e86a5a;
+  --muted:#9a958c; --line:#3a3630; --card:#26231c; --body:#c9c5bd;
+}
+html.dark body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(224,85,69,.06), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(224,85,69,.04), transparent 55%),
+    var(--paper);
+}
+html.dark body::before{background-image:radial-gradient(rgba(232,229,223,.04) 1px, transparent 1px)}
+html.dark .site-head{background:rgba(25,23,20,.85)}
+html.dark .brand-dot{box-shadow:0 0 0 3px rgba(224,85,69,.2)}
+html.dark article code{background:#26231c}
+html.dark article blockquote{background:rgba(224,85,69,.06)}
+html.dark article a{text-decoration-color:rgba(224,85,69,.5)}
+html.dark .col-intro{color:#b5b0a6}
+html.dark .art-guide{color:#9a958c}
+#theme-toggle{background:none;border:1px solid var(--line);border-radius:50%;cursor:pointer;
+  color:var(--muted);padding:6px;display:flex;align-items:center;justify-content:center;
+  transition:color .18s,border-color .18s}
+#theme-toggle:hover{color:var(--red);border-color:var(--red)}
+#theme-toggle svg{width:15px;height:15px;display:block}
+#theme-toggle .icon-sun{display:none}
+html.dark #theme-toggle .icon-moon{display:none}
+html.dark #theme-toggle .icon-sun{display:block}
+/* ===== 滚动坍缩红线（业界标准：下滑收成顶部一条红线，点击展开）===== */
+body[data-scrolled] .site-head{position:fixed;top:0;left:0;right:0;width:auto;height:5px;padding:0;border:none;background:var(--red);z-index:999;cursor:pointer;backdrop-filter:none;box-shadow:none;transition:height .25s,background .25s}
+body[data-scrolled] .site-head .wrap{display:none}
+@media(hover:hover){
+body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+body[data-scrolled] .site-head:hover .wrap{display:flex}
+html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
+
+/* ===== 手机补丁（2026-09-16 调优）===== */
+@media(max-width:640px){
+  article h1{font-size:1.7rem}
+  article h2{font-size:1.22rem;margin-top:32px}
+  .insight-table{display:block;width:max-content;max-width:100%;overflow-x:auto}
+  .wrap{padding:0 18px}
+}
+@media(prefers-reduced-motion:reduce){
+  .rise{animation:none}html{scroll-behavior:auto}
+}
+</style>
+</head><body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../series/">连载</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+</div></header>
+<main><div class="wrap">
+<article class="rise">
+<p class="kicker">一个人的 Agent 基建 · 连载 34</p>
+<h1>34 编排层：能力齐了之后</h1>
+<p class="meta-line">2026-09-13<span class="sep">·</span>连载</p>
+<blockquote>
+<p data-md-line="4">前情：17《别用 SSH 当 API》换了通道，22《换乘触发器》给出"何时换"，23《原子能力》讲了封装的第三级，24《三件套》拆了零件。这一篇写下一级的第一课：把零件串成流水线。以及它开工前先绊的那一跤。</p>
+<p data-md-line="5">一句话：<strong>能力层回答"单件事会不会做"，编排层回答"一串事怎么自己做完"</strong>；而编排器该不该存在，不由"想到了"决定，由"第几次使用"决定。</p>
+</blockquote>
+<h2 id="引子：一件不在盘上的零件" data-md-line="8">引子：一件不在盘上的零件</h2>
+<p data-md-line="10">九讲课程视频躺在算力节点上。素材清了一半——视频在、英文字幕在，还缺两条声道：逐帧的版面，和图表页的读图层。</p>
+<p data-md-line="12">要把"缺材料 → 补材料 → 齐了开写笔记"做成一条流水线，本该是攒了半年的原子能力兑现的时刻：帧提取、帧 OCR、读图描述，每个零件都造过、跑过、全库 73 讲一次性批过——日志里最后一行还写着 <code>ALL DONE: 73 new, 0 skipped, 0 failed</code>。</p>
+<p data-md-line="14">于是先做审计：能力清单摆开，挨个点名。</p>
+<p data-md-line="16">点到"帧提取"，它没答到。</p>
+<p data-md-line="18">脚本不在盘上了。源侧没有，执行侧也没有。而它 24 小时前刚刚干完 73 讲的活。原地只剩下三样东西：一份日志、一段陈年崩溃的堆栈（堆栈里留着它当年的住址）、一条还在体检项里挂着名字的计划任务。</p>
+<p data-md-line="20"><strong>你要自动化一条线，第一个发现常常是：这条线上有一个零件已经丢了。</strong></p>
+<p data-md-line="22">它大概率还能找回来（冲突处理时打过一个 6.1GB 的暂存包）。但这跤本身已经是编排层的第一课：<strong>能力不是造完就永远在的。文档会过期，日志才是不会失忆的物证；而"零件盘点"必须是流水线的第 0 步。</strong></p>
+<h2 id="1.-什么时候才配拥有编排器" data-md-line="24">1. 什么时候才配拥有编排器</h2>
+<p data-md-line="26">先说一个反直觉的次序问题。</p>
+<p data-md-line="28">这条流水线其实早就"造过"——只是造在人的脑子里：73 讲的批量加工，靠一条计划任务、一个人定时看一眼日志、以及最后手动把产物同步回本地。它跑通了七十三次，零失败；甚至有一条体检项专门盯着它的死活。</p>
+<p data-md-line="30"><strong>但它不能被委托、不能被重放、也不能在你睡着时自己决定"下一步该干嘛"。</strong></p>
+<p data-md-line="32">那为什么当时不把它封装成编排器？因为当时的纪律是：<strong>第一次使用不封装。</strong> 第一次是探路——你还不完全知道链路长什么样、哪个环节会炸、失败要怎么退；这时候抽象的每一个接口都是猜的。等第二次真的要用它（换一门课、换一批素材、换一个人操作），链路已经被用脚投票定型了，封装才从"抽象税"变成"省税"。</p>
+<p data-md-line="34">这和 22《换乘触发器》是同一条纪律的两次现身：接缝税只对第二次收费。<strong>编排器不是提前抽象，是滞后封装</strong>——它的触发信号不是"我有一个好主意"，而是"我第二次手动跑完了同一串命令"。</p>
+<p data-md-line="36">这次就是第二次。</p>
+<h2 id="2.-编排层的形状：五段，和两条分工线" data-md-line="38">2. 编排层的形状：五段，和两条分工线</h2>
+<p data-md-line="40">把"补材料"这件事拆开，其实是五段：</p>
+<ul>
+<li data-md-line="42"><strong>发现</strong>——逐讲核对材料清单，输出"缺什么"。这一步的产物必须是机器可读的：不是"感觉这门课缺资料"，是"九讲里九讲缺版面层、九讲缺图表层"。</li>
+<li data-md-line="43"><strong>补全</strong>——按缺口选能力、排链路。这里的链路是<strong>多级</strong>的：帧提取（采样、去重、抽帧）→ 帧 OCR（把画面变成字）→ 图面 VLM（把图表变成描述）。上一级的产物是下一级的输入，顺序错一步整个白跑。</li>
+<li data-md-line="44"><strong>落收</strong>——产物在对面的机器上，要搬回来。听起来是杂活，其实是事故高发段：搬运失败往往静默（空文件、半截文件），所以落收也要走可校验通道（打包 + 哈希 + 单次取件），而不是"一堆小文件挨个拷"。</li>
+<li data-md-line="45"><strong>验收</strong>——"齐了"要有判据：件数对得上、哈希对得上、随机抽几帧肉眼能看。验收不是仪式，它是把"我觉得补完了"变成"证据表明补完了"。</li>
+<li data-md-line="46"><strong>交付</strong>——材料进入下一个环节（写笔记），流水线的责任到此为止。</li>
+</ul>
+<p data-md-line="48">两条分工线，和 21《事实归机器，语义归模型》是同一条：</p>
+<ul>
+<li data-md-line="50"><strong>能力层保持哑执行器</strong>。"帧提取"只管把视频变成帧，它不知道也不关心自己在为哪门课服务、后面还有没有别的步骤。链路的顺序、失败的重试、下一步该谁——全部由编排层决定。能力层一旦开始"聪明"，它就开始耦合。（任务的依赖语义不该塞进执行器也是同一个道理：编排层可以换、可以重写，执行器越蠢活得越久。）</li>
+<li data-md-line="51"><strong>编排器不碰语义</strong>。"材料齐没齐"是事实判断，可以自动化；"这一讲讲了什么、笔记怎么写"是语义判断，必须留给人的那一侧。流水线的终点是材料齐备线，不是"自动写完笔记"——越界一步，就变成了用摘要替代理解，整条笔记线的质量纪律（整讲进上下文、逐字溯源）会第一个崩。</li>
+</ul>
+<h2 id="3.-把"齐了吗"变成机器可判：档位" data-md-line="53">3. 把"齐了吗"变成机器可判：档位</h2>
+<p data-md-line="55">"材料齐全"如果不定义，就是一句感觉。给它分级，它就能进代码：</p>
+<ul>
+<li data-md-line="57"><strong>T0 可读</strong>：视频 + 字幕在 → 能开工，但瘸一条腿；</li>
+<li data-md-line="58"><strong>T1 三声道</strong>：再加版面层（逐帧文字）和图表层（图的描述）→ 笔记生产的完整材料线，这是自动化的目标档；</li>
+<li data-md-line="59"><strong>T2 完整</strong>：再加官方讲义。有的课永远到不了 T2（官网就不发讲义），所以 T2 的缺失不阻塞——但必须被<strong>明示</strong>，而不是悄悄缺席。</li>
+</ul>
+<p data-md-line="61">档位的意义：发现环节的判断、补全环节的选链、验收环节的签字，全都锚定在同一个定义上。三段的"齐"是同一个字，不会各说各话。</p>
+<h2 id="4.-代价与边界" data-md-line="63">4. 代价与边界</h2>
+<ul>
+<li data-md-line="65"><strong>能力会腐烂</strong>（本篇开头那跤）：脚本会丢、路径会挪、依赖会升级。所以盘点必须是流水线的第 0 步，而且盘点失败不能静默——"缺一个零件"要以一等公民的身份终止流程，而不是在半夜空转。</li>
+<li data-md-line="66"><strong>幂等是编排的前提</strong>：第 2 步跑到一半断了、第 3 步搬了一半，重跑必须安全。每个能力都"已存在→跳过、重入→覆盖"，否则流水线只能一次成——那就还是人肉。</li>
+<li data-md-line="67"><strong>共享资源要排队</strong>：读图用的显存和另一条管线（翻译）是同一块卡。编排层要替所有链路统一看门，单个能力再谦让，也架不住两条链路同时起跑。</li>
+<li data-md-line="68"><strong>状态进引擎，不进聊天</strong>：跑到第几段、哪段失败、什么时候重试——如果要靠翻会话记录确认，流水线就退回了手工作坊。状态放进能被查询的地方，"现在到哪了"是一次查询，不是一次考古。</li>
+</ul>
+<h2 id="5.-实战观察（回填：第二域先跑完了）" data-md-line="70">5. 实战观察（回填：第二域先跑完了）</h2>
+<blockquote>
+<p data-md-line="72">计划里等的是材料线的首战（同一门课九讲全链）——那个窗口还没到；但同一套骨架在第二个域先跑完了实战：<strong>译制线</strong>（把英文公开课做成中文配音版）。它替这篇草稿答了大部分问题，也顺手修正了一处措辞。以下按原计划的五问回填，对不上的地方如实注明。</p>
+</blockquote>
+<p data-md-line="74"><strong>① 时间账。</strong> 单讲全链约 6 分钟墙钟：合成占掉 299 秒（约八成），对齐、混音、换轨加起来一分钟出头。之前最悬的"多级链会不会越跑越贵"，答案落地了：贵的是能力本身（合成），不是编排——编排是零成本的那一层。 幂等改造之后，同一讲重跑 <strong>49 秒</strong>（79 段全部复用、一段没重合成）。这是"幂等是编排的前提"的定价：从"每次全量重来"到"只跑差的"，重入成本掉了一个数量级。</p>
+<p data-md-line="77"><strong>② 失败与重试实录。</strong> 最值钱的一次失败不是"炸了"，是<strong>"没炸"</strong>：ASR 旁路对 55 分钟整轨单发喂进去，输出成了 79KB 的同一句循环——rc=0，日志全绿，只有去看产物本身才发现语义为零。这篇开头说"零件盘点必须是流水线的第 0 步"；这里补上后半句：<strong>验收必须看产物本身，rc 和日志都不算数。</strong> 第二次是工具级：门禁脚本自己的短名解析缺失，误报"产物不存在"，当场修掉、四用例复验。重入干不干净？79/79 复用、0 重做——干净。</p>
+<p data-md-line="79"><strong>③ 对账数字。</strong> 译制线不做跨机落收（产物留在节点上，本地只取回一段样片），这一条用"门禁对账"替代：产物 md5 钉扎、时长与原片逐秒一致（3289.222 秒）、截断率 12.66%（上限 15%）、作业 54.4 秒跑完。哈希、时长、比率——三件都是机器可判的真。</p>
+<p data-md-line="81"><strong>④ 单讲 vs 全量的差别。</strong> 单讲跑通 ≠ 全量可跑，但差别比想的窄：真正拦住全量的不是"链更长"，是两块——<strong>资源排队</strong>（合成吃 CPU，要和别的线错峰）和<strong>代价模型</strong>（重跑便宜 ≠ 首次便宜）。所以全量的准备工作不是"把链加固"，是"把能力提速 + 把幂等做扎实"。</p>
+<p data-md-line="83"><strong>⑤ 审计链。</strong> 一次作业查询（提交时间、完成时间、结果 JSON）＋一份门禁回执＋一篇日志——三步之内能复述"谁在哪一步、留下了什么证据"。状态没进聊天，也没进状态机。</p>
+<h2 id="结语" data-md-line="85">结语</h2>
+<blockquote>
+<p data-md-line="87">【原候选钩子】编排层的完成标准，不是"跑通了"，而是"丢一个零件也能发现，跑挂一段能自己重来"。</p>
+</blockquote>
+<p data-md-line="89">译制线把这两句都验了：盘点（差集）是每次开工的默认动作，"丢"在被看见之前就拦下了；断点复用让"跑挂一段"的代价从六分钟降到四十九秒。</p>
+<p data-md-line="91">还有一个计划外的收获：<strong>这套骨架没有和任何一个域绑死</strong>。材料线的首战还没跑，第二域已经先跑完了（过程见 35 号文）。同一批事实与门禁、同一套能力调用语法，连"多级链"都只是 SOP 里的一张顺序清单。如果当初那条五段链真的写进了代码（35 号文记了那场自我推翻），这次搬家根本不会发生。</p>
+<!-- seriesnav -->
+<div class="back-link" style="display:flex;gap:22px;justify-content:space-between"><span style="color:#b3aea4">已是第一篇</span><a href="agent-infra.html">系列首页</a><a href="35-judgment-upward.html">下一篇 · 35 →</a></div>
+<!-- /seriesnav -->
+</article>
+</div></main>
+<footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
+<script src="../../assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
+b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
+try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});var head=document.querySelector('.site-head');if(head){head.addEventListener('click',function(e){if(document.body.hasAttribute('data-scrolled')){e.preventDefault();document.body.removeAttribute('data-scrolled');lastY=window.scrollY}})};s(true)})();</script>
+</body></html>

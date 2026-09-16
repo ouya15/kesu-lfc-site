@@ -4,11 +4,11 @@
 <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>62 查无此人：两张同号的工单，与一场没有终点的等待 | 阿克苏红苹果</title>
-<meta name="description" content="08:53:58，补跑作业发上 win-node——562 个工作单元（asr_retry 4 + extract_retry 14 + vlm_stale 17 + ocr_need 527），编号 job-153，把昨夜采集欠下的零头补齐。">
+<meta name="description" content="号要来自保证，不能数出来；读-改-写的整段要在一扇门里；等待要有截止。">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="阿克苏红苹果">
 <meta property="og:title" content="62 查无此人：两张同号的工单，与一场没有终点的等待">
-<meta property="og:description" content="08:53:58，补跑作业发上 win-node——562 个工作单元（asr_retry 4 + extract_retry 14 + vlm_stale 17 + ocr_need 527），编号 job-153，把昨夜采集欠下的零头补齐。">
+<meta property="og:description" content="号要来自保证，不能数出来；读-改-写的整段要在一扇门里；等待要有截止。">
 <meta property="og:url" content="https://ouya15.cn/insights/series/62-ghost-jobs.html">
 <meta property="og:locale" content="zh_CN">
 <link rel="canonical" href="https://ouya15.cn/insights/series/62-ghost-jobs.html">
@@ -139,6 +139,10 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <p class="kicker">一个人的 Agent 基建 · 连载 62</p>
 <h1>62 查无此人：两张同号的工单，与一场没有终点的等待</h1>
 <p class="meta-line">2026-09-14<span class="sep">·</span>连载</p>
+<blockquote>
+<p data-md-line="4">前情：45《队列会失忆》里，长作业拿"接手时刻的整表快照"回写，把运行期的编辑一次删光——修复把回写降级为 reload-modify-save（重读→只改自己那几格→存回），并升成断言 A066。这一篇是它的下一变体：<strong>每个人都在正确地重读-修改-存回，账本还是把人弄丢了。</strong></p>
+<p data-md-line="5">一句话：<strong>号要来自保证，不能数出来；读-改-写的整段要在一扇门里；等待要有截止。</strong></p>
+</blockquote>
 <h2 id="0.-现场：停在第-2-个单元的补跑作业" data-md-line="8">0. 现场：停在第 2 个单元的补跑作业</h2>
 <p data-md-line="10">08:53:58，补跑作业发上 win-node——562 个工作单元（asr_retry 4 + extract_retry 14 + vlm_stale 17 + ocr_need 527），编号 job-153，把昨夜采集欠下的零头补齐。</p>
 <p data-md-line="12">08:54:13，脚本处理完前两个单元，向队列提交新一轮 ASR 工单。然后，停表：进度冻结在 <strong>done=2/562</strong>，时间戳 08:54:23，日志尾巴再没长过一个字。</p>

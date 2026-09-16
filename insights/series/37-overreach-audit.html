@@ -3,15 +3,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<title>一个人的 Agent 基建 | 阿克苏红苹果</title>
-<meta name="description" content="把一台机器上的大活拆成产线的判断与取舍——从接缝税写到守卫的粒度，按章连载。">
-<meta property="og:type" content="website">
+<title>37 查房：工牌之后的越权审计 | 阿克苏红苹果</title>
+<meta name="description" content="拒绝要留痕、留痕要可查；查房不是翻流水，是一张聚合的脸。">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="阿克苏红苹果">
-<meta property="og:title" content="一个人的 Agent 基建">
-<meta property="og:description" content="把一台机器上的大活拆成产线的判断与取舍——从接缝税写到守卫的粒度，按章连载。">
-<meta property="og:url" content="https://ouya15.cn/insights/series/agent-infra.html">
+<meta property="og:title" content="37 查房：工牌之后的越权审计">
+<meta property="og:description" content="拒绝要留痕、留痕要可查；查房不是翻流水，是一张聚合的脸。">
+<meta property="og:url" content="https://ouya15.cn/insights/series/37-overreach-audit.html">
 <meta property="og:locale" content="zh_CN">
-<link rel="canonical" href="https://ouya15.cn/insights/series/agent-infra.html">
+<link rel="canonical" href="https://ouya15.cn/insights/series/37-overreach-audit.html">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -135,51 +135,41 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <nav><a href="../../index.html">专栏</a><a href="../../series/">连载</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
 </div></header>
 <main><div class="wrap">
-<div class="col-head rise">
-<p class="kicker">连载 · Series</p>
-<h1>一个人的 Agent 基建</h1>
-<p class="col-desc">把一台机器上的大活拆成产线的判断与取舍——从接缝税写到守卫的粒度，按章连载。</p>
-<p class="col-stat">共 <b>7</b> 章</p>
-</div>
-<ul class="art-list">
-<li class="art-item" data-mnum="34">
-<span class="art-idx">01</span>
-<div class="art-main"><div class="art-title"><a href="../series/34-orchestration-layer.html">34 编排层：能力齐了之后</a></div><p class="art-guide">能力层回答「单件事会不会做」，编排层回答「一串事怎么自己做完」；而编排器该不该存在，不由「想到了」决定，由「第几次使用」决定。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="35">
-<span class="art-idx">02</span>
-<div class="art-main"><div class="art-title"><a href="../series/35-judgment-upward.html">35 判断力上浮：从流程引擎到「事实与门禁」</a></div><p class="art-guide">凡是「必须为真才能继续」的，机器门禁，不许自报；凡是「接下来怎么办」的，绝不写死，留给 Agent。引擎管事实与门禁，Agent 管路径与善后。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="36">
-<span class="art-idx">03</span>
-<div class="art-main"><div class="art-title"><a href="../series/36-refusal-surface.html">36 拒绝面：把「不许删」编译成机器语法</a></div><p class="art-guide">「不许」如果只活在文档里，就等于没有；拒绝面＝动词面＋对象面＋理由面＋验收句——把铁律编译成机器语法。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="37">
-<span class="art-idx">04</span>
-<div class="art-main"><div class="art-title"><a href="../series/37-overreach-audit.html">37 查房：工牌之后的越权审计</a></div><p class="art-guide">拒绝要留痕、留痕要可查；查房不是翻流水，是一张聚合的脸——治理闭环＝发权限→拦越权→让拦截成为证据。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="61">
-<span class="art-idx">05</span>
-<div class="art-main"><div class="art-title"><a href="../series/61-short-circuit.html">61 短路的账：缓存省掉的一次计算，与九十九小时的空缺</a></div><p class="art-guide">缓存省掉的一次计算，与九十九小时的空缺：两笔对不上的账，牵出隐性劣化与一把坏掉的尺子。</p></div>
-<span class="art-date">2026-09-14</span>
-</li>
-<li class="art-item" data-mnum="62">
-<span class="art-idx">06</span>
-<div class="art-main"><div class="art-title"><a href="../series/62-ghost-jobs.html">62 查无此人：两张同号的工单，与一场没有终点的等待</a></div><p class="art-guide">两张同号的工单与一场没有终点的等待：并发契约里的毫秒级丢更新；号要来自保证，等待必须有截止。</p></div>
-<span class="art-date">2026-09-14</span>
-</li>
-<li class="art-item" data-mnum="63">
-<span class="art-idx">07</span>
-<div class="art-main"><div class="art-title"><a href="../series/63-rename-exclusive.html">63 换名要独占：一次 WinError 5，与一句没说出口的平台假设</a></div><p class="art-guide">一次 WinError 5，与一句没说出口的平台假设：原子写在 Windows 上要每个读者签字——跨平台重试是标配。</p></div>
-<span class="art-date">2026-09-14</span>
-</li>
-</ul>
-<div class="back-link"><a href="index.html">← 返回连载总览</a></div>
-</div></main>
+<article class="rise">
+<p class="kicker">一个人的 Agent 基建 · 连载 37</p>
+<h1>37 查房：工牌之后的越权审计</h1>
+<p class="meta-line">2026-09-13<span class="sep">·</span>连载</p>
+<blockquote>
+<p data-md-line="4">前情：16《给 agent 发 token》说"治理的最后一公里是发工牌"；20《OpenAPI 是 agent 的说明书》补了"契约不死，agent 自来"；36《拒绝面》刚把"机器说不"编译成语法。这一篇把最后一段接上：<strong>说不之后，要记住"谁试过"。</strong></p>
+<p data-md-line="5">一句话：<strong>拒绝要留痕、留痕要可查；查房不是翻流水，是一张聚合的脸。</strong></p>
+</blockquote>
+<h2 id="引子：一个-401，和一个-403" data-md-line="8">引子：一个 401，和一个 403</h2>
+<p data-md-line="10">补治理面的时候，发现一个安静的缺口。</p>
+<p data-md-line="12">"没戴工牌被拦"（401）从上线起一直在留痕——审计表里躺着 14 条；而"戴着工牌走错房间"（403），代码里直接返回，<strong>一条痕都没有</strong>。</p>
+<p data-md-line="14">这恰恰反了。401 是守门的正常动作，是噪声；403 才是信号——它要么说明权限设计错了，要么说明某个 agent 的行为偏了。<strong>有工牌的越权，是内部人风险唯一的早期形态。</strong> 补完当天，审计表里 401:14 / 403:2——那两个 2，就是刚才测试时"故意走错房间"留下的。</p>
+<h2 id="1.-审计的目标不是「全记」，是记对" data-md-line="16">1. 审计的目标不是「全记」，是记对</h2>
+<p data-md-line="18">很多系统只审计成功操作。那等于只拍了"干成的事"，漏掉"想干没干成的事"——而治理要的恰恰是后者。</p>
+<p data-md-line="20">所以两类拒绝要分开看：<strong>没牌被拦</strong>是系统健康的证明，噪声，计数即可；<strong>有牌越权</strong>是待解读的信号，要带全上下文（谁、哪扇门、缺什么权限、什么时候）。审计设计的第一步不是"记多少"，是"哪几类值得记全"。</p>
+<h2 id="2.-scope-收拢成一张表" data-md-line="22">2. scope 收拢成一张表</h2>
+<p data-md-line="24">越权要记全，前提是"越权"有唯一口径。原来的写法是每个接口里手写一行角色检查——检查散落的地方，必然有漏网、必然口径漂移，而且<strong>下一个加接口的人（可能是 agent）只能靠模仿</strong>。</p>
+<p data-md-line="26">收拢成一张表：</p>
+<table class="insight-table"><thead><tr><th>动作</th><th>允许角色</th></tr></thead><tbody><tr><td>判过 / 四态</td><td>user, admin</td></tr><tr><td>笔记上报</td><td>agent, admin</td></tr><tr><td>立项</td><td>agent, admin</td></tr><tr><td>审计读取</td><td>admin</td></tr></tbody></table>
+<p data-md-line="35">配一个统一的裁决函数，所有接口的 403 都从它走。<strong>一处声明、一处改、漏一处编译器都会先看出来。</strong></p>
+<h2 id="3.-查房报告-≠-流水尾" data-md-line="37">3. 查房报告 ≠ 流水尾</h2>
+<p data-md-line="39">查房视图里放什么，是一次刻意的减法：拒绝按 401/403 分组计数、写操作按"谁×干了什么"聚合、最近明细各留一批。<strong>不做留存期管理、不设花哨过滤，最近 200 条封顶。</strong></p>
+<p data-md-line="41">理由还是那句：为不存在的问题付费是最贵的税。翻事件流是考古，报告才是查询——20 条聚合比 2 万条流水有用得多。</p>
+<h2 id="4.-查房的门，也能被查房" data-md-line="43">4. 查房的门，也能被查房</h2>
+<p data-md-line="45">有一个让设计闭环的小细节：普通用户访问查房页 → 403。而这条 403 本身，也落进审计表。</p>
+<p data-md-line="47"><strong>连"拒绝查房"这件事，都被记录在案。</strong> 拒绝面自证：没有任何一条越权尝试会凭空消失。</p>
+<h2 id="5.-验收与边界" data-md-line="49">5. 验收与边界</h2>
+<p data-md-line="51">四条验收句，全是可复现的：直删 → 403 且理由可读；越权上报 → 403 且留痕；管理员查房 → 聚合+明细；普通用户查房 → 被拒且留痕。外加一条回归：旧门店（另一个前端）经 user token 的读写路径全部照旧——<strong>收紧的是越权面，不是正常面。</strong></p>
+<h2 id="结语" data-md-line="53">结语</h2>
+<p data-md-line="55">工牌（16）→ 说不（36）→ 查房（37）。治理的完整闭环不是"发权限、拦越权"，而是：<strong>发权限、拦越权，并且让每一次拦截都成为下一轮设计的证据。</strong></p>
+<p data-md-line="57">agent 是有能力、低成本、无监督、失忆的操作者——所以每一块工牌后面，都该有一张查房表。它不防人，它防遗忘。</p>
+<!-- seriesnav -->
+<div class="back-link" style="display:flex;gap:22px;justify-content:space-between"><a href="36-refusal-surface.html">← 上一篇 · 36</a><a href="agent-infra.html">系列首页</a><a href="61-short-circuit.html">下一篇 · 61 →</a></div>
+<!-- /seriesnav -->
+</article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
 <script src="../../assets/highlight.min.js"></script>

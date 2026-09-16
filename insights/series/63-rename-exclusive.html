@@ -4,11 +4,11 @@
 <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <title>63 换名要独占：一次 WinError 5，与一句没说出口的平台假设 | 阿克苏红苹果</title>
-<meta name="description" content="同一张&quot;原子写&quot;配方，语义假设完全不同——POSIX 版假设&quot;没人需要同意&quot;，Windows 版要求&quot;人人需要同意&quot;。">
+<meta name="description" content="&quot;tmp + rename 是原子写&quot;是一句 POSIX 常识，它默认了&quot;换名对读者无感&quot;——在 Windows，换名要读者先点头；一次几毫秒的句柄占用，被一次没有重试的换名升级成了作业的死刑。修复=退避重试 + 兜底留痕。">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="阿克苏红苹果">
 <meta property="og:title" content="63 换名要独占：一次 WinError 5，与一句没说出口的平台假设">
-<meta property="og:description" content="同一张&quot;原子写&quot;配方，语义假设完全不同——POSIX 版假设&quot;没人需要同意&quot;，Windows 版要求&quot;人人需要同意&quot;。">
+<meta property="og:description" content="&quot;tmp + rename 是原子写&quot;是一句 POSIX 常识，它默认了&quot;换名对读者无感&quot;——在 Windows，换名要读者先点头；一次几毫秒的句柄占用，被一次没有重试的换名升级成了作业的死刑。修复=退避重试 + 兜底留痕。">
 <meta property="og:url" content="https://ouya15.cn/insights/series/63-rename-exclusive.html">
 <meta property="og:locale" content="zh_CN">
 <link rel="canonical" href="https://ouya15.cn/insights/series/63-rename-exclusive.html">
@@ -139,6 +139,10 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <p class="kicker">一个人的 Agent 基建 · 连载 63</p>
 <h1>63 换名要独占：一次 WinError 5，与一句没说出口的平台假设</h1>
 <p class="meta-line">2026-09-14<span class="sep">·</span>连载</p>
+<blockquote>
+<p data-md-line="4">前情：41《装得上》写的是安装期的"官方假设 Linux"，59《白名单之外》写的是格式层的"清单假设 mp4"；这一篇是同族的运行期版本——配方假设"rename 对读者无感"。它也与同一个上午的 62 直接相邻：1.6.5 修完账本竞态，顺手把写账升级成原子写，几分钟后，这笔顺手的债就到期了。</p>
+<p data-md-line="5">一句话：<strong>"tmp + rename 是原子写"是一句 POSIX 常识，它默认了"换名对读者无感"——在 Windows，换名要读者先点头；一次几毫秒的句柄占用，被一次没有重试的换名升级成了作业的死刑。修复=退避重试 + 兜底留痕。</strong></p>
+</blockquote>
 <h2 id="0.-现场：失败的不是活儿，是账房的字" data-md-line="8">0. 现场：失败的不是活儿，是账房的字</h2>
 <p data-md-line="10">62 的账本竞态修完（1.6.5），活体验证通过（09:10 同秒双发工单正确分号）。重发补跑作业——<strong>job-156</strong>，562 个单元的同一批活儿。</p>
 <p data-md-line="12">跑到 <strong>55.4%（OCR 311/561）</strong>，被判 failed。作业的 error 字段里躺着的不是它自己的异常：</p>

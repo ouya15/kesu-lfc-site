@@ -3,15 +3,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<title>一个人的 Agent 基建 | 阿克苏红苹果</title>
-<meta name="description" content="把一台机器上的大活拆成产线的判断与取舍——从接缝税写到守卫的粒度，按章连载。">
-<meta property="og:type" content="website">
+<title>36 拒绝面：把「不许删」编译成机器语法 | 阿克苏红苹果</title>
+<meta name="description" content="&quot;不许&quot;如果只活在文档里，就等于没有；拒绝面 = 动词面（删除动词不存在）+ 对象面（受保护清单）+ 理由面（403 要能读）+ 验收句（能一行复现）。">
+<meta property="og:type" content="article">
 <meta property="og:site_name" content="阿克苏红苹果">
-<meta property="og:title" content="一个人的 Agent 基建">
-<meta property="og:description" content="把一台机器上的大活拆成产线的判断与取舍——从接缝税写到守卫的粒度，按章连载。">
-<meta property="og:url" content="https://ouya15.cn/insights/series/agent-infra.html">
+<meta property="og:title" content="36 拒绝面：把「不许删」编译成机器语法">
+<meta property="og:description" content="&quot;不许&quot;如果只活在文档里，就等于没有；拒绝面 = 动词面（删除动词不存在）+ 对象面（受保护清单）+ 理由面（403 要能读）+ 验收句（能一行复现）。">
+<meta property="og:url" content="https://ouya15.cn/insights/series/36-refusal-surface.html">
 <meta property="og:locale" content="zh_CN">
-<link rel="canonical" href="https://ouya15.cn/insights/series/agent-infra.html">
+<link rel="canonical" href="https://ouya15.cn/insights/series/36-refusal-surface.html">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -135,51 +135,43 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <nav><a href="../../index.html">专栏</a><a href="../../series/">连载</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
 </div></header>
 <main><div class="wrap">
-<div class="col-head rise">
-<p class="kicker">连载 · Series</p>
-<h1>一个人的 Agent 基建</h1>
-<p class="col-desc">把一台机器上的大活拆成产线的判断与取舍——从接缝税写到守卫的粒度，按章连载。</p>
-<p class="col-stat">共 <b>7</b> 章</p>
-</div>
-<ul class="art-list">
-<li class="art-item" data-mnum="34">
-<span class="art-idx">01</span>
-<div class="art-main"><div class="art-title"><a href="../series/34-orchestration-layer.html">34 编排层：能力齐了之后</a></div><p class="art-guide">能力层回答「单件事会不会做」，编排层回答「一串事怎么自己做完」；而编排器该不该存在，不由「想到了」决定，由「第几次使用」决定。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="35">
-<span class="art-idx">02</span>
-<div class="art-main"><div class="art-title"><a href="../series/35-judgment-upward.html">35 判断力上浮：从流程引擎到「事实与门禁」</a></div><p class="art-guide">凡是「必须为真才能继续」的，机器门禁，不许自报；凡是「接下来怎么办」的，绝不写死，留给 Agent。引擎管事实与门禁，Agent 管路径与善后。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="36">
-<span class="art-idx">03</span>
-<div class="art-main"><div class="art-title"><a href="../series/36-refusal-surface.html">36 拒绝面：把「不许删」编译成机器语法</a></div><p class="art-guide">「不许」如果只活在文档里，就等于没有；拒绝面＝动词面＋对象面＋理由面＋验收句——把铁律编译成机器语法。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="37">
-<span class="art-idx">04</span>
-<div class="art-main"><div class="art-title"><a href="../series/37-overreach-audit.html">37 查房：工牌之后的越权审计</a></div><p class="art-guide">拒绝要留痕、留痕要可查；查房不是翻流水，是一张聚合的脸——治理闭环＝发权限→拦越权→让拦截成为证据。</p></div>
-<span class="art-date">2026-09-13</span>
-</li>
-<li class="art-item" data-mnum="61">
-<span class="art-idx">05</span>
-<div class="art-main"><div class="art-title"><a href="../series/61-short-circuit.html">61 短路的账：缓存省掉的一次计算，与九十九小时的空缺</a></div><p class="art-guide">缓存省掉的一次计算，与九十九小时的空缺：两笔对不上的账，牵出隐性劣化与一把坏掉的尺子。</p></div>
-<span class="art-date">2026-09-14</span>
-</li>
-<li class="art-item" data-mnum="62">
-<span class="art-idx">06</span>
-<div class="art-main"><div class="art-title"><a href="../series/62-ghost-jobs.html">62 查无此人：两张同号的工单，与一场没有终点的等待</a></div><p class="art-guide">两张同号的工单与一场没有终点的等待：并发契约里的毫秒级丢更新；号要来自保证，等待必须有截止。</p></div>
-<span class="art-date">2026-09-14</span>
-</li>
-<li class="art-item" data-mnum="63">
-<span class="art-idx">07</span>
-<div class="art-main"><div class="art-title"><a href="../series/63-rename-exclusive.html">63 换名要独占：一次 WinError 5，与一句没说出口的平台假设</a></div><p class="art-guide">一次 WinError 5，与一句没说出口的平台假设：原子写在 Windows 上要每个读者签字——跨平台重试是标配。</p></div>
-<span class="art-date">2026-09-14</span>
-</li>
-</ul>
-<div class="back-link"><a href="index.html">← 返回连载总览</a></div>
-</div></main>
+<article class="rise">
+<p class="kicker">一个人的 Agent 基建 · 连载 36</p>
+<h1>36 拒绝面：把「不许删」编译成机器语法</h1>
+<p class="meta-line">2026-09-13<span class="sep">·</span>连载</p>
+<blockquote>
+<p data-md-line="4">前情：13《怎么会没有备份》是全系列最疼的一篇；14《治理四梁》把纪律从自觉降维到结构；22《换乘触发器》写过"服务化的本质是权力收窄"；35《判断力上浮》刚把编排层的调度器删掉。这一篇回到治理最底下的一块砖：把文档里的一句"不许"，编译成机器语法。</p>
+<p data-md-line="5">一句话：<strong>"不许"如果只活在文档里，就等于没有；拒绝面 = 动词面（删除动词不存在）+ 对象面（受保护清单）+ 理由面（403 要能读）+ 验收句（能一行复现）。</strong></p>
+</blockquote>
+<h2 id="引子：一句活在文档里的「不许」" data-md-line="8">引子：一句活在文档里的「不许」</h2>
+<p data-md-line="10">字幕事故那一夜之后，治理宪法里多了一条铁律：受保护目录的删改，<strong>任何会话不得在会话内直接执行</strong>，必须走 mission 立项——清单、回收箱、回滚三件套，一个不能少。</p>
+<p data-md-line="12">这条铁律写得很硬。但它活在两个地方：文档里，和 agent 的自觉里。此后一天里它一次没被违反——不是因为机器拦住了谁，而是因为没人恰好想删。</p>
+<p data-md-line="14"><strong>复述一遍纪律，和兑现一次纪律，中间隔着整个机器。</strong></p>
+<h2 id="1.-先弄清威胁模型：不是黑客，是「顺手」" data-md-line="16">1. 先弄清威胁模型：不是黑客，是「顺手」</h2>
+<p data-md-line="18">设计的第一问不是"怎么防"，是"谁可能删"。</p>
+<p data-md-line="20">答案不是攻击者，是持着 token 的本机 agent——有能力、低成本、无监督、失忆。删除也不会以"删除任务"的形态出现；它更可能长这样：大扫除顺手清掉的"闲置"目录、脚本演化中多出来的一个 <code>rm -rf</code>、工具链重构时被吃掉的边角料。事故的形态是常识性的，不是对抗性的。</p>
+<p data-md-line="22">所以拒绝面的目标不是防住外科手术，而是<strong>把"顺手"从这个可能性空间里搬走</strong>——外加一条：每次尝试都留下证据。（边界也如实声明：不解析符号链接、不拦间接拼接；本机单人环境，防呆不防外科手术。）</p>
+<h2 id="2.-拒绝面三件：动词、对象、理由" data-md-line="24">2. 拒绝面三件：动词、对象、理由</h2>
+<p data-md-line="26"><strong>动词面</strong>：系统里根本没有"删除"这个动词——DELETE 一律拒绝。不设白名单不是偷懒，是原则：<strong>留一个删除动词，就是留一个洞</strong>。真要删的走 mission 立项，那是另一条有三道开关的路。</p>
+<p data-md-line="28"><strong>对象面</strong>：受保护清单=铁律原文的逐字映射（仓库根 + 六个子目录），匹配收进一个纯函数：分隔符归一、大小写不敏感、段匹配，payload 深度遍历——嵌套对象、数组里的字符串，全都算。清单刻意只覆盖铁律写明的范围：<strong>拒绝面不宜过宽</strong>，多拦一分就多一分误伤，铁律升级了清单再跟着扩。</p>
+<p data-md-line="30"><strong>理由面</strong>：403 不许是黑箱，要回 <code>{reason, matched}</code>——"删除面不存在：受保护目录删除走 mission 立项"这样的句子。<strong>拒绝的可读性，就是未来的可审性</strong>；一条读不懂的 403 等同于 500。</p>
+<h2 id="3.-验收句：机制的第一公民" data-md-line="32">3. 验收句：机制的第一公民</h2>
+<p data-md-line="34">33 号文说过，提案的完成标准是每条过成本审判。机制的完成标准类似，且更具体：<strong>每件都能一行复现</strong>。</p>
+<p data-md-line="36">所以验收句在写代码之前就先写好了：</p>
+<pre data-md-line="38"><code>
+curl -X DELETE :8322/notes/1   →   403 + 可读理由 + 审计留痕
+</code></pre>
+<p data-md-line="42">当天实测：直删被 403 拦下并写明原因；越权路径同样留痕；正常读写、原有回归全绿。整个实现零 schema、一个中间件、只挡写不挡读。</p>
+<h2 id="4.-一个反直觉：它谁也拦不住" data-md-line="44">4. 一个反直觉：它谁也拦不住</h2>
+<p data-md-line="46">这份功能，拦不住任何"真想删的人"——对方手里有 shell，绕过 API 就是了。</p>
+<p data-md-line="48">它的价值不在拦住，在这三件事：<strong>把"顺手"从这条路径上搬走；把"发生过的尝试"变成审计里的一行；把治理从"记得住"变成"不需要记得"。</strong> 机器化治理的收益，从来不是防住蓄意者，而是让无意的、赶时间的、会失忆的操作者，不可能再"意外"犯错。</p>
+<h2 id="结语" data-md-line="50">结语</h2>
+<p data-md-line="52">现在，每一条"不许"都该过一遍四问：<strong>动词面在哪？对象面在哪？理由在哪？验收句是什么？</strong> 答不全的，就还只是文档里的一句话。</p>
+<p data-md-line="54">机器学会说"不"之后，还有下半句——记住"谁试过"。那是下一篇：37《查房》。</p>
+<!-- seriesnav -->
+<div class="back-link" style="display:flex;gap:22px;justify-content:space-between"><a href="35-judgment-upward.html">← 上一篇 · 35</a><a href="agent-infra.html">系列首页</a><a href="37-overreach-audit.html">下一篇 · 37 →</a></div>
+<!-- /seriesnav -->
+</article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
 <script src="../../assets/highlight.min.js"></script>
