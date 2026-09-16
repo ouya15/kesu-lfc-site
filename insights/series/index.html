@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>220 索引防腐与原子取号 | 阿克苏红苹果</title>
+<title>连载 | 阿克苏红苹果</title>
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -114,24 +114,19 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 <nav><a href="../../index.html">专栏</a><a href="../../series/">连载</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
 </div></header>
 <main><div class="wrap">
-<article class="rise">
-<p class="kicker">工作室札记</p>
-<h1>220 索引防腐与原子取号</h1>
-<p class="meta-line">2026-08-06<span class="sep">·</span>obp</p>
-<blockquote>
-<p data-md-line="3">日期：2026-08-06</p>
-<p data-md-line="4">状态：活文档</p>
-</blockquote>
-<h2 id="问题" data-md-line="6">问题</h2>
-<p data-md-line="8">全局索引是手维护的，取号是先查再用。索引的对照源 catalog.json 每次巡检自动重扫，索引本身却要每个 session 记得手动更新，手改的那个掉队；取号是 check-then-act，竞态窗口就在查和做之间；号段规则是静态文字，仓库目录是动态的，两者不同步。于是腐化是必然：孤儿文章没人登记，号被并发的 session 撞走。</p>
-<h2 id="方案" data-md-line="10">方案</h2>
-<p data-md-line="12"><strong>索引改成生成物。</strong> catalog.json 定为唯一真相源，make_index.py 从它生成索引表格区，禁止手改，人工只维护管理原则与归并记录。</p>
-<p data-md-line="14"><strong>取号改成原子操作。</strong> take_number.py 在文件锁内完成全库查重加预占登记，并发取号串行化，预占超过 7 天未落库自动释放。</p>
-<p data-md-line="16"><strong>规则两侧对齐。</strong> 写作侧与发布侧读同一套模型，写作 session 跑工具取号、交稿附 keywords，索引表格、catalog、发布全归出版社。</p>
-<h2 id="结论" data-md-line="18">结论</h2>
-<p data-md-line="20">能从另一个真相源完整算出来的内容，就不该要求人手维护。</p>
-<div class="back-link"><a href="../col/studio-notes.html">← 返回「工作室札记」</a></div>
-</article>
+<div class="col-head rise">
+<p class="kicker">连载 · Series</p>
+<h1>连载</h1>
+<p class="col-desc">长的东西，连载着写——一条线一条线，按章读完。</p>
+</div>
+<ul class="art-list">
+<li class="art-item" data-mnum="1">
+<span class="art-idx">01</span>
+<div class="art-main"><div class="art-title"><a href="agent-infra.html">一个人的 Agent 基建</a></div><p class="art-guide">把一台机器上的大活拆成产线的判断与取舍——从接缝税写到守卫的粒度，按章连载。</p></div>
+</li>
+</ul>
+<div class="back-link"><a href="../../index.html">← 返回首页</a></div>
+</div></main>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
 <script src="../../assets/highlight.min.js"></script>

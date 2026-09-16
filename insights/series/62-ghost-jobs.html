@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>62 查无此人：两张同号的工单，与一场没有终点的等待 | 阿克苏红苹果</title>
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="stylesheet" href="../../assets/github-dark.min.css">
+<script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
+<style>
+@import url('https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+:root{
+  --paper:#f5f4f0; --ink:#1c1a17; --red:#c2372b; --red-deep:#9c2b21;
+  --muted:#8a857c; --line:#e6e3dc; --card:#fbfaf7; --body:#33302b;
+  --serif:'Noto Serif SC','Songti SC',serif;
+  --sans:'Noto Sans SC','PingFang SC',sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); line-height:1.7;
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(194,55,43,.07), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(194,55,43,.045), transparent 55%),
+    var(--paper);
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(28,26,23,.05) 1px, transparent 1px);
+  background-size:24px 24px;}
+.wrap{max-width:880px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+a{color:inherit}
+/* header */
+.site-head{border-bottom:1px solid var(--line);background:rgba(245,244,240,.85);backdrop-filter:blur(6px);position:sticky;top:0;z-index:50}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.15rem;text-decoration:none;letter-spacing:.02em;display:flex;align-items:center;gap:9px}
+.brand-dot{width:11px;height:11px;border-radius:50%;background:var(--red);display:inline-block;box-shadow:0 0 0 3px rgba(194,55,43,.15)}
+.site-head nav{display:flex;gap:22px}
+.site-head nav a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:500;transition:color .18s}
+.site-head nav a:hover{color:var(--red)}
+/* footer */
+.site-foot{border-top:1px solid var(--line);margin-top:72px;padding:30px 0 40px}
+.site-foot p{font-size:.78rem;color:var(--muted);font-family:var(--mono)}
+/* badges (review) */
+.badge-bar{margin:0 0 26px}
+.badge{display:inline-block;color:#fff;padding:2px 10px;border-radius:12px;font-size:.72rem;margin:0 6px 6px 0;font-family:var(--mono)}
+/* article body */
+article{padding:46px 0 20px}
+.kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;color:var(--red);text-transform:uppercase;margin-bottom:14px;font-weight:600}
+article h1{font-family:var(--serif);font-weight:900;font-size:2.15rem;line-height:1.35;margin-bottom:12px;letter-spacing:.01em}
+.meta-line{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-bottom:22px}
+.meta-line .sep{margin:0 8px;color:var(--line)}
+article h2{font-family:var(--serif);font-weight:700;font-size:1.4rem;margin:40px 0 14px}
+article h3{font-family:var(--serif);font-weight:700;font-size:1.12rem;margin:28px 0 10px}
+article h4{font-size:1rem;font-weight:700;margin:22px 0 8px}
+article p{margin-bottom:16px;color:var(--body)}
+article blockquote{border-left:3px solid var(--red);margin:18px 0;padding:6px 18px;color:var(--muted);background:rgba(194,55,43,.035)}
+article blockquote p{margin-bottom:8px;color:var(--muted)}
+article code{background:#eceae4;padding:2px 6px;border-radius:3px;font-size:.86em;font-family:var(--mono)}
+article pre{background:#23211e;color:#e8e5df;padding:18px;border-radius:6px;overflow-x:auto;margin:18px 0}
+article pre code{background:none;padding:0;color:inherit;font-size:.8rem;line-height:1.6}
+article pre code.hljs{background:transparent;padding:0}
+article hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+article ul,article ol{margin:0 0 16px;padding-left:1.5em}
+article li{margin-bottom:7px;color:var(--body)}
+article a{color:var(--red-deep);text-decoration:underline;text-decoration-color:rgba(194,55,43,.4);text-underline-offset:3px;transition:text-decoration-color .18s}
+article a:hover{text-decoration-color:var(--red)}
+.insight-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.86rem}
+.insight-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:700;font-family:var(--serif)}
+.insight-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--body)}
+.back-link{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.back-link a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);transition:color .18s}
+.back-link a:hover{color:var(--red)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rise{animation:rise .55s ease both}
+/* ===== 夜间模式（纯叠加，html.dark 覆盖，不改动上方任何浅色规则）===== */
+html.dark{
+  --paper:#191714; --ink:#e8e5df; --red:#e05545; --red-deep:#e86a5a;
+  --muted:#9a958c; --line:#3a3630; --card:#26231c; --body:#c9c5bd;
+}
+html.dark body{
+  background:
+    radial-gradient(1100px 560px at 88% -8%, rgba(224,85,69,.06), transparent 62%),
+    radial-gradient(900px 520px at -8% 108%, rgba(224,85,69,.04), transparent 55%),
+    var(--paper);
+}
+html.dark body::before{background-image:radial-gradient(rgba(232,229,223,.04) 1px, transparent 1px)}
+html.dark .site-head{background:rgba(25,23,20,.85)}
+html.dark .brand-dot{box-shadow:0 0 0 3px rgba(224,85,69,.2)}
+html.dark article code{background:#26231c}
+html.dark article blockquote{background:rgba(224,85,69,.06)}
+html.dark article a{text-decoration-color:rgba(224,85,69,.5)}
+html.dark .col-intro{color:#b5b0a6}
+html.dark .art-guide{color:#9a958c}
+#theme-toggle{background:none;border:1px solid var(--line);border-radius:50%;cursor:pointer;
+  color:var(--muted);padding:6px;display:flex;align-items:center;justify-content:center;
+  transition:color .18s,border-color .18s}
+#theme-toggle:hover{color:var(--red);border-color:var(--red)}
+#theme-toggle svg{width:15px;height:15px;display:block}
+#theme-toggle .icon-sun{display:none}
+html.dark #theme-toggle .icon-moon{display:none}
+html.dark #theme-toggle .icon-sun{display:block}
+/* ===== 滚动坍缩红线（业界标准：下滑收成顶部一条红线，点击展开）===== */
+body[data-scrolled] .site-head{position:fixed;top:0;left:0;right:0;width:auto;height:5px;padding:0;border:none;background:var(--red);z-index:999;cursor:pointer;backdrop-filter:none;box-shadow:none;transition:height .25s,background .25s}
+body[data-scrolled] .site-head .wrap{display:none}
+@media(hover:hover){
+body[data-scrolled] .site-head:hover{height:60px;background:rgba(245,244,240,.95);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(0,0,0,.08)}
+body[data-scrolled] .site-head:hover .wrap{display:flex}
+html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
+}
+</style>
+</head><body>
+<header class="site-head"><div class="wrap">
+<a class="brand" href="../../index.html"><span class="brand-dot"></span>阿克苏红苹果</a>
+<nav><a href="../../index.html">专栏</a><a href="../../series/">连载</a><a href="../../blog/">文章</a><a href="../../about.html">关于</a><button id="theme-toggle" type="button" aria-label="切换深浅色主题"><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button></nav>
+</div></header>
+<main><div class="wrap">
+<article class="rise">
+<p class="kicker">一个人的 Agent 基建 · 连载 62</p>
+<h1>62 查无此人：两张同号的工单，与一场没有终点的等待</h1>
+<p class="meta-line">2026-09-14<span class="sep">·</span>连载</p>
+<h2 id="0.-现场：停在第-2-个单元的补跑作业" data-md-line="8">0. 现场：停在第 2 个单元的补跑作业</h2>
+<p data-md-line="10">08:53:58，补跑作业发上 win-node——562 个工作单元（asr_retry 4 + extract_retry 14 + vlm_stale 17 + ocr_need 527），编号 job-153，把昨夜采集欠下的零头补齐。</p>
+<p data-md-line="12">08:54:13，脚本处理完前两个单元，向队列提交新一轮 ASR 工单。然后，停表：进度冻结在 <strong>done=2/562</strong>，时间戳 08:54:23，日志尾巴再没长过一个字。</p>
+<p data-md-line="14">查它的状态：running。进程死了吗？没有——后来取消它，taskkill 要 rc=0 才收场。它活着，在<strong>等</strong>：等一个永远不会出现的号。</p>
+<h2 id="1.-捞证据：出生证明与查无此人" data-md-line="16">1. 捞证据：出生证明与查无此人</h2>
+<p data-md-line="18">先翻账本（jobs.json）：153 在、154 在、155——没有。再翻审计（audit.jsonl）。审计是逐行追加的，不参与读-改-写，正好是事故考古的地基：</p>
+<pre data-md-line="20"><code>
+[09-14 08:54:13] agent  job_create  job-1789347253-154  queued asr
+[09-14 08:54:13] agent  job_create  job-1789347253-154  queued asr   ← 同一秒、同一个号、两条
+[09-14 08:54:13] agent  job_create  job-1789347253-155  queued asr   ← 这条的账本条目，后来没了
+</code></pre>
+<p data-md-line="26">一秒钟里三张工单进队，发出两个号。审计条条在案，账本最后只认一张：154 的幸存者 admit（调度准入，08:54:15）、跑完（08:54:21，rc=0）。另外两张被写丢了——其中一张就是采集器正在等的号。账本上，查无此人。</p>
+<p data-md-line="28">判据一行：<strong>审计有出生证明、账本查无此人、消费者永远在等</strong>——命中。</p>
+<h2 id="2.-三根因" data-md-line="30">2. 三根因</h2>
+<h3 id="①-号是数出来的，不是发出来的" data-md-line="32">① 号是数出来的，不是发出来的</h3>
+<p data-md-line="34">编号规则一行：</p>
+<pre data-md-line="36"><code class="language-python">
+job = {"id": f"job-{int(time.time())}-{len(jobs)}", ...}   # 算 ID
+jobs.append(job)                                            # 入账
+save_jobs(jobs)                                             # 存回
+</code></pre>
+<p data-md-line="42"><code>len(jobs)</code>——"账上现在有几条"。这读的是一份<strong>别人也在改</strong>的状态。事故里的链条恰好把两个坑串了起来：第一张单刚追加，就被一次晚到的存回抹掉（见②），长度退回 154；下一个提交者读到 154，于是<strong>又</strong>发出一个 154。号不是被发放的，是从共享状态里推出来的——推的依据刚被人倒带过。</p>
+<h3 id="②-读-改-写没有门" data-md-line="44">② 读-改-写没有门</h3>
+<p data-md-line="46">45 之后，这块代码的每一次回写都长成了"重读→只改自己那几格→存回"：</p>
+<pre data-md-line="48"><code class="language-python">
+fresh = load_jobs()                                      # 读
+cur = next((x for x in fresh if x["id"] == job_id), None)
+cur["log_tail"] = list(recent)                           # 改（只改自己那几格）
+save_jobs(fresh)                                         # 写
+</code></pre>
+<p data-md-line="55">单看每一处，都是好公民。但"读"和"写"之间隔着一个窗口，而 1.6.0 起队列多作业并行，这本账上同时活跃着多路写者：<strong>日志泵</strong>（长作业每行输出回写一次）、<strong>建单</strong>、<strong>调度器</strong>（admit 改状态）、<strong>收尾</strong>（终态+rc）、<strong>异常兜底</strong>。两个人同时读，一个先存，另一个后存——<strong>后存者手里那份世界，不含先存者刚放进去的东西，于是天经地义地把它删掉了</strong>。</p>
+<p data-md-line="57">45 的窗口有十二分钟（长作业的旧快照），肉眼可见"队列倒退回十二分钟前"；这一次的窗口只有几十毫秒——<strong>但写者够多、够密，回退虽小，够把一张刚建的单退回不存在</strong>。"长度 154→155→154"这样的小数退格，就是倒带的指纹。</p>
+<p data-md-line="59">1.6.0 之前没炸，不是没有洞——是路上没人。单写者不会和自己丢更新；写者一多，毫秒级的窗口就成了每天都有人的门。</p>
+<h3 id="③-等待没有截止（消费侧）" data-md-line="61">③ 等待没有截止（消费侧）</h3>
+<p data-md-line="63">采集器等的那个号不会回来。它的等待循环里查不到号就再等五秒——v6 的代码里没有"缺席"这个概念：不计数、不判死、不留痕。<strong>对一次等待来说，"对面出事了"和"对面慢"应该是两回事，而区别只能由截止来画。</strong> 顺带一枚小钉子：它本地用 <code>{号: 工单}</code> 记在途——号若不唯一，字典自己会静默覆盖，"我在等谁"都会失真。这颗钉子的根在①，①修好，钉自落。</p>
+<h2 id="3.-修复：门与截止" data-md-line="65">3. 修复：门与截止</h2>
+<p data-md-line="67"><strong>内核 1.6.5（<code>98d8738</code>）——给读-改-写装门。</strong> <code>_jobs_lock</code> 升为 RLock，<strong>包裹全部八个 load→改→save 回写站点</strong>（建单、调度、PID 入账、日志泵、模型兜底、收尾、异常、取消）。门内长这样：</p>
+<pre data-md-line="69"><code class="language-python">
+with _jobs_lock:            # 读-改-写整段，同一扇门
+    fresh = load_jobs()
+    cur = next((x for x in fresh if x["id"] == cand["id"]), None)
+    if cur is None or cur["status"] != "queued":
+        continue
+    cur["status"] = "running"
+    save_jobs(fresh)
+</code></pre>
+<p data-md-line="79">建单也在门里，注释把意图写死：</p>
+<pre data-md-line="81"><code class="language-python">
+with _jobs_lock:  # ID 序号=len(jobs)，整段持锁保证「算 ID→入账」不被并发写者穿插
+</code></pre>
+<p data-md-line="85">——号从"数出来"变成"发出来"：算号、入账、存回在同一扇门里完成，门外的写者只能看到"还没发"或"已发好"。save_jobs 同时升级为原子写（tmp+replace，读者永远看不到半写文件）——这笔顺手的升级欠出了下一篇（63）。代价写明：每次回写变成门内整表读写，写者互相排队，<strong>用吞吐换正确</strong>。</p>
+<p data-md-line="87"><strong>采集器 v7——给等待装截止。</strong> 两条：整体死线 1800 秒；缺席看门狗——连续 12 次（≈60 秒）在账本里查无此号，判死，写 <code>job_lost</code> 终态，继续下一件。幽灵不再能扣住整条产线。</p>
+<p data-md-line="89"><strong>现场处置</strong>：取消 job-153（taskkill rc=0）。</p>
+<h2 id="4.-活体验证：让同一秒再来一次" data-md-line="91">4. 活体验证：让同一秒再来一次</h2>
+<p data-md-line="93">09:10:00，同秒两发 ASR 工单——这一次正确分号 <code>job-1789348200-157</code> / <code>-158</code>，双双 admit、双双跑完。同秒、同长，不再同号。</p>
+<p data-md-line="95">重发的补跑作业随后开工。它会在 55.4% 处撞上新的一笔债——那是 63 号。</p>
+<h2 id="5.-收束" data-md-line="97">5. 收束</h2>
+<ul>
+<li data-md-line="99"><strong>号要来自保证。</strong> 编号不能从"读到的状态"里推——"秒 + 列表长度"看着够唯一，实则拿共享可变状态当了计数器。锁内发号（或单调计数器、UUID），一句话的事；事后追两张同号的单，一上午。</li>
+<li data-md-line="100"><strong>读-改-写的整段，才是要保护的东西。</strong> reload-modify-save 把窗口从十二分钟缩到毫秒——它对，但不完整：<strong>窗口缩小不等于没有窗口，只等于需要更多人经过才撞上。</strong> A066 的下一行：重读→只改自己那几格→存回，<strong>且整段不可被穿插</strong>。写者变多的那天，就是"毫秒窗口也会被撞上"的那天。</li>
+<li data-md-line="101"><strong>等待必须有截止。</strong> 幽灵 ID 不会自己出现；对缺席要计数、要判死、要留痕。一次没有终点的等待，在监控上和死机长得一模一样。</li>
+<li data-md-line="102"><strong>审计救了这一天。</strong> 账本是读-改-写的（会丢人），审计是 append-only 的（只会变长）。"谁在几点几分出生过"全在审计里——<strong>给共享状态配一本只会变长的旁证，是最便宜的事后保险。</strong></li>
+</ul>
+<p data-md-line="104">（第三笔账：1.6.5 顺手的原子写，在 Windows 上撞了一堵句柄的墙——重发的补跑作业在 55.4% 摔倒，63 号见。）</p>
+<!-- seriesnav -->
+<div class="back-link" style="display:flex;gap:22px;justify-content:space-between"><a href="61-short-circuit.html">← 上一篇 · 61</a><a href="agent-infra.html">系列首页</a><a href="63-rename-exclusive.html">下一篇 · 63 →</a></div>
+<!-- /seriesnav -->
+</article>
+</div></main>
+<footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
+<script src="../../assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>(function(){var b=document.getElementById('theme-toggle');if(!b)return;
+b.addEventListener('click',function(){var d=document.documentElement.classList.toggle('dark');
+try{localStorage.setItem('lfc-theme',d?'dark':'light')}catch(e){}});})();</script>
+<script>(function(){var lastY=window.scrollY;var s=function(init){var y=window.scrollY;if(y<=80){document.body.removeAttribute('data-scrolled');lastY=y;return}if(init){document.body.setAttribute('data-scrolled','');lastY=y;return}var d=y-lastY;if(d<-3){document.body.removeAttribute('data-scrolled');lastY=y}else if(d>3){document.body.setAttribute('data-scrolled','');lastY=y}};window.addEventListener('scroll',function(){s(false)});var head=document.querySelector('.site-head');if(head){head.addEventListener('click',function(e){if(document.body.hasAttribute('data-scrolled')){e.preventDefault();document.body.removeAttribute('data-scrolled');lastY=window.scrollY}})};s(true)})();</script>
+</body></html>

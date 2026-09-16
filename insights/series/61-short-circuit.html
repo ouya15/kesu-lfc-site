@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>220 索引防腐与原子取号 | 阿克苏红苹果</title>
+<title>61 短路的账：缓存省掉的一次计算，与九十九小时的空缺 | 阿克苏红苹果</title>
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="stylesheet" href="../../assets/github-dark.min.css">
 <script>try{if(localStorage.getItem('lfc-theme')==='dark')document.documentElement.classList.add('dark')}catch(e){}</script>
@@ -115,22 +115,73 @@ html.dark body[data-scrolled] .site-head:hover{background:rgba(25,23,20,.95)}
 </div></header>
 <main><div class="wrap">
 <article class="rise">
-<p class="kicker">工作室札记</p>
-<h1>220 索引防腐与原子取号</h1>
-<p class="meta-line">2026-08-06<span class="sep">·</span>obp</p>
-<blockquote>
-<p data-md-line="3">日期：2026-08-06</p>
-<p data-md-line="4">状态：活文档</p>
-</blockquote>
-<h2 id="问题" data-md-line="6">问题</h2>
-<p data-md-line="8">全局索引是手维护的，取号是先查再用。索引的对照源 catalog.json 每次巡检自动重扫，索引本身却要每个 session 记得手动更新，手改的那个掉队；取号是 check-then-act，竞态窗口就在查和做之间；号段规则是静态文字，仓库目录是动态的，两者不同步。于是腐化是必然：孤儿文章没人登记，号被并发的 session 撞走。</p>
-<h2 id="方案" data-md-line="10">方案</h2>
-<p data-md-line="12"><strong>索引改成生成物。</strong> catalog.json 定为唯一真相源，make_index.py 从它生成索引表格区，禁止手改，人工只维护管理原则与归并记录。</p>
-<p data-md-line="14"><strong>取号改成原子操作。</strong> take_number.py 在文件锁内完成全库查重加预占登记，并发取号串行化，预占超过 7 天未落库自动释放。</p>
-<p data-md-line="16"><strong>规则两侧对齐。</strong> 写作侧与发布侧读同一套模型，写作 session 跑工具取号、交稿附 keywords，索引表格、catalog、发布全归出版社。</p>
-<h2 id="结论" data-md-line="18">结论</h2>
-<p data-md-line="20">能从另一个真相源完整算出来的内容，就不该要求人手维护。</p>
-<div class="back-link"><a href="../col/studio-notes.html">← 返回「工作室札记」</a></div>
+<p class="kicker">一个人的 Agent 基建 · 连载 61</p>
+<h1>61 短路的账：缓存省掉的一次计算，与九十九小时的空缺</h1>
+<p class="meta-line">2026-09-14<span class="sep">·</span>连载</p>
+<h2 id="0.-现场：一个上午，两本对不上的账" data-md-line="8">0. 现场：一个上午，两本对不上的账</h2>
+<p data-md-line="10">2288 件视频、四路信号、过夜跑完，晨间复审。第一件事是算总账——把逐条结果的时长加一遍：</p>
+<p data-md-line="12"><strong>756.3 小时。</strong> 而首跑逐件加总是 <strong>855.5 小时</strong>。同样的 2288 件，账上少了 <strong>99.1 小时</strong>。</p>
+<p data-md-line="14">同时浮出来的还有第二笔：手上有个更老的基准数字 <strong>848.8 小时</strong>（旧台账），跟新数字、跟 855.5 都对不上，差 6.7。</p>
+<p data-md-line="16">两笔差额里，一笔是数据在劣化，一笔后来查明是尺子的问题。先查大的。</p>
+<p data-md-line="18">第一刀很快：756.3 这边，<strong>339 件 <code>dur_s=0</code></strong>——时长为零。而且不是随机零散：它们整齐地属于同一类件——Jellyfin 报不出运行时长的那一批。这一条线索就把方向指死了：这些件的时长，本来该由别处算出来。</p>
+<h2 id="1.-解剖：被短路跳过的那一行" data-md-line="20">1. 解剖：被短路跳过的那一行</h2>
+<p data-md-line="22">时长有两条来路：<strong>首源</strong>是 Jellyfin 索引里的 <code>RunTimeTicks</code>（枚举清单时白拿）；<strong>兜底</strong>是 ffprobe 现测——留给 Jellyfin 报不出的那 339 件。兜底计算长在抽帧函数里：</p>
+<pre data-md-line="24"><code class="language-python">
+def extract_frames(it, ffmpeg):
+    d = item_dir(it)
+    if not os.path.isfile(os.path.join(d, "media.json")):  # 还没有格式档案 → 现测
+        probe_media(...)                                   # v8 起顺手记下 dur_s
+    if os.path.isfile(os.path.join(d, "f.done")):
+        return True                                     # ← 短路：缓存命中，直接返回
+    ...
+    dur = it.get("dur_s") or ffprobe_duration(ffmpeg, it["path"]) or 0   # ← 兜底时长，在短路之后
+    if dur:
+        it["dur_s"] = round(dur, 1)
+</code></pre>
+<p data-md-line="37">单件处理逻辑没有错：<strong>没有缓存的件</strong>走完整路径，时长算得妥妥的。问题出在"已经跑过一遍的库"——断点续跑的世界里，绝大多数件是缓存命中，<code>f.done</code> 一在，函数在兜底那一行<strong>之前</strong>就返回了。</p>
+<p data-md-line="39">这一行是什么时候落到短路之后的？翻版本：<strong>v6 重写抽帧函数那一次</strong>（为修 OCR 早停与静态图流）。首跑时它没暴露——首跑没有缓存，每一件都走完整路径，时长全算齐了；后面几轮 backfill 在缓存之上重建账本，这 339 件的时长从此再没被算过：</p>
+<ul>
+<li data-md-line="41">首跑（无缓存）：<code>dur</code> 算齐 → 账本完整 <strong>855.5h</strong>；</li>
+<li data-md-line="42">backfill（缓存齐全）：339 件的 <code>dur</code> 从未计算 → 重建的账本把它们写成空 → <strong>756.3h</strong>。</li>
+</ul>
+<p data-md-line="44">值得停一秒的是这个失败的形态：<strong>它不是"算错了"，是"没算"</strong>——而没算的字段不报错、不崩溃、不进日志，它只是空。若无总账对账，这 339 个空格可以安安静静躺到某天有人问"为什么这条视频没有时长"。</p>
+<h2 id="2.-修复：把回填写成一道-pass" data-md-line="46">2. 修复：把回填写成一道 pass</h2>
+<p data-md-line="48">修复没有在原地挪那一行——修在了<strong>唯一看得见全部账目的地方</strong>：汇总（rollup）的收口处，加一道独立的回填 pass：</p>
+<pre data-md-line="50"><code class="language-python">
+def _backfill_durs(items):
+    """dur_s 缺失件补时长：media.json 缓存 → ffprobe 现测（并写回缓存）。"""
+    for it in items:
+        if it.get("dur_s"):
+            continue                 # 只碰缺失件，已有值一个不改
+        ...                          # 缓存优先 → 现测兜底 → 写回 media.json
+</code></pre>
+<p data-md-line="59">四个设计点，各自对着一个教训：</p>
+<table class="insight-table"><thead><tr><th>点</th><th>一句话</th></tr></thead><tbody><tr><td><strong>只补缺失</strong></td><td>回填不是重算，是补账——已有值零改动（事后逐件对账 <code>changed=0</code>）</td></tr><tr><td><strong>缓存优先 + 写回</strong></td><td>一次回填之后，缓存层也补齐；pass 可重入，第二遍接近零成本</td></tr><tr><td><strong>修在收口处</strong></td><td>分支里打补丁会漏（哪条路径又会绕过？）；汇总前一道 pass 管全部</td></tr><tr><td><strong>自带回执</strong></td><td>汇总日志一行：<code>DUR-BACKFILL fixed=335</code>——修复动作本身可对账</td></tr></tbody></table>
+<p data-md-line="68">收官跑（job-162）：计时 0.5 分钟，<code>fixed=335</code>，总时长从 756.3 恢复到 <strong>855.5h</strong>。335 = 339 − 4——剩下 4 件是 ffprobe 也读不出的坏件，时长如实留缺。<strong>账上允许有缺口，不许有不明缺口</strong>：这两者在数字上长得一样，区别在于后者没人说得清缺在哪、为什么缺。</p>
+<h2 id="3.-插曲：对账尺自己的账" data-md-line="70">3. 插曲：对账尺自己的账</h2>
+<p data-md-line="72">回头说 848.8 那笔。它来自一条对账命令：</p>
+<pre data-md-line="74"><code class="language-bash">
+awk -F'\t' 'NR&gt;1 {s+=$4; n+=$3} END {printf "总时长=%.1fh 件数=%d", s, n}' 台账.tsv
+</code></pre>
+<p data-md-line="78"><code>NR&gt;1</code> 的本意是跳过表头。可这份底稿<strong>没有表头</strong>——第一行就是数据：影视散片，3 件，6.2 小时。于是：</p>
+<ul>
+<li data-md-line="80">848.8 + 6.2 = <strong>855.0</strong> ✓</li>
+<li data-md-line="81">2285 + 3 = <strong>2288</strong> ✓</li>
+<li data-md-line="82">94 + 1 = <strong>95</strong> ✓</li>
+</ul>
+<p data-md-line="84">三个数字同时归位——这就是破案和"碰巧对上一个"的区别：一个数对得上可能是巧合，<strong>三个数同时解释得通，才是找到了机制</strong>。剩下的 0.5 小时零头，是组级台账四舍五入与逐件精确的和差——账目世界里，连"对得上"都是有刻度的。</p>
+<p data-md-line="86">对账尺自己也会错，这件事不新鲜；新鲜的是它错的姿势：<strong>它以为自己在跳表头，其实在吃第一行数据</strong>——和你对账的那本账，用的是同一份"想当然"。</p>
+<h2 id="4.-收束" data-md-line="88">4. 收束</h2>
+<p data-md-line="90">三句话带走：</p>
+<ul>
+<li data-md-line="92"><strong>短路省的是计算，不是契约。</strong> 改动"提前返回"型优化时，问一句：被跳过的路径上，还有谁欠着什么——字段、记账、缓存写回。优化改的是控制流，契约要在新的控制流上重新证明一遍。</li>
+<li data-md-line="93"><strong>隐性劣化的哨兵是总量对账。</strong> 字段空掉不会崩，总账会变小；总数、总时长、总条数是三根最便宜的探针。这次是"855.5 对 756.3"抓出来的——没有这步对账，339 个空格能躺到明年。</li>
+<li data-md-line="94"><strong>修复的完成形态是回填 pass</strong>：清单驱动、只补缺失、缓存写回、缺口留痕、自带回执。附带一条：<strong>对账之前先验尺</strong>——这次是尺子自己先被审了一遍，才轮到数据。</li>
+</ul>
+<p data-md-line="96">（同一个上午还有另外两笔账：一本作业账本吞掉了两张工单（62），和一次在 Windows 上翻车的原子写（63）。）</p>
+<!-- seriesnav -->
+<div class="back-link" style="display:flex;gap:22px;justify-content:space-between"><span style="color:#b3aea4">已是第一篇</span><a href="agent-infra.html">系列首页</a><a href="62-ghost-jobs.html">下一篇 · 62 →</a></div>
+<!-- /seriesnav -->
 </article>
 </div></main>
 <footer class="site-foot"><div class="wrap"><p>&copy; 2026 阿克苏红苹果</p></div></footer>
